@@ -1,25 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;700&display=swap');
+
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
-}
-
-html {
-    font-size: 62.5%;/* 1rem = 10px*/
-}
-
-body {
-    font-size: 1.4rem; /* soit 14px*/
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
+    font-family: 'Lato', sans-serif;
 }
 
 .container {
-    height: 100vh;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    background-color: #1E2337;
+    margin: 20px 100px;
+}
+
+ul {
+    width: 300px;
+    list-style: none;
+}
+
+li {
+    padding: 10px;
+}
+
+.summary {
+    background-color: #E7EBFC;
+    padding: 30px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.form {
+    padding: 30px 200px 0 100px ;
+    border: solid #C1C8E4 1px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+h1 {
+    text-align: center;
+}
+
+h1, h3, li {
+    color: #6511D0;
+}
+
+h2, h4 {
+    padding: 10px 0;
+    color: #5680E9;
+}
+
+h3 {
+    padding: 10px 0 5px;
+}
+
+p {
+    padding: 30px 0;
+}
+
+input {
+    margin: 5px 0;
+    padding-left: 10px;
+}
+
+[type="text"], [type="number"], [type="email"] {
+    height: 37px;
+    width: 597px;
+    border: none;
+    border-radius: 10px;
+    background-color: #E7EBFC;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    margin: 30px 0;
+    padding: 5px;
+    height: 33px;
+    width: 260px;
+    background-color: #E25C33;
+    color: #FFFF;
+    border-radius: 15px;
+    border: none;
+}
+
+/* .screen2, .screen3, .screen4, .screen5, .screen6, .screen7, .screen8, .screen9, .screen10, .screen11, .screen12 {
+    display: none;
+} */
+
+.function {
+    display: none;
 }
