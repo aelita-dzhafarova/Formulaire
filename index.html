@@ -14,7 +14,7 @@
         <div class="summary">
             <ul>
                 <li>Ecran 1. Employeur.</li>
-                <li>Ecran 2. Employé(e).</li>
+                <li class="list-screen2">Ecran 2. Employé(e).</li>
                 <li>Ecran 3. Choix de type de contrat et de durée de contrat.</li>
                 <li>Ecran 4. Choix de date d'embauche.</li>
                 <li>Ecran 5. Lieu de travail.</li>
@@ -48,52 +48,52 @@
 
                 <div>
                     <h3>Nom de naissance</h3>
-                    <input type="text" id="birth_name" name="birth_name" placeholder="Inserez votre nom de naissance"/>
+                    <input type="text" id="birth_name" name="birth_name" placeholder="Inserez votre nom de naissance" required/>
                 </div>
 
                 <div>
                     <h3>Nom d'usage</h3>
-                    <input type="text" id="use_name" name="use_name" placeholder="Inserez votre nom d'usage"/>
+                    <input type="text" id="use_name" name="use_name" placeholder="Inserez votre nom d'usage" required/>
                 </div>
 
                 <div>
                     <h3>Prénom</h3>
-                    <input type="text" id="given_name" name="given_name" placeholder="Inserez votre prénom"/>
+                    <input type="text" id="given_name" name="given_name" placeholder="Inserez votre prénom" required/>
                 </div>
 
                 <div>
                     <h3>Date de naissance</h3>
-                    <input type="date" id="birth_date" name="birth_date" placeholder="Inserez votre date de naissance"/>
+                    <input type="date" id="birth_date" name="birth_date" placeholder="Inserez votre date de naissance" required/>
                 </div>
 
                 <div>
                     <h3>Commune de naissance</h3>
-                    <input type="text" id="place_of_birth" name="place_of_birth" placeholder="Inserez votre commune de naissance"/>
+                    <input type="text" id="place_of_birth" name="place_of_birth" placeholder="Inserez votre commune de naissance" required/>
                 </div>
 
                 <div>
                     <h3>Numéro de téléphone</h3>
-                    <input type="number" id="phone_number" name="phone_number" placeholder="Inserez votre numéro de téléphone"/>
+                    <input type="number" id="phone_number" name="phone_number" placeholder="Inserez votre numéro de téléphone" required/>
                 </div>
 
                 <div>
                     <h3>Adresse courriel</h3>
-                    <input type="email" id="email_employer" name="email_employer" placeholder="Inserez votre adresse courriel"/>
+                    <input type="email" id="email_employer" name="email_employer" placeholder="Inserez votre adresse courriel" required/>
                 </div>
 
                 <div>
                     <h3>Adresse</h3>
-                    <input type="text" id="address" name="address" placeholder="Inserez votre adresse"/>
+                    <input type="text" id="address" name="address" placeholder="Inserez votre adresse" required/>
                 </div>
 
                 <div>
                     <h3>Code postal</h3>
-                    <input type="number" id="zip_code" name="zip_code" placeholder="Inserez votre code postal"/>
+                    <input type="number" id="zip_code" name="zip_code" placeholder="Inserez votre code postal" required/>
                 </div>
 
                 <div>
                     <h3>Commune</h3>
-                    <input type="text" id="city" name="city" placeholder="Inserez votre commune"/>
+                    <input type="text" id="city" name="city" placeholder="Inserez votre commune" required/>
                 </div>
 
                 <h2>Co-employeur</h2>
@@ -101,12 +101,12 @@
                 <div>
                     <h3>Civilité</h3>
                     <div>
-                        <input type="radio" id="female_co-employer" name="sex" value="female" checked/>
+                        <input type="radio" id="female_co-employer" name="sex_co-employer" value="female_co-employer" checked/>
                         <label for="female_co-employer">Madame</label>
                     </div>
 
                     <div>
-                        <input type="radio" id="male_co-employer" name="sex" value="male" />
+                        <input type="radio" id="male_co-employer" name="sex_co-employer" value="male_co-employer" />
                         <label for="male_co-employer">Monsieur</label>
                     </div>
                 </div>
@@ -159,19 +159,21 @@
                     </div>
                 </div>
 
-                <div>
-                    <h3>Adresse</h3>
-                    <input type="text" id="address_co-employer" name="address_co-employer" placeholder="Inserez l'adresse du co-employeur"/>
-                </div>
+                <div class="address_co-employer">
+                    <div>
+                        <h3>Adresse</h3>
+                        <input type="text" id="address_co-employer" name="address_co-employer" placeholder="Inserez l'adresse du co-employeur"/>
+                    </div>
 
-                <div>
-                    <h3>Code postal</h3>
-                    <input type="number" id="zip_code_co-employer" name="zipcode_co-employer" placeholder="Inserez le code postal du co-employeur"/>
-                </div>
+                    <div>
+                        <h3>Code postal</h3>
+                        <input type="number" id="zip_code_co-employer" name="zipcode_co-employer" placeholder="Inserez le code postal du co-employeur"/>
+                    </div>
 
-                <div>
-                    <h3>Commune</h3>
-                    <input type="text" id="city_co-employer" name="city_co-employer" placeholder="Inserez la commune du co-employeur"/>
+                    <div>
+                        <h3>Commune</h3>
+                        <input type="text" id="city_co-employer" name="city_co-employer" placeholder="Inserez la commune du co-employeur"/>
+                    </div>
                 </div>
 
                 <div>
@@ -183,9 +185,9 @@
                         <option valeur="urssaf">URSSAF</option>
                     </select>
                     <input type="text" id="matriculation" name="matriculation" placeholder="Inserez le numéro d'immatriculation"/>
-                    <p>Tout particulier employeur est immatriculé, en tant que tel, selon sa situation :
-                        – soit auprès l’URSSAF dont le Centre national du chèque emploi service universel (CESU) et le Centre national de PAJEMPLOI (PAJEMPLOI) ;
-                        – soit auprès de la Mutualité sociale agricole (MSA).
+                    <p style="font-style: italic;">Tout particulier employeur est immatriculé, en tant que tel, selon sa situation :<br>
+                        – soit auprès l’URSSAF dont le Centre national du chèque emploi service universel (CESU) et le Centre national de PAJEMPLOI (PAJEMPLOI) ;<br>
+                        – soit auprès de la Mutualité sociale agricole (MSA).<br>
                         Si le particulier employeur embauche un salarié pour la première fois et qu'il n'est pas encore immatriculé, il sollicite son immatriculation au plus tard le 1er jour travaillé.
                         Si le numéro d'immatriculation n'est pas connu au moment de la conclusion du contrat de travail, il est communiqué dès que possible par le particulier employeur au salarié.
                     </p>
