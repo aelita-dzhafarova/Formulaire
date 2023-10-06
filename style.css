@@ -23,6 +23,10 @@ li {
     padding: 10px;
 }
 
+li:first-child {
+    color: #E25C33;
+}
+
 .summary {
     background-color: #E7EBFC;
     padding: 30px;
@@ -87,7 +91,11 @@ button {
     border: none;
 }
 
-/* .screen2, .screen3, .screen4, .screen5, .screen6, .screen7, .screen8, .screen9, .screen10, .screen11, .screen12 {
+.screen2, .screen3, .screen4, .screen5, .screen6, .screen7, .screen8, .screen9, .screen10, .screen11, .screen12 {
+    display: none;
+}
+
+/* .address_co-employer {
     display: none;
 } */
 
