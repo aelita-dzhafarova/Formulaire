@@ -95,9 +95,13 @@ button {
     display: none;
 }
 
-/* .address_co-employer {
+#co-employer {
     display: none;
-} */
+}
+
+.address_co-employer {
+    display: none;
+}
 
 .function {
     display: none;
