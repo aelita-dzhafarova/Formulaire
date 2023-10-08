@@ -280,8 +280,8 @@
                     <input class="required" type="number" id="social_number_employee" name="social_number_employee" placeholder="Inserez le numéro de sécurité sociale de l'employé(e)"/>
                 </div>
                 <div class="buttons">
-                    <button class="button_toscreen3">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                    <button class="button_backscreen1">PASSER À l'ÉTAPE SUIVANTE</button>
+                    <button class="button_backscreen1">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                    <button class="button_toscreen3">PASSER À l'ÉTAPE SUIVANTE</button>
                 </div>
             </div>
             <!-- FIN ECRAN 2 - ECRAN EMPLOYE/E -->
@@ -291,10 +291,10 @@
             <div class="screen3">
                 <h2>Choix de type de contrat et de durée de contrat.</h2>
                 <p>Le recours à un contrat à durée déterminée n’est possible que pour l’exécution d’une tache précise et temporaire.</p>
-                <div>
-                    <h3>Besoin temporaire pour une tâche occasionnelle définie et non durable.</h3>
+                <div class="cdd-question1">
+                    <h3>Besoin temporaire pour une tâche occasionnelle définie et non durable ?</h3>
                     <div>
-                        <input type="radio" id="yes_occasional_task" name="occasional_task" value="yes" checked/>
+                        <input type="radio" id="yes_occasional_task" name="occasional_task" value="yes"/>
                         <label for="yes_occasional_task">Oui</label>
                     </div>
 
@@ -304,45 +304,42 @@
                     </div>
                 </div>
 
-                <div>
-                    <h3>Remplacement d'un employé absent temporairement dont les causes sont multiples ( maladie, maternité...).
+                <div class="cdd-question2">
+                    <h3>Remplacement d'un employé absent temporairement dont les causes sont multiples ( maladie, maternité...) ?
                     </h3>
                     <div>
-                        <input type="radio" id="yes_temporary_replacement" name="temporary_replacement" value="yes" checked/>
+                        <input type="radio" id="yes_temporary_replacement" name="temporary_replacement" value="yes_temporary_replacement"/>
                         <label for="yes_temporary_replacement">Oui</label>
                     </div>
 
                     <div>
-                        <input type="radio" id="no_temporary_replacement" name="temporary_replacement" value="no" />
+                        <input type="radio" id="no_temporary_replacement" name="temporary_replacement" value="no_temporary_replacement" />
                         <label for="no_temporary_replacement">Non</label>
                     </div>
                 </div>
 
-                <div>
-                    <h3>Attente d'un employé déjà embauché en CDI, retardant l'entrée de l'employé son poste chez vous.
+                <div class="cdd-question3">
+                    <h3>Attente d'un employé déjà embauché en CDI, retardant l'entrée de l'employé son poste chez vous ?
                     </h3>
                     <div>
-                        <input type="radio" id="yes_temporary_replacement" name="temporary_replacement" value="yes" checked/>
-                        <label for="yes_temporary_replacement">Oui</label>
+                        <input type="radio" id="yes_waiting-employee" name="waiting-employee" value="yes_waiting-employee"/>
+                        <label for="yes_waiting-employee">Oui</label>
                     </div>
 
                     <div>
-                        <input type="radio" id="no_temporary_replacement" name="temporary_replacement" value="no" />
-                        <label for="no_temporary_replacement">Non</label>
+                        <input type="radio" id="no_waiting-employee" name="waiting-employee" value="no-waiting-employee" />
+                        <label for="no_waiting-employee">Non</label>
                     </div>
                 </div>
-                <div class="output_option1">
-                    <!--Seul le contrat à durée indéterminée est possible -->
-                </div> 
-                <div class="output_option2">
-                    <!-- Le contrat à durée déterminée est possible. -->
+                <div class="output_result">
+                    <!--"Seul le contrat à durée indéterminée est possible" ou "Le contrat à durée déterminée est possible." -->
                 </div>
-                <div>
+                <div class="info_cdd">
                     <p>Ce contrat est conclu à patir du<input type="date" id="date_debut_contract" name="date_debut_contract"/> jusqu'au <input type="date" id="date_end_contract" name="date_end_contract"/>. Ce contrat est conclu pour la période d'absence de M/Mme <input type="text" id="remplacement_name" name="remplacement_name"/>. Durée minimale du CDD <input type="text" id="contract_duration" name="contract_duration"/></p>
                 </div>
                 <div class="buttons">
-                    <button>PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                    <button>PASSER À l'ÉTAPE SUIVANTE</button>
+                    <button class="button_backscreen2">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                    <button class="button_toscreen4">PASSER À l'ÉTAPE SUIVANTE</button>
                 </div>
             </div>
             <!-- FIN ECRAN 3 - ECRAN CHOIX TYPE CONTRAT et DUREE CONTRAT -->
@@ -351,94 +348,111 @@
             <div class="screen4">
                 <h2>Choix de date d'embauche</h2>
 
+                <p>
+                Si une période d'essai est prévue, elle et doit être écrite dans le contrat de travail ou la lettre d'engagement. <br>
+                If CDD : La durée maximale de la période d’essai dépend de la durée du contrat : - Pour un CDD inférieur ou égal à 6 mois, la période d’essai maximale est d’1 jour par semaine, dans la limite de 2 semaines. - Pour un CDD supérieur à 6 mois, la période d’essai maximale est d’1 jour par semaine, dans la limite d’1 mois. Ces durées sont applicables, que le salarié soit embauché à temps plein ou à temps partiel.
+                </p>
+
                 <div>
                     <h3>Une lettre d'engagement a-t-elle précédee l'embauche ?</h3>
                     <div>
-                        <input type="radio" id="yes_engagement_letter" name="engagement_letter" value="yes" checked/>
+                        <input type="radio" id="yes_engagement_letter" name="engagement_letter" value="yes_engagement_letter"/>
                         <label for="yes_engagement_letter">Oui</label>
                     </div>
                     <div>
-                        <input type="radio" id="no_engagement_letter" name="engagement_letter" value="no" />
+                        <input type="radio" id="no_engagement_letter" name="engagement_letter" value="no_engagement_letter" />
                         <label for="no_engagement_letter">Non</label>
                     </div>
                     <div class="yes_engagement_letter">
                         <!--Date lettre d'engagement -->
+                        <h3>Date de lettre d'engagement</h3>
+                        <input type="date" id="date_engagement_letter" name="date_engagement_letter"/>
                     </div>
                     <div class="no_engagement_letter">
-                        <!--Demander date d'embauche -->
+                        <!--Envoi à la div Date d'embauche -->
                     </div>
                 </div>
 
-                <div>
+                <div class="trial_period">
                     <h3>Une période d'essai est-elle prévue sur cette lettre d'engagement ?</h3>
                     <div>
-                        <input type="radio" id="yes_trial_period" name="trial_period" value="yes" checked/>
+                        <input type="radio" id="yes_trial_period" name="trial_period" value="yes_trial_period"/>
                         <label for="yes_trial_period">Oui</label>
                     </div>
                     <div>
-                        <input type="radio" id="no_trial_period" name="trial_period" value="no" />
+                        <input type="radio" id="no_trial_period" name="trial_period" value="no_trial_period" />
                         <label for="no_trial_period">Non</label>
                     </div>
                     <div class="yes_trial_period">
                         <!--Date période d'essai -->
+                        <h3>Dates de période d'essai</h3>
+                        <span>Du</span>
+                        <input type="date" id="date-start_trial_period" name="date-start_trial_period"/>
+                        <span>au</span>
+                        <input type="date" id="date-end_trial_period" name="date-end_trial_period"/>
                     </div>
                 </div>
 
-                <div>
+                <div class="trial_renewable">
                     <h3>Période d'essai renouvelable ?</h3>
                     <div>
-                        <input type="radio" id="yes_trial_renewable" name="trial_renewable" value="yes" checked/>
+                        <input type="radio" id="yes_trial_renewable" name="trial_renewable" value="yes_trial_renewable"/>
                         <label for="yes_trial_renewable">Oui</label>
                     </div>
                     <div>
-                        <input type="radio" id="no_trial_renewable" name="trial_renewable" value="no" />
+                        <input type="radio" id="no_trial_renewable" name="trial_renewable" value="no_trial_renewable" />
                         <label for="no_trial_renewable">Non</label>
                     </div>
                     <div class="yes_trial_renewable">
                         <!--Paragraphe au contrat -->
+                        <h3>Pour quelle durée peut-elle être renouvelée ?</h3>
+                        <input type="text" id="term_trial_renewable" name="term_trial_renewable" >
                     </div>
                     <div class="no_trial_renewable">
-                        <!--Demander date d'embauche -->
+                         <!--Envoi à la div Date d'embauche -->
                     </div>
                 </div>
 
                 <div class="hiring_date">
                     <h3>Date d'embauche</h3>
-                    <input type="date" id="hiring_date" name="iring_date" placeholder="Inserez la date d'embauche'"/>
+                    <input type="date" id="hiring_date" name="hiring_date"/>
                 </div>
 
-                <div>
+                <div class="contract_trial_period">
                     <h3>Une période d'essai est-elle inscrite au contrat ?</h3>
                         <div>
-                            <input type="radio" id="yes_contract_trial_period" name="contract_trial_period" value="yes" checked/>
+                            <input type="radio" id="yes_contract_trial_period" name="contract_trial_period" value="yes_contract_trial_period"/>
                             <label for="yes_contract_trial_period">Oui</label>
                         </div>
                         <div>
-                            <input type="radio" id="no_contract_trial_period" name="contract_trial_period" value="no" />
+                            <input type="radio" id="no_contract_trial_period" name="contract_trial_period" value="no_contract_trial_period" />
                             <label for="no_contract_trial_period">Non</label>
                         </div>
                         <div class="yes_contract_trial_period">
                             <!--Date fin période d'essai -->
+                            <h3>Date de fin de période d'essai</h3>
+                            <input type="date" id="date-end_contract_trial_period" name="date-end_contract_trial_period"/>
                         </div>
                 </div>
 
-                <div>
+                <div class="contract_trial_renewable">
                     <h3>Période d'essai renouvelable ?</h3>
                     <div>
-                        <input type="radio" id="yes_contract_trial_renewable" name="contract_trial_renewable" value="yes" checked/>
+                        <input type="radio" id="yes_contract_trial_renewable" name="contract_trial_renewable" value="yes_trial_renewable"/>
                         <label for="yes_trial_renewable">Oui</label>
                     </div>
                     <div>
-                        <input type="radio" id="no_contract_trial_renewable" name="contract_trial_renewable" value="no" />
+                        <input type="radio" id="no_contract_trial_renewable" name="contract_trial_renewable" value="no_trial_renewable" />
                         <label for="no_contract_trial_renewable">Non</label>
                     </div>
                     <div class="yes_contract_trial_renewable">
                         <!--Paragraphe au contrat -->
                     </div>
-                    <div class="buttons">
-                        <button>PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                        <button>PASSER À l'ÉTAPE SUIVANTE</button>
-                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="button_backscreen3">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                    <button class="button_toscreen5">PASSER À l'ÉTAPE SUIVANTE</button>
                 </div>
 
             </div>
@@ -449,9 +463,9 @@
                 <h2>Lieu de travail</h2>
                 <div>
                     <h3>Lieu de travail</h3>
-                    <input type="text" id="workplace_main" name="workplace_main" placeholder="Inserez l'adresse du lieu de travail principal"/>
-                    <input type="number" id="zip_workplace_main" name="zip_workplace_main" placeholder="Inserez le code postal du lieu de travail principal"/>
-                    <input type="text" id="city_workplace_main" name="city_workplace_main" placeholder="Inserez la commune du lieu de travail principal"/>
+                    <input class="required" type="text" id="workplace_main" name="workplace_main" placeholder="Inserez l'adresse du lieu de travail principal"/>
+                    <input class="required" type="number" id="zip_workplace_main" name="zip_workplace_main" placeholder="Inserez le code postal du lieu de travail principal"/>
+                    <input class="required" type="text" id="city_workplace_main" name="city_workplace_main" placeholder="Inserez la commune du lieu de travail principal"/>
                 </div>
 
                 <div>
@@ -461,8 +475,8 @@
                     <input type="text" id="city_workplace_secondary" name="city_workplace_secondary" placeholder="Inserez la commune de la résidence secondaire"/>
                 </div>
                 <div class="buttons">
-                    <button>PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                    <button>PASSER À l'ÉTAPE SUIVANTE</button>
+                    <button class="button_backscreen4">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                    <button class="button_toscreen6">PASSER À l'ÉTAPE SUIVANTE</button>
                 </div>
             </div>
             <!-- FIN ECRAN 5 - ECRAN LIEU DE TRAVAIL-->
@@ -787,8 +801,8 @@
 
                 </div>
                 <div class="buttons">
-                    <button>PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                    <button>PASSER À l'ÉTAPE SUIVANTE</button>
+                    <button class="button_backscreen5">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                    <button class="button_toscreen7">PASSER À l'ÉTAPE SUIVANTE</button>
                 </div>
 
             </div>

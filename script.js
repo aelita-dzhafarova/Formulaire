@@ -1,3 +1,5 @@
+'use strict';
+
 // DEBUT ECRAN 1 - ECRAN EMPLOYEUR
 
 // Variables 
@@ -69,30 +71,25 @@ btnToScreen2.addEventListener('click', function(){
 
 // -------------------------------------
 
-// ECRAN 2 - ECRAN EMPLOYE/E
+// DEBUT ECRAN 2 - ECRAN EMPLOYE/E
 
 // Valeurs
 
 // Pour faire disparaître le deuxième écran et faire apparaître le troisième
 
 const btnToScreen3 = document.querySelector('.button_toscreen3');
-console.log(btnToScreen3);
 
 const listScreen3 = document.querySelector('.list-screen3');
-console.log(listScreen3);
 
 const screen3 = document.querySelector('.screen3');
-console.log(screen3);
 
 const inputsScreen2 = screen2.querySelectorAll('.required');
-console.log(inputsScreen2);
 
 allFilled = true;
 
 // Pour revenir à l'écran 1
 
 const btnBackToScreen1 = document.querySelector('.button_backscreen1');
-console.log(btnBackToScreen1);
 
 // Fonctions
 
@@ -100,7 +97,296 @@ console.log(btnBackToScreen1);
 
 btnToScreen3.addEventListener('click', function(){
     
-    inputsScreen2.forEach(function(input) {
+    // inputsScreen2.forEach(function(input) {
+    //     if (input.value === '') {
+    //         allFilled = false;
+    //     }
+    // });
+
+    // if (allFilled) {
+        listScreen2.style.color = "#6511D0";
+        listScreen3.style.color = "#E25C33";
+        screen2.style.display = "none";
+        screen3.style.display = "block";
+    // } else {
+    //     alert('Tous les champs doivent être remplis.');
+    // }
+});
+
+// Pour revenir à l'écran 1
+
+btnBackToScreen1.addEventListener('click', function(){
+    listScreen2.style.color = "#6511D0";
+    listScreen1.style.color = "#E25C33";
+    screen2.style.display = "none";
+    screen1.style.display = "block";
+});
+
+// FIN ECRAN 2 - ECRAN EMPLOYE/E
+
+// -------------------------------------
+
+// DEBUT ECRAN 3 - ECRAN CHOIX TYPE CONTRAT et DUREE CONTRAT
+
+// Valeurs
+
+// Résultats cdd-question1, 2, 3
+
+const yesOccasionalTask = document.getElementById('yes_occasional_task');
+
+const noOccasionalTask = document.getElementById('no_occasional task');
+
+const divCddQuestion2 = document.querySelector('.cdd-question2');
+
+const yesTemporaryReplacement = document.getElementById('yes_temporary_replacement');
+
+const noTemporaryReplacement = document.getElementById('no_temporary_replacement');
+
+const divCddQuestion3 = document.querySelector('.cdd-question3');
+
+const yesWaitingEmployee = document.getElementById ('yes_waiting-employee');
+
+const noWaitingEmployee = document.getElementById ('no_waiting-employee');
+
+const outputResultCdd = document.querySelector('.output_result');
+
+const divInfoCdd = document.querySelector('.info_cdd');
+
+// Pour faire disparaître le troisème écran et faire apparaître le quatrième
+
+const btnToScreen4 = document.querySelector('.button_toscreen4');
+
+const listScreen4 = document.querySelector('.list-screen4');
+
+const screen4 = document.querySelector('.screen4');
+
+// Pour revenir à l'écran 2
+
+const btnBackToScreen2 = document.querySelector('.button_backscreen2');
+
+// Fonctions
+
+// Résultats cdd-question1, 2, 3
+
+yesOccasionalTask.addEventListener('click', function(){
+    outputResultCdd.innerHTML = '<p>Le contrat à durée déterminée est possible.</p>';
+    divInfoCdd.style.display = "block";
+    divCddQuestion2.style.display = "none";
+    divCddQuestion3.style.display = "none";
+});
+
+noOccasionalTask.addEventListener('click', function(){
+    divCddQuestion2.style.display = "block";
+    divInfoCdd.style.display = "none";
+    outputResultCdd.innerHTML = '';
+}); 
+
+yesTemporaryReplacement.addEventListener('click', function(){
+    outputResultCdd.innerHTML = '<p>Le contrat à durée déterminée est possible.</p>';
+    divInfoCdd.style.display = "block";
+    divCddQuestion3.style.display = "none";
+});
+
+noTemporaryReplacement.addEventListener('click', function(){
+    divCddQuestion3.style.display = "block";
+    divInfoCdd.style.display = "none";
+    outputResultCdd.innerHTML = '';
+});
+
+yesWaitingEmployee.addEventListener('click', function(){
+    outputResultCdd.innerHTML = '<p>Le contrat à durée déterminée est possible.</p>';
+    divInfoCdd.style.display = "block";
+});
+
+noWaitingEmployee.addEventListener('click', function(){
+    outputResultCdd.innerHTML = '<p>Seul le contrat à durée indéterminée est possible.</p>'
+    divInfoCdd.style.display = "none";
+});
+
+
+
+// Pour faire disparaître le troisème écran et faire apparaître le quatrième
+
+btnToScreen4.addEventListener('click', function(){
+    listScreen3.style.color = "#6511D0";
+    listScreen4.style.color = "#E25C33";
+    screen3.style.display = "none";
+    screen4.style.display = "block";
+});
+
+// Pour revenir à l'écran 2
+
+btnBackToScreen2.addEventListener('click', function(){
+    listScreen3.style.color = "#6511D0";
+    listScreen2.style.color = "#E25C33";
+    screen3.style.display = "none";
+    screen2.style.display = "block";
+});
+
+
+// FIN ECRAN 3 - ECRAN CHOIX TYPE CONTRAT et DUREE CONTRAT
+
+// -------------------------------------
+
+// DEBUT ECRAN 4 - ECRAN CHOIX DATE D’EMBAUCHE 
+
+// Variables
+
+const yesEngagementLetter = document.getElementById('yes_engagement_letter');
+
+const noEngagementLetter = document.getElementById('no_engagement_letter');
+
+const divYesEngagementLetter = document.querySelector('.yes_engagement_letter');
+
+const divNoEngagementLetter = document.querySelector('.no_engagement_letter');
+
+const divTrialPeriod = document.querySelector('.trial_period');
+
+const yesTrialPeriod = document.getElementById('yes_trial_period');
+
+const noTrialPeriod = document.getElementById('no_trial_period');
+
+const dateTrialPeriod = document.querySelector('.yes_trial_period');
+
+const divTrialRenewable = document.querySelector('.trial_renewable');
+
+const yesTrialRenewable = document.getElementById('yes_trial_renewable');
+
+const noTrialRenewable = document.getElementById('no_trial_renewable');
+
+const divYesTrialRenewable = document.querySelector('.yes_trial_renewable');
+
+const divHiringDate = document.querySelector('.hiring_date');
+
+const divContractTrialPeriod = document.querySelector('.contract_trial_period');
+
+const yesContractTrialPeriod = document.getElementById('yes_contract_trial_period'); 
+
+const divYesContractTrialPeriod = document.querySelector('.yes_contract_trial_period'); 
+
+const divContractTrialRenewable = document.querySelector('.contract_trial_renewable');
+
+// Pour faire disparaître le quatrième écran et faire apparaître le cinquième
+
+const btnToScreen5 = document.querySelector('.button_toscreen5');
+
+const listScreen5 = document.querySelector('.list-screen5');
+
+const screen5 = document.querySelector('.screen5');
+
+// Pour revenir à l'écran 3
+
+const btnBackToScreen3 = document.querySelector('.button_backscreen3');
+
+// Fonctions
+
+// Résultat de lettre d'engagement 
+
+yesEngagementLetter.addEventListener('click', function(){
+    divYesEngagementLetter.style.display = "block";
+    divTrialPeriod.style.display = "block";
+    divHiringDate.style.display = "none";
+});
+
+noEngagementLetter.addEventListener('click', function(){
+    divYesEngagementLetter.style.display = "none";
+    divTrialPeriod.style.display = "none";
+    dateTrialPeriod.style.display = "none";
+    divTrialRenewable.style.display = "none";
+    divHiringDate.style.display = "block";
+    divContractTrialPeriod.style.display = "block";
+});
+
+// Résultat de période d'essai 
+
+yesTrialPeriod.addEventListener('click', function(){
+    dateTrialPeriod.style.display = "block";
+    divTrialRenewable.style.display = "block";
+    divHiringDate.style.display = "none";
+});
+
+noTrialPeriod.addEventListener('click', function(){
+    divTrialRenewable.style.display = "none";
+    divHiringDate.style.display = "block";
+    divContractTrialPeriod.style.display = "block";
+});
+
+// Résultat de période d'essai renouvlable
+
+yesTrialRenewable.addEventListener('click', function(){
+    divYesTrialRenewable.style.display = "block";
+    divHiringDate.style.display = "block";
+    divContractTrialPeriod.style.display = "block";
+});
+
+noTrialRenewable.addEventListener('click', function(){
+    divHiringDate.style.display = "block";
+    divContractTrialPeriod.style.display = "block";
+});
+
+// Résultat de période d'essai inscrite au contrat
+
+yesContractTrialPeriod.addEventListener('click', function(){
+    divYesContractTrialPeriod.style.display = "block";
+    divContractTrialRenewable.style.display = "block";
+});
+
+
+// Pour faire disparaître le quatrième écran et faire apparaître le cinquième
+
+btnToScreen5.addEventListener('click', function(){
+    listScreen4.style.color = "#6511D0";
+    listScreen5.style.color = "#E25C33";
+    screen4.style.display = "none";
+    screen5.style.display = "block";
+});
+
+// Pour revenir à l'écran 3
+
+btnBackToScreen3.addEventListener('click', function(){
+    listScreen4.style.color = "#6511D0";
+    listScreen3.style.color = "#E25C33";
+    screen4.style.display = "none";
+    screen3.style.display = "block";
+});
+
+// FIN ECRAN 4 - ECRAN CHOIX DATE D’EMBAUCHE 
+
+// ----------------------------------------------
+
+// DEBUT ECRAN 5 - ECRAN LIEU DE TRAVAIL 
+
+// Variables
+
+// Pour faire disparaître le cinquième écran et faire apparaître le sixième
+
+const btnToScreen6 = document.querySelector('.button_toscreen6');
+
+const listScreen6 = document.querySelector('.list-screen6');
+
+const screen6 = document.querySelector('.screen6');
+
+const inputsScreen5 = screen5.querySelectorAll('.required');
+
+// Pour revenir à l'écran 4
+
+const btnBackToScreen4 = document.querySelector('.button_backscreen4');
+
+// Fonctions
+
+// Pour faire disparaître le cinquième écran et faire apparaître le sixième
+
+btnToScreen6.addEventListener('click', function(){
+    listScreen5.style.color = "#6511D0";
+    listScreen6.style.color = "#E25C33";
+    screen5.style.display = "none";
+    screen6.style.display = "block";
+});
+
+// Pour revenir à l'écran 4
+
+btnBackToScreen4.addEventListener('click', function(){
+    inputsScreen5.forEach(function(input) {
         if (input.value === '') {
             allFilled = false;
             console.log('le champ' + input.value + 'est vide');
@@ -108,13 +394,55 @@ btnToScreen3.addEventListener('click', function(){
     });
 
     if (allFilled) {
-        listScreen2.style.color = "#6511D0";
-        listScreen3.style.color = "#E25C33";
-        screen2.style.display = "none";
-        screen3.style.display = "block";
+        listScreen5.style.color = "#6511D0";
+        listScreen4.style.color = "#E25C33";
+        screen5.style.display = "none";
+        screen4.style.display = "block";
     } else {
         alert('Tous les champs doivent être remplis.');
     }
 });
 
-// FIN ECRAN 2 - ECRAN EMPLOYE/E
+// FIN ECRAN 5 - ECRAN LIEU DE TRAVAIL 
+
+// --------------------------------------------
+
+// DEBUT ECRAN 6 - ECRAN FONCTIONS
+
+// Variables
+
+// Pour faire disparaître le cinquième écran et faire apparaître le sixième
+
+const btnToScreen7 = document.querySelector('.button_toscreen7');
+
+const listScreen7 = document.querySelector('.list-screen7');
+
+const screen7 = document.querySelector('.screen7');
+
+const inputsScreen6 = screen5.querySelectorAll('.required');
+
+// Pour revenir à l'écran 5
+
+const btnBackToScreen5 = document.querySelector('.button_backscreen5');
+
+// Fonctions
+
+// Pour faire disparaître le cinquième écran et faire apparaître le sixième
+
+btnToScreen7.addEventListener('click', function(){
+    listScreen6.style.color = "#6511D0";
+    listScreen7.style.color = "#E25C33";
+    screen6.style.display = "none";
+    screen7.style.display = "block";
+});
+
+// Pour revenir à l'écran 5
+
+btnBackToScreen5.addEventListener('click', function(){
+    listScreen6.style.color = "#6511D0";
+    listScreen5.style.color = "#E25C33";
+    screen6.style.display = "none";
+    screen5.style.display = "block";
+});
+
+// FIN ECRAN 6 - ECRAN FONCTIONS

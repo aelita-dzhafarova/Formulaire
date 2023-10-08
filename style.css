@@ -95,6 +95,8 @@ button {
     display: none;
 }
 
+/* SCREEN 1 */
+
 #co-employer {
     display: none;
 }
@@ -103,6 +105,21 @@ button {
     display: none;
 }
 
+/* SCREEN 3 */
+
+.cdd-question2, .cdd-question3, .info_cdd {
+    display: none;
+}
+
+/* SCREEN 4 */
+
+.yes_engagement_letter, .trial_period, .yes_trial_period, .trial_renewable, .yes_trial_renewable, .hiring_date, .contract_trial_period, .yes_contract_trial_period, .contract_trial_renewable {
+    display: none;
+}
+
+/* SCREEN 5 */
+
 .function {
     display: none;
 }
+
