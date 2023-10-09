@@ -117,9 +117,31 @@ button {
     display: none;
 }
 
-/* SCREEN 5 */
+/* SCREEN 6 */
 
-.function {
+/* Domaine enfant */
+
+.function_child1, .function_child2, .function_child3, .function_child4, .yes_child-clothes, .yes_child-homework, .yes_child-cleaning, .yes_children, .no_children {
     display: none;
 }
+
+/* Domaine Adulte */
+
+.functions_adult, .function_adult1, .function_adult2, .function_adult3, .function_adult4, .function_adult5, .yes_disabled1, .yes_disabled2, .yes_disabled3, .yes_disabled4, .yes_disabled5, .no_disabled5 {
+    display: none;
+}
+
+/* Domaine espade de vie */
+
+.functions_lifespace {
+    display: none;
+}
+
+/* Domaine environnement exterieur */
+
+.functions_outside {
+    display: none;
+}
+
+
 
