@@ -461,11 +461,12 @@
             <!-- DEBUT ECRAN 5 - ECRAN LIEU DE TRAVAIL -->
             <div class="screen5">
                 <h2>Lieu de travail</h2>
+                <p>Indiquez le lieu de travail et résidence secondaire éventuelle.</p>
                 <div>
                     <h3>Lieu de travail</h3>
-                    <input class="required" type="text" id="workplace_main" name="workplace_main" placeholder="Inserez l'adresse du lieu de travail principal"/>
-                    <input class="required" type="number" id="zip_workplace_main" name="zip_workplace_main" placeholder="Inserez le code postal du lieu de travail principal"/>
-                    <input class="required" type="text" id="city_workplace_main" name="city_workplace_main" placeholder="Inserez la commune du lieu de travail principal"/>
+                    <input class="required5" type="text" id="workplace_main" name="workplace_main" placeholder="Inserez l'adresse du lieu de travail principal"/>
+                    <input class="required5" type="number" id="zip_workplace_main" name="zip_workplace_main" placeholder="Inserez le code postal du lieu de travail principal"/>
+                    <input class="required5" type="text" id="city_workplace_main" name="city_workplace_main" placeholder="Inserez la commune du lieu de travail principal"/>
                 </div>
 
                 <div>
@@ -484,158 +485,190 @@
             <!-- DEBUT ECRAN 6 - ECRAN FONCTIONS -->
             <div class="screen6">
                 <h2>Fonctions</h2>
+                <p>
+                    Pour déterminer l’emploi-repère du salarié, il convient de se référer à la grille de classification figurant à l’annexe 7 de la Convention collective nationale de la branche du secteur des particuliers employeurs et de l’emploi à domicile.
+                </p>
                 <div>
                     <h3>Domaine "Enfant"</h3>
 
                     <div>
-                        <input type="radio" id="yes_child-care" name="child-care" value="yes" checked/>
+                        <input type="radio" id="yes_child-care" name="child-care" value="yes_child-care"/>
                         <label for="yes_child-care">Oui</label>
                     </div>
                     <div>
-                        <input type="radio" id="no_child-care" name="child-care" value="no" />
+                        <input type="radio" id="no_child-care" name="child-care" value="no_child-care" />
                         <label for="no_child-care">Non</label>
                     </div>
 
-                    <h4>Entretenir le linge de l'enfant.</h4>
-                    <div>
-                        <input type="radio" id="yes_child-clothes" name="child-clothes" value="yes" checked/>
-                        <label for="yes_child-clothes">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_child-clothes" name="child-clothes" value="no" />
-                        <label for="no_child-clothes">Non</label>
-                    </div>
-                    <div class="yes_child-clothes">
-                        <p class="function">Garde d'enfant(s) B Echelle 3</p>
-                    </div>
-
-                    <h4>Surveiller un ou plusieurs enfants dans la réalisation des devoirs.</h4>
-                    <div>
-                        <input type="radio" id="yes_child-homework" name="child-homework" value="yes" checked/>
-                        <label for="yes_child-homework">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_child-homework" name="child-homework" value="no" />
-                        <label for="no_child-homework">Non</label>
-                    </div>
-                    <div class="yes_child-homework">
-                        <p class="function">Garde d'enfant(s) A Echelle 3</p>
+                    <div class="function_child1">
+                        <h4>Entretenir le linge de l'enfant.</h4>
+                        <div>
+                            <input type="radio" id="yes_child-clothes" name="child-clothes" value="yes_child-clothes"/>
+                            <label for="yes_child-clothes">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_child-clothes" name="child-clothes" value="no_child-clothes" />
+                            <label for="no_child-clothes">Non</label>
+                        </div>
+                        <div class="yes_child-clothes">
+                            <p>Fonction choisie : Garde d'enfant(s) B Echelle 3</p>
+                        </div>
                     </div>
 
-                    <h4>Nettoyer les espaces de vie de l'enfant.</h4>
-                    <div>
-                        <input type="radio" id="yes_child-cleaning" name="child-cleaning" value="yes" checked/>
-                        <label for="yes_child-cleaning">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_child-cleaning" name="child-cleaning" value="no" />
-                        <label for="no_child-cleaning">Non</label>
-                    </div>
-                    <div class="yes_child-cleaning">
-                        <p class="function">Garde d'enfant(s) A Echelle 3</p>
-                    </div>
-
-                    <h4>S’occuper d’un ou de plusieurs enfants de plus ou de moins de trois (3) ans.</h4>
-                    <div>
-                        <input type="radio" id="yes_children" name="children" value="yes" checked/>
-                        <label for="yes_children">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_children" name="children" value="no" />
-                        <label for="no_children">Non</label>
-                    </div>
-                    <div class="yes_children">
-                        <p class="function">Garde d'enfant(s) A Echelle 3</p>
-                    </div>
-                    <div class="no_children">
-                        <p class="function">Baby-sitter Echelle 1</p>
+                    <div class="function_child2">
+                        <h4>Surveiller un ou plusieurs enfants dans la réalisation des devoirs.</h4>
+                        <div>
+                            <input type="radio" id="yes_child-homework" name="child-homework" value="yes_child-homework"/>
+                            <label for="yes_child-homework">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_child-homework" name="child-homework" value="no_child-homework" />
+                            <label for="no_child-homework">Non</label>
+                        </div>
+                        <div class="yes_child-homework">
+                            <p>Fonction choisie : Garde d'enfant(s) A Echelle 3</p>
+                        </div>
                     </div>
 
+                    <div class="function_child3">
+                        <h4>Nettoyer les espaces de vie de l'enfant.</h4>
+                        <div>
+                            <input type="radio" id="yes_child-cleaning" name="child-cleaning" value="yes_child-cleaning"/>
+                            <label for="yes_child-cleaning">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_child-cleaning" name="child-cleaning" value="no_child-cleaning" />
+                            <label for="no_child-cleaning">Non</label>
+                        </div>
+                        <div class="yes_child-cleaning">
+                            <p>Fonction choisie : Garde d'enfant(s) A Echelle 3</p>
+                        </div>
+                    </div>
+
+                    <div class="function_child4">
+                        <h4>S’occuper d’un ou de plusieurs enfants de plus ou de moins de trois (3) ans.</h4>
+                        <div>
+                            <input type="radio" id="yes_children" name="children" value="yes_children"/>
+                            <label for="yes_children">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_children" name="children" value="no_children" />
+                            <label for="no_children">Non</label>
+                        </div>
+                        <div class="yes_children">
+                            <p>Fonction choisie : Garde d'enfant(s) A Echelle 3</p>
+                        </div>
+                        <div class="no_children">
+                            <p>Fonction choisie : Baby-sitter Echelle 1</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
                     <h3>Domaine "Adulte" Aide à la personne.</h3>
 
-                    <h4>Réaliser les gestes liés à la délégation des soins d’un employeur en situation de handicap.</h4>
                     <div>
-                        <input type="radio" id="yes_disabled1" name="disabled1" value="yes" checked/>
-                        <label for="yes_disabled1">Oui</label>
+                        <input type="radio" id="yes_adult-care" name="adult-care" value="yes_adult-care"/>
+                        <label for="yes_adult-care">Oui</label>
                     </div>
                     <div>
-                        <input type="radio" id="no_disabled1" name="disabled1" value="no" />
-                        <label for="no_disabled1">Non</label>
-                    </div>
-                    <div class="yes_disabled1">
-                        <p class="function">Assistant(e) de vie D Echelle 6</p>
+                        <input type="radio" id="no_adult-care" name="adult-care" value="no_adult-care" />
+                        <label for="no_adult-care">Non</label>
                     </div>
 
-                    <h4>
-                        ASSISTER : </br>
-                        - l'employeur dans la prise des repas ; </br>
-                        - une tierce personne dans la réalisation des soins d'hygiène corporelle ; </br>
-                        - l’employeur lors de ses transferts et déplacements ; </br>
-                        - l’employeur lors de l’habillage.
-                    </h4>
-                    <div>
-                        <input type="radio" id="yes_disabled2" name="disabled2" value="yes" checked/>
-                        <label for="yes_disabled2">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_disabled2" name="disabled2" value="no" />
-                        <label for="no_disabled2">Non</label>
-                    </div>
-                    <div class="yes_disabled2">
-                        <p class="function">Assistant(e) de vie C Echelle 5</p>
+                    <div class="function_adult1">
+                        <h4>Réaliser les gestes liés à la délégation des soins d’un employeur en situation de handicap.</h4>
+                        <div>
+                            <input type="radio" id="yes_disabled1" name="disabled1" value="yes"/>
+                            <label for="yes_disabled1">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_disabled1" name="disabled1" value="no" />
+                            <label for="no_disabled1">Non</label>
+                        </div>
+
+                        <div class="yes_disabled1">
+                            <p> Fonction choisie : Assistant(e) de vie D Echelle 6</p>
+                        </div>
                     </div>
 
-                    <h4>Réaliser à la place de l'employeur la préparation de repas spécifiques</h4>
-                    <div>
-                        <input type="radio" id="yes_disabled3" name="disabled3" value="yes" checked/>
-                        <label for="yes_disabled3">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_disabled3" name="disabled3" value="no" />
-                        <label for="no_disabled3">Non</label>
-                    </div>
-                    <div class="yes_disabled3">
-                        <p class="function">Assistant(e) de vie C Echelle 5</p>
+                    <div class="function_adult2">
+                        <h4>
+                            ASSISTER : </br>
+                            - l'employeur dans la prise des repas ; </br>
+                            - une tierce personne dans la réalisation des soins d'hygiène corporelle ; </br>
+                            - l’employeur lors de ses transferts et déplacements ; </br>
+                            - l’employeur lors de l’habillage.
+                        </h4>
+                        <div>
+                            <input type="radio" id="yes_disabled2" name="disabled2" value="yes"/>
+                            <label for="yes_disabled2">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_disabled2" name="disabled2" value="no" />
+                            <label for="no_disabled2">Non</label>
+                        </div>
+
+                        <div class="yes_disabled2">
+                            <p> Fonction choisie : Assistant(e) de vie C Echelle 5</p>
+                        </div>
                     </div>
 
-                    <h4>
-                        Accompagner l'employeur dans : </br>
-                        - la prise des repas ; </br>
-                        - la réalisation des gestes d'hygiène corporelle ; </br>
-                        - les transferts et les déplacements ; </br>
-                        - l’habillage.
-                    </h4>
-                    <div>
-                        <input type="radio" id="yes_disabled4" name="disabled4" value="yes" checked/>
-                        <label for="yes_disabled4">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_disabled4" name="disabled4" value="no" />
-                        <label for="no_disabled4">Non</label>
-                    </div>
-                    <div class="yes_disabled4">
-                        <p class="function">Assistant(e) de vie B Echelle 4</p>
+                    <div class="function_adult3">
+                        <h4>Réaliser à la place de l'employeur la préparation de repas spécifiques</h4>
+                        <div>
+                            <input type="radio" id="yes_disabled3" name="disabled3" value="yes"/>
+                            <label for="yes_disabled3">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_disabled3" name="disabled3" value="no" />
+                            <label for="no_disabled3">Non</label>
+                        </div>
+
+                        <div class="yes_disabled3">
+                            <p>Fonction choisie : Assistant(e) de vie C Echelle 5</p>
+                        </div>
                     </div>
 
-                    <h4>Effectuer et/ou accompagner l'employeur dans la préparation de repas spécifiques.</h4>
-                    <div>
-                        <input type="radio" id="yes_disabled5" name="disabled5" value="yes" checked/>
-                        <label for="yes_disabled5">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_disabled5" name="disabled5" value="no" />
-                        <label for="no_disabled5">Non</label>
-                    </div>
-                    <div class="yes_disabled5">
-                        <p class="function">Assistant(e) de vie B Echelle 4</p>
+                    <div class="function_adult4">
+                        <h4>
+                            Accompagner l'employeur dans : </br>
+                            - la prise des repas ; </br>
+                            - la réalisation des gestes d'hygiène corporelle ; </br>
+                            - les transferts et les déplacements ; </br>
+                            - l’habillage.
+                        </h4>
+                        <div>
+                            <input type="radio" id="yes_disabled4" name="disabled4" value="yes"/>
+                            <label for="yes_disabled4">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_disabled4" name="disabled4" value="no" />
+                            <label for="no_disabled4">Non</label>
+                        </div>
+
+                        <div class="yes_disabled4">
+                            <p class="function">Fonction choisie : Assistant(e) de vie B Echelle 4</p>
+                        </div>
                     </div>
 
+                    <div class="function_adult5">
+                        <h4>Effectuer et/ou accompagner l'employeur dans la préparation de repas spécifiques.</h4>
+                        <div>
+                            <input type="radio" id="yes_disabled5" name="disabled5" value="yes"/>
+                            <label for="yes_disabled5">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_disabled5" name="disabled5" value="no" />
+                            <label for="no_disabled5">Non</label>
+                        </div>
 
-                    <div class="no_disabled5">
-                        <p class="function">Assistant(e) de vie A Echelle 3</p>
+                        <div class="yes_disabled5">
+                            <p class="function">Fonction choisie :  Assistant(e) de vie B Echelle 4</p>
+                        </div>
+                        <div class="no_disabled5">
+                            <p class="function">Fonction choisie :  Assistant(e) de vie A Echelle 3</p>
+                        </div>
                     </div>
 
                 </div>
@@ -643,87 +676,100 @@
                 <div>
                     <h3>Domaine "Espace de vie" entretien, menage.</h3>
 
-                    <h4>Surveiller et assurer une présence auprès d'un ou de plusieurs enfants de plus de 3 ans.</h4>
                     <div>
-                        <input type="radio" id="yes_lifespace1" name="lifespace1" value="yes" checked/>
-                        <label for="yes_lifespace1">Oui</label>
+                        <input type="radio" id="yes_lifespace" name="lifespace" value="yes_lifespace"/>
+                        <label for="yes_lifespace">Oui</label>
                     </div>
                     <div>
-                        <input type="radio" id="no_lifespace1" name="lifespace1" value="no" />
-                        <label for="no_lifespace1">Non</label>
-                    </div>
-                    <div class="yes_lifespace1">
-                        <p class="function">Employé(e) familial(e) auprès d’enfants Echelle 3</p>
+                        <input type="radio" id="no_lifespace" name="lifespace" value="no_lifespace" />
+                        <label for="no_lifespace">Non</label>
                     </div>
 
-                    <h4>Surveiller un ou plusieurs enfants dans la réalisation des devoirs.</h4>
-                    <div>
-                        <input type="radio" id="yes_lifespace2" name="lifespace2" value="yes" checked/>
-                        <label for="yes_lifespace2">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_lifespace2" name="lifespace2" value="no" />
-                        <label for="no_lifespace2">Non</label>
-                    </div>
-                    <div class="yes_lifespace2">
-                        <p class="function">Employé(e) familial(e) auprès d’enfants Echelle 3</p>
-                    </div>
+                    <div class="functions_lifespace">
 
-                    <h4>Effectuer les courses</h4>
-                    <div>
-                        <input type="radio" id="yes_lifespace3" name="lifespace3" value="yes" checked/>
-                        <label for="yes_lifespace3">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_lifespace3" name="lifespace3" value="no" />
-                        <label for="no_lifespace3">Non</label>
-                    </div>
-                    <div class="yes_lifespace3">
-                        <p class="function">Employé(e) familial(e) B Echelle 2</p>
-                    </div>
+                        <h4>Surveiller et assurer une présence auprès d'un ou de plusieurs enfants de plus de 3 ans.</h4>
+                        <div>
+                            <input type="radio" id="yes_lifespace1" name="lifespace1" value="yes"/>
+                            <label for="yes_lifespace1">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_lifespace1" name="lifespace1" value="no" />
+                            <label for="no_lifespace1">Non</label>
+                        </div>
+                        <div class="yes_lifespace1">
+                            <p class="function">Employé(e) familial(e) auprès d’enfants Echelle 3</p>
+                        </div>
 
-                    <h4>Préparer les repas courants.</h4>
-                    <div>
-                        <input type="radio" id="yes_lifespace4" name="lifespace4" value="yes" checked/>
-                        <label for="yes_lifespace4">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_lifespace4" name="lifespace4" value="no" />
-                        <label for="no_lifespace4">Non</label>
-                    </div>
-                    <div class="yes_lifespace4">
-                        <p class="function">Employé(e) familial(e) B Echelle 2</p>
-                    </div>
+                        <h4>Surveiller un ou plusieurs enfants dans la réalisation des devoirs.</h4>
+                        <div>
+                            <input type="radio" id="yes_lifespace2" name="lifespace2" value="yes"/>
+                            <label for="yes_lifespace2">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_lifespace2" name="lifespace2" value="no" />
+                            <label for="no_lifespace2">Non</label>
+                        </div>
+                        <div class="yes_lifespace2">
+                            <p class="function">Employé(e) familial(e) auprès d’enfants Echelle 3</p>
+                        </div>
 
-                    <h4>Repasser le linge délicat.</h4>
-                    <div>
-                        <input type="radio" id="yes_lifespace5" name="lifespace5" value="yes" checked/>
-                        <label for="yes_lifespace5">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_lifespace5" name="lifespace5" value="no" />
-                        <label for="no_lifespace5">Non</label>
-                    </div>
-                    <div class="yes_lifespace5">
-                        <p class="function">Employé(e) familial(e) B Echelle 2</p>
-                    </div>
+                        <h4>Effectuer les courses</h4>
+                        <div>
+                            <input type="radio" id="yes_lifespace3" name="lifespace3" value="yes"/>
+                            <label for="yes_lifespace3">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_lifespace3" name="lifespace3" value="no" />
+                            <label for="no_lifespace3">Non</label>
+                        </div>
+                        <div class="yes_lifespace3">
+                            <p class="function">Employé(e) familial(e) B Echelle 2</p>
+                        </div>
 
-                    <h4>Entretenir le linge.</h4>
-                    <div>
-                        <input type="radio" id="yes_lifespace6" name="lifespace6" value="yes" checked/>
-                        <label for="yes_lifespace6">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_lifespace6" name="lifespace6" value="no" />
-                        <label for="no_lifespace6">Non</label>
-                    </div>
-                    <div class="yes_lifespace6">
-                        <p class="function">Employé(e) familial(e) B Echelle 2</p>
-                    </div>
+                        <h4>Préparer les repas courants.</h4>
+                        <div>
+                            <input type="radio" id="yes_lifespace4" name="lifespace4" value="yes"/>
+                            <label for="yes_lifespace4">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_lifespace4" name="lifespace4" value="no" />
+                            <label for="no_lifespace4">Non</label>
+                        </div>
+                        <div class="yes_lifespace4">
+                            <p class="function">Employé(e) familial(e) B Echelle 2</p>
+                        </div>
+
+                        <h4>Repasser le linge délicat.</h4>
+                        <div>
+                            <input type="radio" id="yes_lifespace5" name="lifespace5" value="yes"/>
+                            <label for="yes_lifespace5">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_lifespace5" name="lifespace5" value="no" />
+                            <label for="no_lifespace5">Non</label>
+                        </div>
+                        <div class="yes_lifespace5">
+                            <p class="function">Employé(e) familial(e) B Echelle 2</p>
+                        </div>
+
+                        <h4>Entretenir le linge.</h4>
+                        <div>
+                            <input type="radio" id="yes_lifespace6" name="lifespace6" value="yes"/>
+                            <label for="yes_lifespace6">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_lifespace6" name="lifespace6" value="no" />
+                            <label for="no_lifespace6">Non</label>
+                        </div>
+                        <div class="yes_lifespace6">
+                            <p class="function">Employé(e) familial(e) B Echelle 2</p>
+                        </div>
 
 
-                    <div class="no_lifespace6">
-                        <p class="function">Employé(e) familial(e) A Echelle 1</p>
+                        <div class="no_lifespace6">
+                            <p class="function">Employé(e) familial(e) A Echelle 1</p>
+                        </div>
+
                     </div>
 
                 </div>
@@ -731,72 +777,102 @@
                 <div>
                     <h3>Domaine "Environnement externe".</h3>
 
-                    <h4>Effectuer des petits travaux de jardinage.</h4>
                     <div>
-                        <input type="radio" id="yes_outside1" name="outside1" value="yes" checked/>
-                        <label for="yes_outside1">Oui</label>
+                        <input type="radio" id="yes_outside" name="outside" value="yes_outside"/>
+                        <label for="yes_outside">Oui</label>
                     </div>
                     <div>
-                        <input type="radio" id="no_outside1" name="outside1" value="no" />
-                        <label for="no_outside1">Non</label>
-                    </div>
-                    <div class="yes_outside1">
-                        <p class="function">Employé(e) d'entretien et petits travaux/Homme-Femme toutes mains B Echelle 2</p>
+                        <input type="radio" id="no_outside" name="outside" value="no_outside" />
+                        <label for="no_outside">Non</label>
                     </div>
 
-                    <h4>Surveiller la propriété (habitation et dépendances).</h4>
-                    <div>
-                        <input type="radio" id="yes_outside2" name="outside2" value="yes" checked/>
-                        <label for="yes_outside2">Oui</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="no_outside2" name="outside2" value="no" />
-                        <label for="no_outside2">Non</label>
-                    </div>
-                    <div class="yes_outside2">
-                        <h4>Entretenir la propriété (habitation et dépendances).</h4>
+                    <div class="functions_outside">
+                        <h4>Effectuer des petits travaux de jardinage.</h4>
                         <div>
-                            <input type="radio" id="yes_outside3" name="outside3" value="yes" checked/>
-                            <label for="yes_outside3">Oui</label>
+                            <input type="radio" id="yes_outside1" name="outside1" value="yes"/>
+                            <label for="yes_outside1">Oui</label>
                         </div>
                         <div>
-                            <input type="radio" id="no_outside3" name="outside3" value="no" />
-                            <label for="no_outside3">Non</label>
+                            <input type="radio" id="no_outside1" name="outside1" value="no" />
+                            <label for="no_outside1">Non</label>
                         </div>
-                        <div class="no_outside3">
-                            <p class="function">Employé(e) d'entretien et petits travaux/Homme-Femme toutes mains A Echelle 1</p>
+                        <div class="yes_outside1">
+                            <p class="function">Employé(e) d'entretien et petits travaux/Homme-Femme toutes mains B Echelle 2</p>
                         </div>
-                        <div class="yes_outside3">
-                            <h4>Assurer des tâches complémentaires.</h4>
+
+                        <h4>Surveiller la propriété (habitation et dépendances).</h4>
+                        <div>
+                            <input type="radio" id="yes_outside2" name="outside2" value="yes"/>
+                            <label for="yes_outside2">Oui</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="no_outside2" name="outside2" value="no" />
+                            <label for="no_outside2">Non</label>
+                        </div>
+                        <div class="yes_outside2">
+                            <h4>Entretenir la propriété (habitation et dépendances).</h4>
                             <div>
-                                <input type="radio" id="yes_outside4" name="outside4" value="yes" checked/>
-                                <label for="yes_outside4">Oui</label>
+                                <input type="radio" id="yes_outside3" name="outside3" value="yes_outside3"/>
+                                <label for="yes_outside3">Oui</label>
                             </div>
                             <div>
-                                <input type="radio" id="no_outside4" name="outside4" value="no" />
-                                <label for="no_outside4">Non</label>
+                                <input type="radio" id="no_outside3" name="outside3" value="no_outside3" />
+                                <label for="no_outside3">Non</label>
                             </div>
-                        </div>
-                        <div class="no_outside4">
-                            <p class="function">Gardien(ne) A Echelle 2</p>
-                        </div>
-                        <div class="yes_outside4">
-                            <p class="function">Gardien(ne) B Echelle 3</p>
+                            <div class="no_outside3">
+                                <p class="function">Employé(e) d'entretien et petits travaux/Homme-Femme toutes mains A Echelle 1</p>
+                            </div>
+                            <div class="yes_outside3">
+                                <h4>Assurer des tâches complémentaires.</h4>
+                                <div>
+                                    <input type="radio" id="yes_outside4" name="outside4" value="yes_outside4"/>
+                                    <label for="yes_outside4">Oui</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="no_outside4" name="outside4" value="no_outside4" />
+                                    <label for="no_outside4">Non</label>
+                                </div>
+                            </div>
+                            <div class="no_outside4">
+                                <p class="function">Gardien(ne) A Echelle 2</p>
+                            </div>
+                            <div class="yes_outside4">
+                                <p class="function">Gardien(ne) B Echelle 3</p>
+                            </div>
                         </div>
                     </div>
 
 
                     <div class="other_functions">
                         <h4>Autres fonctions</h4>
-                        <select>
-                            <option valeur="teacher1">Enseignant (e) particulier (ère) (niveau élémentaire) A Echelle 6</option>
-                            <option valeur="teacher2">Enseignant (e) particulier (ère) (niveau collège, lycée) B Echelle 7</option>
-                            <option valeur="teacher3">Enseignant (e) particulier (ère) (niveau études supérieures) C Echelle 8</option>
-                            <option valeur="accompanist">Accompagnateur (trice) /Personne de compagnie Echelle 2</option>
-                            <option valeur="secretary">Secrétaire particulier(ère) Echelle 3</option>
-                            <option valeur="it_assistant1">Assistant(e) informatique A Echelle 6</option>
-                            <option valeur="it_assistant2">Assistant(e) informatique B Echelle 7</option>
-                        </select>
+                        <div>
+                            <input type="checkbox" id="teacher1" name="other_functions" value="teacher1" />
+                            <label for="teacher1">Enseignant (e) particulier (ère) (niveau élémentaire) A Echelle 6</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="teacher2" name="other_functions" value="teacher2" />
+                            <label for="teacher2">Enseignant (e) particulier (ère) (niveau collège, lycée) B Echelle 7</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="teacher3" name="other_functions" value="teacher3" />
+                            <label for="teacher3">Enseignant (e) particulier(ère) (niveau études supérieures) C Echelle 8</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="accompanist" name="other_functions" value="accompanist" />
+                            <label for="accompanist">Accompagnateur (trice) /Personne de compagnie Echelle 2</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="secretary" name="other_functions" value="secretary" />
+                            <label for="secretary">Secrétaire particulier(ère) Echelle 3</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="it_assistant1" name="other_functions" value="it_assistant1" />
+                            <label for="it_assistant1">Assistant(e) informatique A Echelle 6</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="it_assistant2" name="other_functions" value="it_assistant2" />
+                            <label for="it_assistant2">Assistant(e) informatique B Echelle 7</label>
+                        </div>
                     </div>
 
                 </div>
