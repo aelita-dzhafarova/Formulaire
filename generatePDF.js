@@ -46,8 +46,31 @@ function generatePDF() {
     fontSize = 22;
     doc.setFontSize(fontSize);
 
-    // CHANGER car le contrat n'est pas toujours à durée indéterminée
-    let title = "Contrat de travail à durée déterminée";
+
+    /* Dans l'écran 3, l'utilisateur décide si le contrat de travail est
+    à durée déterminée ou indéterminée (bouton radio) */
+    let radios = document.getElementsByName('occasional_task');
+    let answerContent, answerValue;
+    for(let i = 0; i < radios.length; i++){
+        if(radios[i].checked){
+            // aswerValue correspond à l'attribut value choisi par le client (code HTML)
+            answerValue = radios[i].value;
+            // Sélectionnez l'élément <label> associé à l'input radio sélectionné
+            let labelElement = document.querySelector('label[for="'+ answerValue + '"]');
+            /* aswerContent correspond au texte visible sur la page
+            à côté du bouton radio sélectionné (code HTML) */
+            answerContent = labelElement.textContent;
+        }
+    }
+
+    //console.log("answerValue : " + answerValue + " et answerContent : " + answerContent);
+
+    let title;
+    if(answerValue === "yes") 
+        title = "Contrat de travail à durée déterminée";
+    else if(answerValue === "no")
+        title = "Contrat de travail à durée indéterminée";
+    
     y = 30;
     doc.text(title, marginLeft, y);
     
@@ -107,18 +130,18 @@ function generatePDF() {
     doc.setTextColor(0, 0, 0);
 
 
-    // Récupération du CHAMP Civilité Employeur
-    let radios = document.getElementsByName('sex');
-    let valeur, civilite;
-    for(let i = 0; i < radios.length; i++){
-        if(radios[i].checked){
-            valeur = radios[i].value;
-            // Sélectionnez l'élément <label> associé à l'input radio "male_co-employer"
-            let labelElement = document.querySelector('label[for="'+ valeur + '"]');
-            // Récupérez le texte à l'intérieur de l'élément <label>
-            civilite = labelElement.textContent;
-        }
+// Récupération du CHAMP Civilité Employeur
+radios = document.getElementsByName('sex');
+let civilite, valeur;
+for(let i = 0; i < radios.length; i++){
+    if(radios[i].checked){
+        valeur = radios[i].value;
+        // Sélectionnez l'élément <label> associé à l'input radio "male_co-employer"
+        let labelElement = document.querySelector('label[for="'+ valeur + '"]');
+        // Récupérez le texte à l'intérieur de l'élément <label>
+        civilite = labelElement.textContent;
     }
+}
 
     // Récupération du CHAMP Date de naissance 
     // On récupère l'input HTML type="date" par lequel l'utilisateur a écrit la date
@@ -457,8 +480,12 @@ function generatePDF() {
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
 
+
+
     
     doc.save("MonFichier.pdf");
+
+
 
 
 
