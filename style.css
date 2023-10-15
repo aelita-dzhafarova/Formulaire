@@ -127,21 +127,23 @@ button {
 
 /* Domaine Adulte */
 
-.functions_adult, .function_adult1, .function_adult2, .function_adult3, .function_adult4, .function_adult5, .yes_disabled1, .yes_disabled2, .yes_disabled3, .yes_disabled4, .yes_disabled5, .no_disabled5 {
+.function_adult1, .function_adult2, .function_adult3, .function_adult4, .function_adult5, .yes_disabled1, .yes_disabled2, .yes_disabled3, .yes_disabled4, .yes_disabled5, .no_disabled5 {
     display: none;
 }
 
-/* Domaine espade de vie */
+/* Domaine espase de vie */
 
-.functions_lifespace {
+.function_lifespace1, .function_lifespace2, .function_lifespace3, .function_lifespace4, .function_lifespace5, .function_lifespace6, .yes_lifespace1, .yes_lifespace2, .yes_lifespace3, .yes_lifespace4, .yes_lifespace5, .yes_lifespace6, .no_lifespace6 {
     display: none;
 }
 
 /* Domaine environnement exterieur */
 
-.functions_outside {
+.function_outside1, .yes_outside1, .no_outside1, .no_outside2, .no_outside3, .yes_outside2-3, .no_outside4, .yes_outside4 {
     display: none;
 }
+
+
 
 
 
