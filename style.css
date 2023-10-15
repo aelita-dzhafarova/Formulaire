@@ -113,7 +113,7 @@ button {
 
 /* SCREEN 4 */
 
-.yes_engagement_letter, .trial_period, .yes_trial_period, .trial_renewable, .yes_trial_renewable, .hiring_date, .contract_trial_period, .yes_contract_trial_period, .contract_trial_renewable {
+.yes_engagement_letter, .trial_period, .yes_trial_period, .trial_renewable, .yes_trial_renewable, .hiring_date, .contract_trial_period, .yes_contract_trial_period, .contract_trial_renewable, .yes_contract_trial_renewable {
     display: none;
 }
 

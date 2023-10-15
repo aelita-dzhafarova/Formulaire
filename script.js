@@ -262,9 +262,18 @@ const divContractTrialPeriod = document.querySelector('.contract_trial_period');
 
 const yesContractTrialPeriod = document.getElementById('yes_contract_trial_period'); 
 
+const noContractTrialPeriod = document.getElementById('no_contract_trial_period');
+
 const divYesContractTrialPeriod = document.querySelector('.yes_contract_trial_period'); 
 
 const divContractTrialRenewable = document.querySelector('.contract_trial_renewable');
+
+const yesContractTrialRenewable = document.getElementById('yes_contract_trial_renewable');
+
+const noContractTrialRenewable = document.getElementById('no_contract_trial_renewable');
+
+const divYesContractTrialRenewable = document.querySelector('.yes_contract_trial_renewable');
+
 
 // Pour faire disparaître le quatrième écran et faire apparaître le cinquième
 
@@ -286,6 +295,9 @@ yesEngagementLetter.addEventListener('click', function(){
     divYesEngagementLetter.style.display = "block";
     divTrialPeriod.style.display = "block";
     divHiringDate.style.display = "none";
+    divContractTrialPeriod.style.display = "none";
+    divYesContractTrialPeriod.style.display = "none";
+    divContractTrialRenewable.style.display = "none";
 });
 
 noEngagementLetter.addEventListener('click', function(){
@@ -297,31 +309,40 @@ noEngagementLetter.addEventListener('click', function(){
     divContractTrialPeriod.style.display = "block";
 });
 
-// Résultat de période d'essai 
+// Résultat de période d'essai lettre d'engagement
 
 yesTrialPeriod.addEventListener('click', function(){
     dateTrialPeriod.style.display = "block";
     divTrialRenewable.style.display = "block";
     divHiringDate.style.display = "none";
+    divYesContractTrialRenewable.style.display = "none";
+    divContractTrialPeriod.style.display = "none";
 });
 
 noTrialPeriod.addEventListener('click', function(){
     divTrialRenewable.style.display = "none";
     divHiringDate.style.display = "block";
     divContractTrialPeriod.style.display = "block";
+    divYesContractTrialRenewable.style.display = "none";
+    divContractTrialPeriod.style.display = "none";
+    dateTrialPeriod.style.display = "none";
 });
 
-// Résultat de période d'essai renouvlable
+// Résultat de période d'essai renouvlable lettre d'engagement
 
 yesTrialRenewable.addEventListener('click', function(){
     divYesTrialRenewable.style.display = "block";
     divHiringDate.style.display = "block";
     divContractTrialPeriod.style.display = "block";
+    divContractTrialPeriod.style.display = "none";
 });
 
 noTrialRenewable.addEventListener('click', function(){
     divHiringDate.style.display = "block";
     divContractTrialPeriod.style.display = "block";
+    divYesContractTrialPeriod.style.display = "none";
+    divContractTrialPeriod.style.display = "none";
+    divContractTrialPeriod.style.display = "none";
 });
 
 // Résultat de période d'essai inscrite au contrat
@@ -330,6 +351,22 @@ yesContractTrialPeriod.addEventListener('click', function(){
     divYesContractTrialPeriod.style.display = "block";
     divContractTrialRenewable.style.display = "block";
 });
+
+noContractTrialPeriod.addEventListener('click', function(){
+    divYesContractTrialPeriod.style.display = "none";
+    divContractTrialRenewable.style.display = "none";
+});
+
+// Résultat de période d'essai renouvlable inscrit au contrat
+
+yesContractTrialRenewable.addEventListener('click', function(){
+    divYesContractTrialRenewable.style.display = "block";
+});
+
+noContractTrialRenewable.addEventListener('click', function(){
+    divYesContractTrialRenewable.style.display = "none";
+});
+
 
 
 // Pour faire disparaître le quatrième écran et faire apparaître le cinquième
