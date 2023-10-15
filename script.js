@@ -262,9 +262,18 @@ const divContractTrialPeriod = document.querySelector('.contract_trial_period');
 
 const yesContractTrialPeriod = document.getElementById('yes_contract_trial_period'); 
 
+const noContractTrialPeriod = document.getElementById('no_contract_trial_period');
+
 const divYesContractTrialPeriod = document.querySelector('.yes_contract_trial_period'); 
 
 const divContractTrialRenewable = document.querySelector('.contract_trial_renewable');
+
+const yesContractTrialRenewable = document.getElementById('yes_contract_trial_renewable');
+
+const noContractTrialRenewable = document.getElementById('no_contract_trial_renewable');
+
+const divYesContractTrialRenewable = document.querySelector('.yes_contract_trial_renewable');
+
 
 // Pour faire disparaître le quatrième écran et faire apparaître le cinquième
 
@@ -286,6 +295,9 @@ yesEngagementLetter.addEventListener('click', function(){
     divYesEngagementLetter.style.display = "block";
     divTrialPeriod.style.display = "block";
     divHiringDate.style.display = "none";
+    divContractTrialPeriod.style.display = "none";
+    divYesContractTrialPeriod.style.display = "none";
+    divContractTrialRenewable.style.display = "none";
 });
 
 noEngagementLetter.addEventListener('click', function(){
@@ -297,31 +309,40 @@ noEngagementLetter.addEventListener('click', function(){
     divContractTrialPeriod.style.display = "block";
 });
 
-// Résultat de période d'essai 
+// Résultat de période d'essai lettre d'engagement
 
 yesTrialPeriod.addEventListener('click', function(){
     dateTrialPeriod.style.display = "block";
     divTrialRenewable.style.display = "block";
     divHiringDate.style.display = "none";
+    divYesContractTrialRenewable.style.display = "none";
+    divContractTrialPeriod.style.display = "none";
 });
 
 noTrialPeriod.addEventListener('click', function(){
     divTrialRenewable.style.display = "none";
     divHiringDate.style.display = "block";
     divContractTrialPeriod.style.display = "block";
+    divYesContractTrialRenewable.style.display = "none";
+    divContractTrialPeriod.style.display = "none";
+    dateTrialPeriod.style.display = "none";
 });
 
-// Résultat de période d'essai renouvlable
+// Résultat de période d'essai renouvlable lettre d'engagement
 
 yesTrialRenewable.addEventListener('click', function(){
     divYesTrialRenewable.style.display = "block";
     divHiringDate.style.display = "block";
     divContractTrialPeriod.style.display = "block";
+    divContractTrialPeriod.style.display = "none";
 });
 
 noTrialRenewable.addEventListener('click', function(){
     divHiringDate.style.display = "block";
     divContractTrialPeriod.style.display = "block";
+    divYesContractTrialPeriod.style.display = "none";
+    divContractTrialPeriod.style.display = "none";
+    divContractTrialPeriod.style.display = "none";
 });
 
 // Résultat de période d'essai inscrite au contrat
@@ -330,6 +351,22 @@ yesContractTrialPeriod.addEventListener('click', function(){
     divYesContractTrialPeriod.style.display = "block";
     divContractTrialRenewable.style.display = "block";
 });
+
+noContractTrialPeriod.addEventListener('click', function(){
+    divYesContractTrialPeriod.style.display = "none";
+    divContractTrialRenewable.style.display = "none";
+});
+
+// Résultat de période d'essai renouvlable inscrit au contrat
+
+yesContractTrialRenewable.addEventListener('click', function(){
+    divYesContractTrialRenewable.style.display = "block";
+});
+
+noContractTrialRenewable.addEventListener('click', function(){
+    divYesContractTrialRenewable.style.display = "none";
+});
+
 
 
 // Pour faire disparaître le quatrième écran et faire apparaître le cinquième
@@ -653,10 +690,276 @@ noDisabled5.addEventListener('click', function(){
 
 // Bloc Domaine Espace de vie
 
+// Variables
+
 const yesLifeSpace = document.getElementById('yes_lifespace');
 const noLifeSpace = document.getElementById('no_lifespace');
 
-const divFunctionsLifeSpace = document.querySelector('.functions_lifespace');
+const divFunctionLifeSpace1 = document.querySelector('.function_lifespace1');
+
+// Surveiller et assurer une présence auprès d'un ou de plusieurs enfants de plus de 3 ans.
+
+const yesLifeSpace1 = document.getElementById('yes_lifespace1');
+const noLifeSpace1 = document.getElementById('no_lifespace1');
+
+const divFunctionLifeSpace2 = document.querySelector('.function_lifespace2');
+
+const divYesLifeSpace1 = document.querySelector('.yes_lifespace1');
+
+// Surveiller un ou plusieurs enfants dans la réalisation des devoirs.
+
+const yesLifeSpace2 = document.getElementById('yes_lifespace2');
+const noLifeSpace2 = document.getElementById('no_lifespace2');
+
+const divFunctionLifeSpace3 = document.querySelector('.function_lifespace3');
+
+const divYesLifeSpace2 = document.querySelector('.yes_lifespace2');
+
+// Effectuer les courses
+
+const yesLifeSpace3 = document.getElementById('yes_lifespace3');
+const noLifeSpace3 = document.getElementById('no_lifespace3');
+
+const divFunctionLifeSpace4 = document.querySelector('.function_lifespace4');
+
+const divYesLifeSpace3 = document.querySelector('.yes_lifespace3');
+
+// Préparer les repas courants
+
+const yesLifeSpace4 = document.getElementById('yes_lifespace4');
+const noLifeSpace4 = document.getElementById('no_lifespace4');
+
+const divFunctionLifeSpace5 = document.querySelector('.function_lifespace5');
+
+const divYesLifeSpace4 = document.querySelector('.yes_lifespace4');
+
+// Repasser le linge délicat.
+
+const yesLifeSpace5 = document.getElementById('yes_lifespace5');
+const noLifeSpace5 = document.getElementById('no_lifespace5');
+
+const divFunctionLifeSpace6 = document.querySelector('.function_lifespace6');
+
+const divYesLifeSpace5 = document.querySelector('.yes_lifespace5');
+
+// Entretenir le linge.
+
+const yesLifeSpace6 = document.getElementById('yes_lifespace6');
+const noLifeSpace6 = document.getElementById('no_lifespace6');
+
+const divYesLifeSpace6 = document.querySelector('.yes_lifespace6');
+const divNoLifeSpace6 = document.querySelector('.no_lifespace6');
+
+// Fonctions
+
+yesLifeSpace.addEventListener('click', function(){
+    divFunctionLifeSpace1.style.display = "block";
+});
+
+noLifeSpace.addEventListener('click', function(){
+    divFunctionLifeSpace1.style.display = "none";
+    divFunctionLifeSpace2.style.display = "none";
+    divFunctionLifeSpace3.style.display = "none";
+    divFunctionLifeSpace4.style.display = "none";
+    divFunctionLifeSpace5.style.display = "none";
+    divFunctionLifeSpace6.style.display = "none";
+});
+
+// Surveiller et assurer une présence auprès d'un ou de plusieurs enfants de plus de 3 ans.
+
+yesLifeSpace1.addEventListener('click', function(){
+    divYesLifeSpace1.style.display = "block";
+    divFunctionLifeSpace2.style.display = "none";
+    divFunctionLifeSpace3.style.display = "none";
+    divFunctionLifeSpace4.style.display = "none";
+    divFunctionLifeSpace5.style.display = "none";
+    divFunctionLifeSpace6.style.display = "none";
+});
+
+noLifeSpace1.addEventListener('click', function(){
+    divFunctionLifeSpace2.style.display = "block";
+    divYesLifeSpace1.style.display = "none";
+});
+
+// Surveiller un ou plusieurs enfants dans la réalisation des devoirs.
+
+yesLifeSpace2.addEventListener('click', function(){
+    divYesLifeSpace2.style.display = "block";
+    divFunctionLifeSpace3.style.display = "none";
+    divFunctionLifeSpace4.style.display = "none";
+    divFunctionLifeSpace5.style.display = "none";
+    divFunctionLifeSpace6.style.display = "none";
+});
+
+noLifeSpace2.addEventListener('click', function(){
+    divYesLifeSpace2.style.display = "none";
+    divFunctionLifeSpace3.style.display = "block";
+});
+
+// Effectuer les courses
+
+yesLifeSpace3.addEventListener('click', function(){
+    divYesLifeSpace3.style.display = "block";
+    divFunctionLifeSpace4.style.display = "none";
+    divFunctionLifeSpace5.style.display = "none";
+    divFunctionLifeSpace6.style.display = "none";
+});
+
+noLifeSpace3.addEventListener('click', function(){
+    divYesLifeSpace3.style.display = "none";
+    divFunctionLifeSpace4.style.display = "block";
+});
+
+// Préparer les repas courants
+
+yesLifeSpace4.addEventListener('click', function(){
+    divYesLifeSpace4.style.display = "block";
+    divFunctionLifeSpace5.style.display = "none";
+    divFunctionLifeSpace6.style.display = "none";
+});
+
+noLifeSpace4.addEventListener('click', function(){
+    divYesLifeSpace4.style.display = "none";
+    divFunctionLifeSpace5.style.display = "block";
+});
+
+// Repasser le linge délicat.
+
+yesLifeSpace5.addEventListener('click', function(){
+    divYesLifeSpace5.style.display = "block";
+    divFunctionLifeSpace6.style.display = "none";
+});
+
+noLifeSpace5.addEventListener('click', function(){
+    divYesLifeSpace5.style.display = "none";
+    divFunctionLifeSpace6.style.display = "block";
+});
+
+// Entretenir le linge.
+
+yesLifeSpace6.addEventListener('click', function(){
+    divYesLifeSpace6.style.display = "block";
+    divNoLifeSpace6.style.display = "none";
+});
+
+noLifeSpace6.addEventListener('click', function(){
+    divYesLifeSpace6.style.display = "none";
+    divNoLifeSpace6.style.display = "block";
+});
+
+// Bloc Domaine environnement exterieur
+
+// Variables 
+
+const yesOutside = document.getElementById('yes_outside');
+const noOutside = document.getElementById('no_outside');
+
+const divFunctionOutside1 = document.querySelector('.function_outside1');
+
+// Effectuer des petits travaux de jardinage
+
+const yesOutside1 = document.getElementById('yes_outside1');
+const noOutside1 = document.getElementById('no_outside1');
+
+const divYesOutside1 = document.querySelector('.yes_outside1');
+
+const divNoOutside1 = document.querySelector('.no_outside1');
+
+// Surveiller la propriété (habitation et dépendances)
+
+const yesOutside2 = document.getElementById('yes_outside2');
+const noOutside2 = document.getElementById('no_outside2');
+
+const divNoOutside2 = document.querySelector('.no_outside2');
+const divYesOutside2_3 = document.querySelector('.yes_outside2-3');
+
+// Entretenir la propriété (habitation et dépendances)
+
+const yesOutside3 = document.getElementById('yes_outside3');
+const noOutside3 = document.getElementById('no_outside3');
+
+const divNoOutside3 = document.querySelector('.no_outside3');
+
+// Assurer des tâches complémentaires
+
+const yesOutside4 = document.getElementById('yes_outside4');
+const noOutside4 = document.getElementById('no_outside4');
+
+const divNoOutside4 = document.querySelector('.no_outside4');
+const divYesOutside4 = document.querySelector('.yes_outside4');
+
+// Fonctions
+
+yesOutside.addEventListener('click', function(){
+    divFunctionOutside1.style.display = "block";
+});
+
+noOutside.addEventListener('click', function(){
+    divFunctionOutside1.style.display = "none";
+    divNoOutside2.style.display = "none";
+});
+
+// Effectuer des petits travaux de jardinage
+
+yesOutside1.addEventListener('click', function(){
+    divYesOutside1.style.display = "block";
+    divNoOutside1.style.display = "none";
+    divNoOutside2.style.display = "none";
+    divNoOutside3.style.display = "none";
+});
+
+noOutside1.addEventListener('click', function(){
+    divNoOutside1.style.display = "block";
+    divYesOutside1.style.display = "none";
+});
+
+// Surveiller la propriété (habitation et dépendances)
+
+yesOutside2.addEventListener('click', function(){
+    divYesOutside2_3.style.display = "block";
+    divNoOutside2.style.display = "none";
+    divNoOutside3.style.display = "none";
+    divYesOutside4.style.display = "none";
+    divNoOutside4.style.display = "none";
+});
+
+noOutside2.addEventListener('click', function(){
+    divYesOutside2_3.style.display = "none";
+    divNoOutside2.style.display = "block";
+    divNoOutside3.style.display = "none";
+    divYesOutside4.style.display = "none";
+    divNoOutside4.style.display = "none";
+});
+
+// Entretenir la propriété (habitation et dépendances)
+
+yesOutside3.addEventListener('click', function(){
+    divYesOutside2_3.style.display = "block";
+    divNoOutside3.style.display = "none";
+    divYesOutside4.style.display = "none";
+    divNoOutside4.style.display = "none";
+});
+
+noOutside3.addEventListener('click', function(){
+    divYesOutside2_3.style.display = "none";
+    divNoOutside3.style.display = "block";
+    divYesOutside4.style.display = "none";
+    divNoOutside4.style.display = "none";
+});
+
+// Assurer des tâches complémentaires
+
+yesOutside4.addEventListener('click', function(){
+    divYesOutside4.style.display = "block";
+    divNoOutside4.style.display = "none";
+});
+
+noOutside4.addEventListener('click', function(){
+    divNoOutside4.style.display = "block";
+    divYesOutside4.style.display = "none";
+});
+
+
 
 // Pour faire disparaître le cinquième écran et faire apparaître le sixième
 
