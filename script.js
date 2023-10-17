@@ -1562,6 +1562,185 @@ btnBackToScreen6.addEventListener('click', function(){
 
 
 
+// DEBUT ECRAN 8 - ECRAN HEURES RESPONSABLES
+
+// Pour faire disparaître l'écran 8 et faire apparaître l'écran 9
+
+const btnToScreen9 = document.querySelector('.button_toscreen9');
+const listScreen9 = document.querySelector('.list-screen9');
+
+const screen9 = document.querySelector('.screen9');
+const inputsScreen8 = screen8.querySelectorAll('.required8');
+
+btnToScreen9.addEventListener('click', function(){
+    listScreen8.style.color = "#6511D0";
+    listScreen9.style.color = "#E25C33";
+    screen8.style.display = "none";
+    screen9.style.display = "block";
+});
+
+// Pour revenir à l'écran 7
+
+const btnBackToScreen7 = document.querySelector('.button_backscreen7');
+
+btnBackToScreen7.addEventListener('click', function(){
+    listScreen8.style.color = "#6511D0";
+    listScreen7.style.color = "#E25C33";
+    screen8.style.display = "none";
+    screen7.style.display = "block";
+});
+
+// FIN ECRAN 8 - ECRAN HEURES RESPONSABLES
+
+
+
+// DEBUT ECRAN 9 - ECRAN REPOS HEBDOMADAIRE et Jours feries CONGES PAYES
+
+// Pour faire disparaître l'écran 9 et faire apparaître l'écran 10
+
+const btnToScreen10 = document.querySelector('.button_toscreen10');
+const listScreen10 = document.querySelector('.list-screen10');
+
+const screen10 = document.querySelector('.screen10');
+const inputsScreen9 = screen9.querySelectorAll('.required9');
+
+btnToScreen10.addEventListener('click', function(){
+    listScreen9.style.color = "#6511D0";
+    listScreen10.style.color = "#E25C33";
+    screen9.style.display = "none";
+    screen10.style.display = "block";
+});
+
+// Pour revenir à l'écran 8
+
+const btnBackToScreen8 = document.querySelector('.button_backscreen8');
+
+btnBackToScreen8.addEventListener('click', function(){
+    listScreen9.style.color = "#6511D0";
+    listScreen8.style.color = "#E25C33";
+    screen9.style.display = "none";
+    screen8.style.display = "block";
+});
+
+// FIN ECRAN 9 - ECRAN REPOS HEBDOMADAIRE et Jours feries CONGES PAYES
+
+
+
+// DEBUT ECRAN 10 – ECRAN ABSENCES
+
+// Pour faire disparaître l'écran 10 et faire apparaître l'écran 11
+
+const btnToScreen11 = document.querySelector('.button_toscreen11');
+const listScreen11 = document.querySelector('.list-screen11');
+
+const screen11 = document.querySelector('.screen11');
+const inputsScreen10 = screen10.querySelectorAll('.required10');
+
+btnToScreen11.addEventListener('click', function(){
+    listScreen10.style.color = "#6511D0";
+    listScreen11.style.color = "#E25C33";
+    screen10.style.display = "none";
+    screen11.style.display = "block";
+});
+
+// Pour revenir à l'écran 9
+
+const btnBackToScreen9 = document.querySelector('.button_backscreen9');
+
+btnBackToScreen9.addEventListener('click', function(){
+    listScreen10.style.color = "#6511D0";
+    listScreen9.style.color = "#E25C33";
+    screen10.style.display = "none";
+    screen9.style.display = "block";
+});
+
+// FIN ECRAN 10 – ECRAN ABSENCES
+
+
+
+// DEBUT ECRAN 11 – REMUNERATION
+
+// Pour faire disparaître l'écran 11 et faire apparaître l'écran 12
+
+const btnToScreen12 = document.querySelector('.button_toscreen12');
+const listScreen12 = document.querySelector('.list-screen12');
+
+const screen12 = document.querySelector('.screen12');
+const inputsScreen11 = screen11.querySelectorAll('.required11');
+
+btnToScreen12.addEventListener('click', function(){
+    listScreen11.style.color = "#6511D0";
+    listScreen12.style.color = "#E25C33";
+    screen11.style.display = "none";
+    screen12.style.display = "block";
+});
+
+// Pour revenir à l'écran 10
+
+const btnBackToScreen10 = document.querySelector('.button_backscreen10');
+
+btnBackToScreen10.addEventListener('click', function(){
+    listScreen11.style.color = "#6511D0";
+    listScreen10.style.color = "#E25C33";
+    screen11.style.display = "none";
+    screen10.style.display = "block";
+});
+
+// FIN ECRAN 11 – REMUNERATION
+
+
+// DEBUT ECRAN 12 – ECRAN INFORMATIONS A CONSIGNER
+
+// Info Véhicule
+
+const yesDriving = document.getElementById('yes_driving');
+const noDriving = document.getElementById('no_driving');
+
+const divYesDriving = document.querySelector('.yes-driving');
+
+yesDriving.addEventListener('click', function() {
+    divYesDriving.style.display = "block";
+});
+
+noDriving.addEventListener('click', function() {
+    divYesDriving.style.display = "none";
+});
+
+
+// Ajouter un enfant
+
+const btnAddChild = document.getElementById('addChild');
+const ctnAddChild = document.querySelector('.addChild');
+
+btnAddChild.addEventListener('click', function(){
+    console.log('cliqué');
+    const inputChildName = document.createElement('input');
+    inputChildName.type = 'text';
+
+    inputChildName.classList.add('input');
+
+    ctnAddChild.appendChild(inputChildName);  
+});
+
+// Pour revenir à l'écran 11
+
+const inputsScreen12 = screen11.querySelectorAll('.required12');
+
+const btnBackToScreen11 = document.querySelector('.button_backscreen11');
+
+btnBackToScreen11.addEventListener('click', function(){
+    listScreen12.style.color = "#6511D0";
+    listScreen11.style.color = "#E25C33";
+    screen12.style.display = "none";
+    screen11.style.display = "block";
+});
+
+// FIN ECRAN 12 – ECRAN INFORMATIONS A CONSIGNER
+
+
+
+
+
 
 
 

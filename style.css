@@ -91,6 +91,16 @@ button {
     border: none;
 }
 
+textarea {
+    margin: 5px 0;
+    padding-left: 10px;
+    min-width: 597px;
+    max-width: 597px;
+    border: none;
+    border-radius: 10px;
+    background-color: #E7EBFC;
+}
+
 .screen2, .screen3, .screen4, .screen5, .screen6, .screen7, .screen8, .screen9, .screen10, .screen11, .screen12 {
     display: none;
 }
@@ -150,6 +160,11 @@ button {
 }
 
 
+/* SCREEN 12 */
+
+.yes-driving {
+    display: none;
+}
 
 
 
