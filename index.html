@@ -930,7 +930,7 @@
 
                 <h3>Est-ce que la durée du travail est déterminé ?</h3>
                 <div>
-                    <input type="radio" id="yes_working_time1" name="working_time1" value="yes" checked/>
+                    <input type="radio" id="yes_working_time1" name="working_time1" value="yes"/>
                     <label for="yes_working_time">Oui</label>
                 </div>
                 <div>
@@ -940,63 +940,164 @@
                 <div class="yes_working_time1">
                     <h3>Le particulier employeur peut déterminer la répartition des jours et horaires de travail du salarié au moment de la conclusion du contrat ?</h3>
                     <div>
-                        <input type="radio" id="yes_working_time2" name="working_time2" value="yes" checked/>
+                        <input type="radio" id="yes_working_time2" name="working_time2" value="yes"/>
                         <label for="yes_working_time2">Oui</label>
                     </div>
                     <div>
                         <input type="radio" id="no_working_time2" name="working_time2" value="no" />
                         <label for="no_working_time2">Non</label>
                     </div>
-                    <div class="yes_working_time2">
-                        <h3>Horaires de travail</h3>
-                        <div class="weekday">
-                            <h4>Lundi, heure d'arrivé</h4>
-                            <input type="number" id="monday_arrival" name="monday_arrival"/>
-                            <h4>Lundi, heure de depart</h4>
-                            <input type="number" id="monday_departure" name="monday_departure"/>
-                            <div class="calc_monday-presence-time">
-                                <!-- Résultat des calcules du temps de présence reélle -->
-                            </div>
-                            <h4>Lundi, travail effectif</h4>
-                            <input type="number" id="monday_actual-work" name="monday_actual-work"/>
-                            <h4>Lundi, présence responsable</h4>
-                            <input type="number" id="monday_responsible-presence" name="monday_responsible presence"/>
-                        </div>
-                        <div class="weekday">
-                            <h4>Mardi, heure d'arrivé</h4>
-                            <input type="number" id="tuesday_arrival" name="tuesday_arrival"/>
-                            <h4>Mardi, heure de depart</h4>
-                            <input type="number" id="tuesday_departure" name="tuesday_departure"/>
-                            <div class="calc_tuesday-presence-time">
-                                <!-- Résultat des calcules du temps de présence réelle -->
-                            </div>
-                            <h4>Mardi, travail effectif</h4>
-                            <input type="number" id="tuesday_actual-work" name="tuesday_actual-work"/>
-                            <h4>Mardi, présence responsable</h4>
-                            <input type="number" id="tuesday_responsible-presence" name="tuesday_responsible presence"/>
-                        </div>
-                        <!-- AJOUTER LES AUTRES JOURS DE LA SEMAINE -->
-                    </div>
-                    <div class="no_working_time2">
-                        <h3>Nombre d'heures de travail effectif par semaine</h3>
-                        <input type="number" id="working_hours" name="working_hours" placeholder="Inserez le nombre d'heures de travail effectif par semaine"/>
-                        <h3>Nombre d'heures responsables par semaine</h3>
-                        <input type="number" id="responsible_hours" name="responsible_hours" placeholder="Inserez le nombre d'heures responsables par semaine"/>
-                    </div>
                 </div>
+
                 <div class="no_working_time1">
-                    <p>Comme convenu entre les parties, la durée de travail est dite « irrégulière» au sens de l’article 132 de la Convention collective nationale de la branche du secteur des particuliers employeurs et de l’emploi à domicile. En cas de durée de travail irrégulière,</p>
+                    <p>Comme convenu entre les parties, la durée de travail est dite « irrégulière» au sens de l’article 132 de la Convention collective nationale de la branche du secteur des particuliers employeurs et de l’emploi à domicile. En cas de durée de travail irrégulière, le planning sera remis au salarié par :</p>
                     <h3>Mode remise planning</h3>
                     <select>
                         <option valeur="in-person">Main propre</option>
                         <option valeur="e-mail">Courriel</option>
                         <option valeur="sms">SMS</option>
                     </select>
-
                 </div>
+
+                <div class="yes_working_time2">
+                    <div class="weekday">
+                        <h3>Horaires de travail : Lundi</h3>
+                        <h4>Heure d'arrivée</h4>
+                        <select id="arrivalMonday"></select>
+                        <h4>Heure de depart</h4>
+                        <select id="departureMonday"></select>
+                        <div class="calc_presence-time_monday">
+                            <!-- Résultat des calcules du temps de présence reélle -->
+                            <button id="calcMonday">Calculer la présence reélle</button>   
+                            <div id="resultMonday"></div> 
+                        </div>
+
+                        <h4>Travail effectif</h4>
+                        <input type="number" id="monday_actual_work" name="monday_actual_work"/>
+                        <h4>Présence responsable</h4>
+                        <input type="number" id="monday_responsible_presence" name="monday_responsible_presence"/>
+                    </div>
+
+                    <div class="weekday">
+                        <h3>Horaires de travail : Mardi</h3>
+                        <h4>Heure d'arrivée</h4>
+                        <select id="arrivalTuesday"></select>
+                        <h4>Heure de depart</h4>
+                        <select id="departureTuesday"></select>
+                        <div class="calc_presence-time_tuesday">
+                            <!-- Résultat des calcules du temps de présence reélle -->
+                            <button id="calcTuesday">Calculer la présence reélle</button>   
+                            <div id="resultTuesday"></div> 
+                        </div>
+
+                        <h4>Travail effectif</h4>
+                        <input type="number" id="tuesday_actual-work" name="tuesday_actual-work"/>
+                        <h4>Présence responsable</h4>
+                        <input type="number" id="tuesday_responsible_presence" name="tuesday_responsible_presence"/>
+                    </div>
+
+                    <div class="weekday">
+                        <h3>Horaires de travail : Mercredi</h3>
+                        <h4>Heure d'arrivée</h4>
+                        <select id="arrivalWednesday"></select>
+                        <h4>Heure de depart</h4>
+                        <select id="departureWednesday"></select>
+                        <div class="calc_presence-time_wednesday">
+                            <!-- Résultat des calcules du temps de présence reélle -->
+                            <button id="calcWednesday">Calculer la présence reélle</button>   
+                            <div id="resultWednesday"></div> 
+                        </div>
+
+                        <h4>Travail effectif</h4>
+                        <input type="number" id="wednesday_actual_work" name="wednesday_actual_work"/>
+                        <h4>Présence responsable</h4>
+                        <input type="number" id="wednesday_responsible_presence" name="wednesday_responsible_presence"/>
+                    </div>
+
+                    <div class="weekday">
+                        <h3>Horaires de travail : Jeudi</h3>
+                        <h4>Heure d'arrivée</h4>
+                        <select id="arrivalThursday"></select>
+                        <h4>Heure de depart</h4>
+                        <select id="departureThursday"></select>
+                        <div class="calc_presence-time_thursday">
+                            <!-- Résultat des calcules du temps de présence reélle -->
+                            <button id="calcThursday">Calculer la présence reélle</button>   
+                            <div id="resultThursday"></div> 
+                        </div>
+
+                        <h4>Travail effectif</h4>
+                        <input type="number" id="thursday_actual_work" name="thursday_actual_work"/>
+                        <h4>Présence responsable</h4>
+                        <input type="number" id="thursday_responsible_presence" name="thursday_responsible_presence"/>
+                    </div>
+
+                    <div class="weekday">
+                        <h3>Horaires de travail : Vendredi</h3>
+                        <h4>Heure d'arrivée</h4>
+                        <select id="arrivalFriday"></select>
+                        <h4>Heure de depart</h4>
+                        <select id="departureFriday"></select>
+                        <div class="calc_presence-time_friday">
+                            <!-- Résultat des calcules du temps de présence reélle -->
+                            <button id="calcFriday">Calculer la présence reélle</button>   
+                            <div id="resultFriday"></div> 
+                        </div>
+
+                        <h4>Travail effectif</h4>
+                        <input type="number" id="friday_actual_work" name="friday_actual_work"/>
+                        <h4>Présence responsable</h4>
+                        <input type="number" id="friday_responsible_presence" name="friday_responsible_presence"/>
+                    </div>
+
+                    <div class="weekday">
+                        <h3>Horaires de travail : Samedi</h3>
+                        <h4>Heure d'arrivée</h4>
+                        <select id="arrivalSaturday"></select>
+                        <h4>Heure de depart</h4>
+                        <select id="departureSaturday"></select>
+                        <div class="calc_presence-time_saturday">
+                            <!-- Résultat des calcules du temps de présence reélle -->
+                            <button id="calcSaturday">Calculer la présence reélle</button>   
+                            <div id="resultSaturday"></div> 
+                        </div>
+
+                        <h4>Travail effectif</h4>
+                        <input type="number" id="saturday_actual_work" name="saturday_actual_work"/>
+                        <h4>Présence responsable</h4>
+                        <input type="number" id="saturday_responsible_presence" name="saturday_responsible_presence"/>
+                    </div>
+
+                    <div class="weekday">
+                        <h3>Horaires de travail : Dimanche</h3>
+                        <h4>Heure d'arrivée</h4>
+                        <select id="arrivalSunday"></select>
+                        <h4>Heure de depart</h4>
+                        <select id="departureSunday"></select>
+                        <div class="calc_presence-time_sunday">
+                            <!-- Résultat des calcules du temps de présence reélle -->
+                            <button id="calcSunday">Calculer la présence reélle</button>   
+                            <div id="resultSunday"></div> 
+                        </div>
+
+                        <h4>Travail effectif</h4>
+                        <input type="number" id="sunday_actual_work" name="sunday_actual_work"/>
+                        <h4>Présence responsable</h4>
+                        <input type="number" id="sunday_responsible_presence" name="sunday_responsible_presence"/>
+                    </div>
+                    
+                </div>
+                
+                <div class="no_working_time2">
+                    <h3>Nombre d'heures de travail effectif par semaine</h3>
+                    <input type="number" id="working_hours" name="working_hours" placeholder="Inserez le nombre d'heures de travail effectif par semaine"/>
+                    <h3>Nombre d'heures responsables par semaine</h3>
+                    <input type="number" id="responsible_hours" name="responsible_hours" placeholder="Inserez le nombre d'heures responsables par semaine"/>
+                </div>
+
                 <div class="buttons">
-                    <button>PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                    <button>PASSER À l'ÉTAPE SUIVANTE</button>
+                    <button class="button_backscreen6">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                    <button class="button_toscreen8">PASSER À l'ÉTAPE SUIVANTE</button>
                 </div>
             </div>
             <!-- FIN ECRAN 7 – ECRAN DUREE DE TRAVAIL + LES HORAIRES DE TRAVAIL-->

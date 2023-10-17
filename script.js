@@ -959,23 +959,13 @@ noOutside4.addEventListener('click', function(){
     divYesOutside4.style.display = "none";
 });
 
-
-
-// Pour faire disparaître le cinquième écran et faire apparaître le sixième
+// Pour faire disparaître le sixième écran et faire apparaître le septième
 
 const btnToScreen7 = document.querySelector('.button_toscreen7');
-
 const listScreen7 = document.querySelector('.list-screen7');
 
 const screen7 = document.querySelector('.screen7');
-
 const inputsScreen6 = screen6.querySelectorAll('.required6');
-
-// Pour revenir à l'écran 5
-
-const btnBackToScreen5 = document.querySelector('.button_backscreen5');
-
-// Pour faire disparaître le cinquième écran et faire apparaître le sixième
 
 btnToScreen7.addEventListener('click', function(){
     listScreen6.style.color = "#6511D0";
@@ -986,6 +976,8 @@ btnToScreen7.addEventListener('click', function(){
 
 // Pour revenir à l'écran 5
 
+const btnBackToScreen5 = document.querySelector('.button_backscreen5');
+
 btnBackToScreen5.addEventListener('click', function(){
     listScreen6.style.color = "#6511D0";
     listScreen5.style.color = "#E25C33";
@@ -994,3 +986,583 @@ btnBackToScreen5.addEventListener('click', function(){
 });
 
 // FIN ECRAN 6 - ECRAN FONCTIONS
+
+// DEBUT ECRAN 7 - ECRAN DUREE DE TRAVAIL + LES HORAIRES DE TRAVAIL
+
+// Est-ce que la durée du travail est déterminé ?
+
+const yesWorkingTime1 = document.getElementById('yes_working_time1');
+const noWorkingTime1 = document.getElementById('no_working_time1');
+
+const divYesWorkingTime1 = document.querySelector('.yes_working_time1');
+const divNoWorkingTime1 = document.querySelector('.no_working_time1');
+
+yesWorkingTime1.addEventListener('click', function(){
+    divYesWorkingTime1.style.display = "block";
+    divNoWorkingTime1.style.display = "none";
+    divNoWorkingTime2.style.display = "none";
+    divYesWorkingTime2.style.display = "none";
+});
+
+noWorkingTime1.addEventListener('click', function(){
+    divNoWorkingTime1.style.display = "block";
+    divYesWorkingTime1.style.display = "none";
+    divNoWorkingTime2.style.display = "none";
+    divYesWorkingTime2.style.display = "none";
+});
+
+// Le particulier employeur peut déterminer la répartition des jours et horaires de travail du salarié au moment de la conclusion du contrat ?
+
+const yesWorkingTime2 = document.getElementById('yes_working_time2');
+const noWorkingTime2 = document.getElementById('no_working_time2');
+
+const divYesWorkingTime2 = document.querySelector('.yes_working_time2');
+const divNoWorkingTime2 = document.querySelector('.no_working_time2');
+
+yesWorkingTime2.addEventListener('click', function(){
+    divYesWorkingTime2.style.display = "block";
+    divNoWorkingTime2.style.display = "none";
+});
+
+noWorkingTime2.addEventListener('click', function(){
+    divNoWorkingTime2.style.display = "block";
+    divYesWorkingTime2.style.display = "none";
+});
+
+// Horaires de travail
+
+
+// LUNDI
+// Sélectionner l'élément select dans le HTML
+const arrivalMondayTimeSelect = document.getElementById('arrivalMonday');
+const departureMondayTimeSelect = document.getElementById('departureMonday');
+
+checkDuration(arrivalMondayTimeSelect);
+checkDuration(departureMondayTimeSelect);
+
+function checkDuration(timeSelectMonday){
+    // Boucle pour générer les horaires toutes les 15 minutes
+    for (let hours = 0; hours < 24; hours++) {
+    for (let minutes = 0; minutes < 60; minutes += 15) {
+      // Créez une option pour chaque horaire
+      const optionElement = document.createElement('option');
+      const hoursFormat = hours.toString().padStart(2, '0');
+      const minuteFormat = minutes.toString().padStart(2, '0');
+      const hour = `${hoursFormat}:${minuteFormat}`;
+      
+      optionElement.value = hour;
+      optionElement.text = hour;
+      timeSelectMonday.appendChild(optionElement);
+    }
+  }
+}
+
+const btnCalcMonday = document.getElementById('calcMonday');
+
+btnCalcMonday.addEventListener('click', function(){
+    // RECUPERER RESULTAT LISTE DEROULANTE
+    // Récupération de l’attribut value sélectionné dans la liste déroulante.
+    console.log("Resultat liste deroulante : " + arrivalMondayTimeSelect.value);
+    console.log("Resultat liste deroulante : " + departureMondayTimeSelect.value);
+    // Maintenant on souhaite récupérer le texte visible du menu déroulant.
+    let choice1 = arrivalMondayTimeSelect.selectedIndex;
+    let selectedOptionTextArrival = arrivalMondayTimeSelect.options[choice1].text;
+
+    let choice2 = departureMondayTimeSelect.selectedIndex;
+    let selectedOptionTextDeparture = departureMondayTimeSelect.options[choice2].text;
+
+   // Obtenir les valeurs sélectionnées
+    const arrivalTime = arrivalMondayTimeSelect.value;
+    const departureTime = departureMondayTimeSelect.value;
+
+    // Convertir les valeurs en objets Date (aujourd'hui)
+    const startDate = new Date();
+    const endDate = new Date();
+
+    const [arrivalHours, arrivalMinutes] = arrivalTime.split(':');
+    startDate.setHours(parseInt(arrivalHours, 10));
+    startDate.setMinutes(parseInt(arrivalMinutes, 10));
+
+    const [departureHours, departureMinutes] = departureTime.split(':');
+    endDate.setHours(parseInt(departureHours, 10));
+    endDate.setMinutes(parseInt(departureMinutes, 10));
+
+    // Calculer la durée en millisecondes
+    const durationInMilliseconds = endDate - startDate;
+
+    // Convertir la durée en heures et minutes
+    const durationInHours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+    const durationInMinutes = Math.floor((durationInMilliseconds / (1000 * 60)) % 60);
+
+    console.log(`Total duration: ${durationInHours} hours and ${durationInMinutes} minutes`);
+
+    // Afficher le resultat dans un paragraph
+    const calcResultMonday = document.getElementById('resultMonday');
+    const newParagraph = document.createElement('p');
+
+    newParagraph.textContent = "Durée totale :" + ' ' + durationInHours + ' ' + "heures et" + ' ' + durationInMinutes + ' ' + "minutes.";
+
+    calcResultMonday.appendChild(newParagraph);
+
+});
+
+// MARDI
+// Sélectionner l'élément select dans le HTML
+const arrivalTuesdayTimeSelect = document.getElementById('arrivalTuesday');
+const departureTuesdayTimeSelect = document.getElementById('departureTuesday');
+
+function checkDuration(timeSelectTuesday){
+    // Boucle pour générer les horaires toutes les 15 minutes
+    for (let hours = 0; hours < 24; hours++) {
+    for (let minutes = 0; minutes < 60; minutes += 15) {
+      // Créez une option pour chaque horaire
+      const optionElement = document.createElement('option');
+      const hoursFormat = hours.toString().padStart(2, '0');
+      const minuteFormat = minutes.toString().padStart(2, '0');
+      const hour = `${hoursFormat}:${minuteFormat}`;
+      
+      optionElement.value = hour;
+      optionElement.text = hour;
+      timeSelectTuesday.appendChild(optionElement);
+    }
+  }
+}
+
+checkDuration(arrivalTuesdayTimeSelect);
+checkDuration(departureTuesdayTimeSelect);
+
+const btnCalcTuesday = document.getElementById('calcTuesday');
+
+btnCalcTuesday.addEventListener('click', function(){
+    // RECUPERER RESULTAT LISTE DEROULANTE
+    // Maintenant on souhaite récupérer le texte visible du menu déroulant.
+    let choice1 = arrivalTuesdayTimeSelect.selectedIndex;
+    let selectedOptionTextArrival = arrivalTuesdayTimeSelect.options[choice1].text;
+
+    let choice2 = departureTuesdayTimeSelect.selectedIndex;
+    let selectedOptionTextDeparture = departureTuesdayTimeSelect.options[choice2].text;
+
+   // Obtenir les valeurs sélectionnées
+    const arrivalTime = arrivalTuesdayTimeSelect.value;
+    const departureTime = departureTuesdayTimeSelect.value;
+
+    // Convertir les valeurs en objets Date (aujourd'hui)
+    const startDate = new Date();
+    const endDate = new Date();
+
+    const [arrivalHours, arrivalMinutes] = arrivalTime.split(':');
+    startDate.setHours(parseInt(arrivalHours, 10));
+    startDate.setMinutes(parseInt(arrivalMinutes, 10));
+
+    const [departureHours, departureMinutes] = departureTime.split(':');
+    endDate.setHours(parseInt(departureHours, 10));
+    endDate.setMinutes(parseInt(departureMinutes, 10));
+
+    // Calculer la durée en millisecondes
+    const durationInMilliseconds = endDate - startDate;
+
+    // Convertir la durée en heures et minutes
+    const durationInHours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+    const durationInMinutes = Math.floor((durationInMilliseconds / (1000 * 60)) % 60);
+
+    console.log(`Total duration: ${durationInHours} hours and ${durationInMinutes} minutes`);
+
+    // Afficher le resultat dans un paragraph
+    const calcResultTuesday = document.getElementById('resultTuesday');
+    const newParagraph = document.createElement('p');
+
+    newParagraph.textContent = "Durée totale :" + ' ' + durationInHours + ' ' + "heures et" + ' ' + durationInMinutes + ' ' + "minutes.";
+
+    calcResultTuesday.appendChild(newParagraph);
+
+});
+
+// MERCREDI
+// Sélectionner l'élément select dans le HTML
+const arrivalWednesdayTimeSelect = document.getElementById('arrivalWednesday');
+const departureWednesdayTimeSelect = document.getElementById('departureWednesday');
+
+function checkDuration(timeSelectWednesday){
+    // Boucle pour générer les horaires toutes les 15 minutes
+    for (let hours = 0; hours < 24; hours++) {
+    for (let minutes = 0; minutes < 60; minutes += 15) {
+      // Créez une option pour chaque horaire
+      const optionElement = document.createElement('option');
+      const hoursFormat = hours.toString().padStart(2, '0');
+      const minuteFormat = minutes.toString().padStart(2, '0');
+      const hour = `${hoursFormat}:${minuteFormat}`;
+      
+      optionElement.value = hour;
+      optionElement.text = hour;
+      timeSelectWednesday.appendChild(optionElement);
+    }
+  }
+}
+
+checkDuration(arrivalWednesdayTimeSelect);
+checkDuration(departureWednesdayTimeSelect);
+
+const btnCalcWednesday = document.getElementById('calcWednesday');
+
+btnCalcWednesday.addEventListener('click', function(){
+    // RECUPERER RESULTAT LISTE DEROULANTE
+    // Maintenant on souhaite récupérer le texte visible du menu déroulant.
+    let choice1 = arrivalWednesdayTimeSelect.selectedIndex;
+    let selectedOptionTextArrival = arrivalWednesdayTimeSelect.options[choice1].text;
+
+    let choice2 = departureWednesdayTimeSelect.selectedIndex;
+    let selectedOptionTextDeparture = departureWednesdayTimeSelect.options[choice2].text;
+
+   // Obtenir les valeurs sélectionnées
+    const arrivalTime = arrivalWednesdayTimeSelect.value;
+    const departureTime = departureWednesdayTimeSelect.value;
+
+    // Convertir les valeurs en objets Date (aujourd'hui)
+    const startDate = new Date();
+    const endDate = new Date();
+
+    const [arrivalHours, arrivalMinutes] = arrivalTime.split(':');
+    startDate.setHours(parseInt(arrivalHours, 10));
+    startDate.setMinutes(parseInt(arrivalMinutes, 10));
+
+    const [departureHours, departureMinutes] = departureTime.split(':');
+    endDate.setHours(parseInt(departureHours, 10));
+    endDate.setMinutes(parseInt(departureMinutes, 10));
+
+    // Calculer la durée en millisecondes
+    const durationInMilliseconds = endDate - startDate;
+
+    // Convertir la durée en heures et minutes
+    const durationInHours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+    const durationInMinutes = Math.floor((durationInMilliseconds / (1000 * 60)) % 60);
+
+    console.log(`Total duration: ${durationInHours} hours and ${durationInMinutes} minutes`);
+
+    // Afficher le resultat dans un paragraph
+    const calcResultWednesday = document.getElementById('resultWednesday');
+    const newParagraph = document.createElement('p');
+
+    newParagraph.textContent = "Durée totale :" + ' ' + durationInHours + ' ' + "heures et" + ' ' + durationInMinutes + ' ' + "minutes.";
+
+    calcResultWednesday.appendChild(newParagraph);
+
+});
+
+// JEUDI
+// Sélectionner l'élément select dans le HTML
+const arrivalThursdayTimeSelect = document.getElementById('arrivalThursday');
+const departureThursdayTimeSelect = document.getElementById('departureThursday');
+
+function checkDuration(timeSelectThursday){
+    // Boucle pour générer les horaires toutes les 15 minutes
+    for (let hours = 0; hours < 24; hours++) {
+    for (let minutes = 0; minutes < 60; minutes += 15) {
+      // Créez une option pour chaque horaire
+      const optionElement = document.createElement('option');
+      const hoursFormat = hours.toString().padStart(2, '0');
+      const minuteFormat = minutes.toString().padStart(2, '0');
+      const hour = `${hoursFormat}:${minuteFormat}`;
+      
+      optionElement.value = hour;
+      optionElement.text = hour;
+      timeSelectThursday.appendChild(optionElement);
+    }
+  }
+}
+
+checkDuration(arrivalThursdayTimeSelect);
+checkDuration(departureThursdayTimeSelect);
+
+const btnCalcThursday = document.getElementById('calcThursday');
+
+btnCalcThursday.addEventListener('click', function(){
+    // RECUPERER RESULTAT LISTE DEROULANTE
+    // Maintenant on souhaite récupérer le texte visible du menu déroulant.
+    let choice1 = arrivalThursdayTimeSelect.selectedIndex;
+    let selectedOptionTextArrival = arrivalThursdayTimeSelect.options[choice1].text;
+
+    let choice2 = departureThursdayTimeSelect.selectedIndex;
+    let selectedOptionTextDeparture = departureThursdayTimeSelect.options[choice2].text;
+
+   // Obtenir les valeurs sélectionnées
+    const arrivalTime = arrivalThursdayTimeSelect.value;
+    const departureTime = departureThursdayTimeSelect.value;
+
+    // Convertir les valeurs en objets Date (aujourd'hui)
+    const startDate = new Date();
+    const endDate = new Date();
+
+    const [arrivalHours, arrivalMinutes] = arrivalTime.split(':');
+    startDate.setHours(parseInt(arrivalHours, 10));
+    startDate.setMinutes(parseInt(arrivalMinutes, 10));
+
+    const [departureHours, departureMinutes] = departureTime.split(':');
+    endDate.setHours(parseInt(departureHours, 10));
+    endDate.setMinutes(parseInt(departureMinutes, 10));
+
+    // Calculer la durée en millisecondes
+    const durationInMilliseconds = endDate - startDate;
+
+    // Convertir la durée en heures et minutes
+    const durationInHours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+    const durationInMinutes = Math.floor((durationInMilliseconds / (1000 * 60)) % 60);
+
+    console.log(`Total duration: ${durationInHours} hours and ${durationInMinutes} minutes`);
+
+    // Afficher le resultat dans un paragraph
+    const calcResultThursday = document.getElementById('resultThursday');
+    const newParagraph = document.createElement('p');
+
+    newParagraph.textContent = "Durée totale :" + ' ' + durationInHours + ' ' + "heures et" + ' ' + durationInMinutes + ' ' + "minutes.";
+
+    calcResultThursday.appendChild(newParagraph);
+
+});
+
+// VENDREDI
+// Sélectionner l'élément select dans le HTML
+const arrivalFridayTimeSelect = document.getElementById('arrivalFriday');
+const departureFridayTimeSelect = document.getElementById('departureFriday');
+
+function checkDuration(timeSelectFriday){
+    // Boucle pour générer les horaires toutes les 15 minutes
+    for (let hours = 0; hours < 24; hours++) {
+    for (let minutes = 0; minutes < 60; minutes += 15) {
+      // Créez une option pour chaque horaire
+      const optionElement = document.createElement('option');
+      const hoursFormat = hours.toString().padStart(2, '0');
+      const minuteFormat = minutes.toString().padStart(2, '0');
+      const hour = `${hoursFormat}:${minuteFormat}`;
+      
+      optionElement.value = hour;
+      optionElement.text = hour;
+      timeSelectFriday.appendChild(optionElement);
+    }
+  }
+}
+
+checkDuration(arrivalFridayTimeSelect);
+checkDuration(departureFridayTimeSelect);
+
+const btnCalcFriday = document.getElementById('calcFriday');
+
+btnCalcFriday.addEventListener('click', function(){
+    // RECUPERER RESULTAT LISTE DEROULANTE
+    // Maintenant on souhaite récupérer le texte visible du menu déroulant.
+    let choice1 = arrivalFridayTimeSelect.selectedIndex;
+    let selectedOptionTextArrival = arrivalFridayTimeSelect.options[choice1].text;
+
+    let choice2 = departureFridayTimeSelect.selectedIndex;
+    let selectedOptionTextDeparture = departureFridayTimeSelect.options[choice2].text;
+
+   // Obtenir les valeurs sélectionnées
+    const arrivalTime = arrivalFridayTimeSelect.value;
+    const departureTime = departureFridayTimeSelect.value;
+
+    // Convertir les valeurs en objets Date (aujourd'hui)
+    const startDate = new Date();
+    const endDate = new Date();
+
+    const [arrivalHours, arrivalMinutes] = arrivalTime.split(':');
+    startDate.setHours(parseInt(arrivalHours, 10));
+    startDate.setMinutes(parseInt(arrivalMinutes, 10));
+
+    const [departureHours, departureMinutes] = departureTime.split(':');
+    endDate.setHours(parseInt(departureHours, 10));
+    endDate.setMinutes(parseInt(departureMinutes, 10));
+
+    // Calculer la durée en millisecondes
+    const durationInMilliseconds = endDate - startDate;
+
+    // Convertir la durée en heures et minutes
+    const durationInHours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+    const durationInMinutes = Math.floor((durationInMilliseconds / (1000 * 60)) % 60);
+
+    console.log(`Total duration: ${durationInHours} hours and ${durationInMinutes} minutes`);
+
+    // Afficher le resultat dans un paragraph
+    const calcResultFriday = document.getElementById('resultFriday');
+    const newParagraph = document.createElement('p');
+
+    newParagraph.textContent = "Durée totale :" + ' ' + durationInHours + ' ' + "heures et" + ' ' + durationInMinutes + ' ' + "minutes.";
+
+    calcResultFriday.appendChild(newParagraph);
+
+});
+
+// SAMEDI
+// Sélectionner l'élément select dans le HTML
+const arrivalSaturdayTimeSelect = document.getElementById('arrivalSaturday');
+const departureSaturdayTimeSelect = document.getElementById('departureSaturday');
+
+function checkDuration(timeSelectSaturday){
+    // Boucle pour générer les horaires toutes les 15 minutes
+    for (let hours = 0; hours < 24; hours++) {
+    for (let minutes = 0; minutes < 60; minutes += 15) {
+      // Créez une option pour chaque horaire
+      const optionElement = document.createElement('option');
+      const hoursFormat = hours.toString().padStart(2, '0');
+      const minuteFormat = minutes.toString().padStart(2, '0');
+      const hour = `${hoursFormat}:${minuteFormat}`;
+      
+      optionElement.value = hour;
+      optionElement.text = hour;
+      timeSelectSaturday.appendChild(optionElement);
+    }
+  }
+}
+
+checkDuration(arrivalSaturdayTimeSelect);
+checkDuration(departureSaturdayTimeSelect);
+
+const btnCalcSaturday = document.getElementById('calcSaturday');
+
+btnCalcSaturday.addEventListener('click', function(){
+    // RECUPERER RESULTAT LISTE DEROULANTE
+    // Maintenant on souhaite récupérer le texte visible du menu déroulant.
+    let choice1 = arrivalSaturdayTimeSelect.selectedIndex;
+    let selectedOptionTextArrival = arrivalSaturdayTimeSelect.options[choice1].text;
+
+    let choice2 = departureSaturdayTimeSelect.selectedIndex;
+    let selectedOptionTextDeparture = departureSaturdayTimeSelect.options[choice2].text;
+
+   // Obtenir les valeurs sélectionnées
+    const arrivalTime = arrivalSaturdayTimeSelect.value;
+    const departureTime = departureSaturdayTimeSelect.value;
+
+    // Convertir les valeurs en objets Date (aujourd'hui)
+    const startDate = new Date();
+    const endDate = new Date();
+
+    const [arrivalHours, arrivalMinutes] = arrivalTime.split(':');
+    startDate.setHours(parseInt(arrivalHours, 10));
+    startDate.setMinutes(parseInt(arrivalMinutes, 10));
+
+    const [departureHours, departureMinutes] = departureTime.split(':');
+    endDate.setHours(parseInt(departureHours, 10));
+    endDate.setMinutes(parseInt(departureMinutes, 10));
+
+    // Calculer la durée en millisecondes
+    const durationInMilliseconds = endDate - startDate;
+
+    // Convertir la durée en heures et minutes
+    const durationInHours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+    const durationInMinutes = Math.floor((durationInMilliseconds / (1000 * 60)) % 60);
+
+    console.log(`Total duration: ${durationInHours} hours and ${durationInMinutes} minutes`);
+
+    // Afficher le resultat dans un paragraph
+    const calcResultSaturday = document.getElementById('resultSaturday');
+    const newParagraph = document.createElement('p');
+
+    newParagraph.textContent = "Durée totale :" + ' ' + durationInHours + ' ' + "heures et" + ' ' + durationInMinutes + ' ' + "minutes.";
+
+    calcResultSaturday.appendChild(newParagraph);
+
+});
+
+// DIMANCHE
+// Sélectionner l'élément select dans le HTML
+const arrivalSundayTimeSelect = document.getElementById('arrivalSunday');
+const departureSundayTimeSelect = document.getElementById('departureSunday');
+
+function checkDuration(timeSelectSunday){
+    // Boucle pour générer les horaires toutes les 15 minutes
+    for (let hours = 0; hours < 24; hours++) {
+    for (let minutes = 0; minutes < 60; minutes += 15) {
+      // Créez une option pour chaque horaire
+      const optionElement = document.createElement('option');
+      const hoursFormat = hours.toString().padStart(2, '0');
+      const minuteFormat = minutes.toString().padStart(2, '0');
+      const hour = `${hoursFormat}:${minuteFormat}`;
+      
+      optionElement.value = hour;
+      optionElement.text = hour;
+      timeSelectSunday.appendChild(optionElement);
+    }
+  }
+}
+
+checkDuration(arrivalSundayTimeSelect);
+checkDuration(departureSundayTimeSelect);
+
+const btnCalcSunday = document.getElementById('calcSunday');
+
+btnCalcSunday.addEventListener('click', function(){
+    // RECUPERER RESULTAT LISTE DEROULANTE
+    // Maintenant on souhaite récupérer le texte visible du menu déroulant.
+    let choice1 = arrivalSundayTimeSelect.selectedIndex;
+    let selectedOptionTextArrival = arrivalSundayTimeSelect.options[choice1].text;
+
+    let choice2 = departureSundayTimeSelect.selectedIndex;
+    let selectedOptionTextDeparture = departureSundayTimeSelect.options[choice2].text;
+
+   // Obtenir les valeurs sélectionnées
+    const arrivalTime = arrivalSundayTimeSelect.value;
+    const departureTime = departureSundayTimeSelect.value;
+
+    // Convertir les valeurs en objets Date (aujourd'hui)
+    const startDate = new Date();
+    const endDate = new Date();
+
+    const [arrivalHours, arrivalMinutes] = arrivalTime.split(':');
+    startDate.setHours(parseInt(arrivalHours, 10));
+    startDate.setMinutes(parseInt(arrivalMinutes, 10));
+
+    const [departureHours, departureMinutes] = departureTime.split(':');
+    endDate.setHours(parseInt(departureHours, 10));
+    endDate.setMinutes(parseInt(departureMinutes, 10));
+
+    // Calculer la durée en millisecondes
+    const durationInMilliseconds = endDate - startDate;
+
+    // Convertir la durée en heures et minutes
+    const durationInHours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+    const durationInMinutes = Math.floor((durationInMilliseconds / (1000 * 60)) % 60);
+
+    console.log(`Total duration: ${durationInHours} hours and ${durationInMinutes} minutes`);
+
+    // Afficher le resultat dans un paragraph
+    const calcResultSunday = document.getElementById('resultSunday');
+    const newParagraph = document.createElement('p');
+
+    newParagraph.textContent = "Durée totale :" + ' ' + durationInHours + ' ' + "heures et" + ' ' + durationInMinutes + ' ' + "minutes.";
+
+    calcResultSunday.appendChild(newParagraph);
+
+});
+
+// Pour faire disparaître le septième écran et faire apparaître le huitème
+
+const btnToScreen8 = document.querySelector('.button_toscreen8');
+const listScreen8 = document.querySelector('.list-screen8');
+
+const screen8 = document.querySelector('.screen8');
+const inputsScreen7 = screen7.querySelectorAll('.required7');
+
+btnToScreen8.addEventListener('click', function(){
+    listScreen7.style.color = "#6511D0";
+    listScreen8.style.color = "#E25C33";
+    screen7.style.display = "none";
+    screen8.style.display = "block";
+});
+
+// Pour revenir à l'écran 6
+
+const btnBackToScreen6 = document.querySelector('.button_backscreen6');
+
+btnBackToScreen6.addEventListener('click', function(){
+    listScreen7.style.color = "#6511D0";
+    listScreen6.style.color = "#E25C33";
+    screen7.style.display = "none";
+    screen6.style.display = "block";
+});
+
+// FIN ECRAN 7 - ECRAN DUREE DE TRAVAIL + LES HORAIRES DE TRAVAIL
+
+
+
+
+
+
+
