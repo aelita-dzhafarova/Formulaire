@@ -34,8 +34,8 @@
                 <button class="button_toscreen8">Ecran 8. Heures responsables.</button>
                 <button class="button_toscreen9">Ecran 9. Repos hebdomadaire et jours fériés, congés payés.</button>
                 <button class="button_toscreen10">Ecran 10. Absences.</button>
-                <button class="button_toscreen11">Ecran 11. Remunération.</li>
-                    <li>Ecran 12. Informations à consigner.</button>
+                <button class="button_toscreen11">Ecran 11. Remunération.</button>
+                <button class="button_toscreen12">Ecran 12. Informations à consigner.</button>
 
 
                 
@@ -50,7 +50,7 @@
                 <li class="list-screen9">Ecran 9. Repos hebdomadaire et jours fériés, congés payés.</li>
                 <li class="list-screen10">Ecran 10. Absences.</li>
                 <li class="list-screen11">Ecran 11. Remunération.</li>
-                <li>Ecran 12. Informations à consigner.</li>
+                <li class="list-screen12">Ecran 12. Informations à consigner.</li>
 
 
             </ul>
@@ -1105,6 +1105,10 @@
             <!-- DEBUT ECRAN 8 - ECRAN HEURES RESPONSABLES -->
             <div class="screen8">
                 <h2>Heures responsables</h2>
+                <p>
+                    La présence de nuit ne peut être prévue sur plus de 5 nuits consécutives qu’à la demande écrite du salarié ou, avec son acceptation écrite, et dans le respect des règles du repos hebdomadaire, en réponse à des besoins spécifiques du particulier employeur nécessitant une présence la nuit en raison notamment de son état de santé et/ou de dépendance, son handicap, son âge, et/ou son isolement social et/ou familial.</br>
+                    Les parties peuvent, le cas échéant, définir les durées des interventions, si celles-ci sont prévisibles. A défaut, elles pourront préciser le nombre et la durée des interventions dans le carnet de transmission.
+                </p>
                 <!-- Si la garde d'enfants ou aide à la personne sont choisies -->
                 <div class="num-night-intervantion">
                     <h3>Nombre habituel d’interventions au cours de la nuit</h3>
@@ -1354,8 +1358,8 @@
                         </div> 
 
                         <div class="buttons">
-                            <button>PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                            <button>PASSER À l'ÉTAPE SUIVANTE</button>
+                            <button class="button_backscreen7">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                            <button class="button_toscreen9">PASSER À l'ÉTAPE SUIVANTE</button>
                         </div>
             </div>
             <!-- FIN ECRAN 8 - ECRAN HEURES RESPONSABLES-->
@@ -1427,8 +1431,8 @@
                     </div>
 
                     <div class="buttons">
-                        <button>PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                        <button>PASSER À l'ÉTAPE SUIVANTE</button>
+                        <button class="button_backscreen8">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                        <button class="button_toscreen10">PASSER À l'ÉTAPE SUIVANTE</button>
                     </div>
             </div>
             <!-- FIN ECRAN 9 - ECRAN REPOS HEBDOMADAIRE et Jours feries CONGES PAYES -->
@@ -1456,8 +1460,8 @@
                 </br>
                 
                 <div class="buttons">
-                    <button>PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                    <button>PASSER À l'ÉTAPE SUIVANTE</button>
+                    <button class="button_backscreen9">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                    <button class="button_toscreen11">PASSER À l'ÉTAPE SUIVANTE</button>
                 </div>
             </div>
             <!-- FIN ECRAN 10 – ECRAN ABSENCES -->
@@ -1509,8 +1513,8 @@
                 {varMensuelBrut} =varSalaireBrut}x{varNombreheureeffectif} x52/12 -->
 
                 <div class="buttons">
-                    <button>PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                    <button>PASSER À l'ÉTAPE SUIVANTE</button>
+                    <button class="button_backscreen10">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                    <button class="button_toscreen12">PASSER À l'ÉTAPE SUIVANTE</button>
                 </div>
             </div>
             <!-- FIN ECRAN 11 – REMUNERATION -->
@@ -1518,36 +1522,40 @@
             <!-- DEBUT ECRAN 12 – ECRAN INFORMATIONS A CONSIGNER -->
             <div class="screen12">
                 <h2>Informations à consigner</h2>
+                <p>
+                    Les parties peuvent envisager certaines règles particulières adaptées à leur situation en prévoyant les activités conseillées ou à proscrire, l’utilisation d’un carnet de transmission, des personnes à contacter en cas d’urgence dans un ordre, etc <br><br>
+                    Les parties peuvent prévoir certaines règles particulières adaptées à leur situation : règles de sécurité relatives au logement, aux déplacements de la personne accompagnée, les allergies ou régime alimentaire, etc
+                </p>
                 <h3>Le salarié est amené à conduire un véhicule pour la réalisation de ses activités professionnelles ?</h3>
                 <div>
-                    <input type="radio" id="yes_driving" name="driving" value="yes" checked/>
+                    <input type="radio" id="yes_driving" name="driving" value="yes_driving"/>
                     <label for="yes_driving">Oui</label>
                 </div>
                 <div>
-                    <input type="radio" id="no_driving" name="driving" value="no" />
+                    <input type="radio" id="no_driving" name="driving" value="no_driving" />
                     <label for="no_driving">Non</label>
                 </div>
-                <div class="yes_driving">
+                <div class="yes-driving">
                     <h4>Nom de l'assurance</h4>
                     <input type="text" id="car-insurance-name" name="car-insurance-name"/>
                     <h4>Adresse de l'assurance</h4>
                     <input type="text" id="car-insurance-address" name="car-insurance-address"/>
                     <h4>Police de l'assurance</h4>
                     <input type="text" id="car-insurance-policy" name="car-insurance-policy"/>
-                </div>
+                </div>  
                 <h3>Decription logement</h3>
-                <textarea id="home-description" name="home-description" rows="5" cols="33"></textarea>
-                <h3>Nom enfant</h3>
+                <textarea id="home-description" name="home-description" rows="8" cols="33"></textarea>
+                <h3>Nom d'enfant</h3>
                 <input type="text" id="child-name" name="child-name"/>
-                <button>Ajouter un enfant</button>
+                <div class="addChild"></div>
+                <button id="addChild">Ajouter un enfant</button>
                 <h3>Mesures de sécurité particulières à respecter</h3>
-                <textarea id="security-measures" name="security-measures" rows="5" cols="33"></textarea>
+                <textarea id="security-measures" name="security-measures" rows="8" cols="33"></textarea>
                 <h3>Consignes particulières pour la garde ou l’accompagnement</h3>
-                <textarea id="special-instructions" name="special-instructions" rows="5" cols="33"></textarea>
-                </br>
+                <textarea id="special-instructions" name="special-instructions" rows="8" cols="33"></textarea>
+    
                 <div class="buttons">
-                    <button>PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                    <button>PASSER À l'ÉTAPE SUIVANTE</button>
+                    <button class="button_backscreen11">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
                 </div>
             </div>
             <!-- FIN ECRAN 12 – ECRAN INFORMATIONS A CONSIGNER -->
