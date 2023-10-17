@@ -143,6 +143,12 @@ button {
     display: none;
 }
 
+/* SCREEN 7 */
+
+.yes_working_time1, .yes_working_time2, .no_working_time1, .no_working_time2 {
+    display: none;
+}
+
 
 
 
