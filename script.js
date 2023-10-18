@@ -1628,6 +1628,36 @@ btnBackToScreen8.addEventListener('click', function(){
 
 // DEBUT ECRAN 10 – ECRAN ABSENCES
 
+const yesSharedCustody = document.getElementById('yes_shared-custody');
+const noSharedCustody = document.getElementById('no_shared-custody');
+
+const divSharedCustody = document.getElementById('shared_custody');
+const divYesSharedCustody = document.querySelector('.yes_shared-custody');
+
+const inputCoemployer = document.getElementById('birth_name_co-employer');
+
+yesChildCare.addEventListener('click', function() {
+    if (inputCoemployer.value.trim() !== '' && yesChildCare.checked) {
+        divSharedCustody.style.display = 'block';
+    } 
+});
+
+noChildCare.addEventListener('click', function() {
+    if (inputCoemployer.value.trim() == '' || noChildCare.checked) {
+        divSharedCustody.style.display = 'none';
+    } 
+});
+
+yesSharedCustody.addEventListener('click', function() {
+    divYesSharedCustody.style.display = 'block';
+});
+
+noSharedCustody.addEventListener('click', function() {
+    divYesSharedCustody.style.display = 'none';
+});
+
+
+
 // Pour faire disparaître l'écran 10 et faire apparaître l'écran 11
 
 const btnToScreen11 = document.querySelector('.button_toscreen11');

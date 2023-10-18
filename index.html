@@ -1385,18 +1385,18 @@
 
                 <h3>Le 1er mai</h3>
                 <div>
-                    <input type="radio" id="yes_shared-custody" name="mai-first" value="yes" checked/>
-                    <label for="yes_shared-custody">Chômé</label>
+                    <input type="radio" id="mai-first_nonworking" name="mai-first" value="mai-first_nonworking" checked/>
+                    <label for="mai-first_nonworking">Chômé</label>
                 </div>
                 <div>
-                    <input type="radio" id="worked" name="mai-first" value="no" />
-                    <label for="worked">Travaillé</label>
+                    <input type="radio" id="mai-first_working" name="mai-first" value="mai-first_working" />
+                    <label for="mai-first_working">Travaillé</label>
                 </div>
 
                 <h3>Choix des jours fériés ordinaires travaillés</h3>
                 <div>
-                    <input type="radio" id="yes_shared-custody" name="mai-first" value="yes" checked/>
-                    <label for="yes_shared-custody">1er janvier</label>
+                    <input type="radio" id="yes_january-first" name="january-first" value="yes_january-first"/>
+                    <label for="yes_january-first">1er janvier</label>
                 </div>
                 <!-- Si champs 08(code postal) 68 67 57 -->
                 <div>
@@ -1441,17 +1441,19 @@
             <div class="screen10">
                 <h2>Absences</h2>
                 <!-- (début) Ne doit être que s’il a une co-employeur et si le domaine ENFANT est sélectionné -->
-                <h3>S'agit-il d'une garde partagée ?</h3>
-                <div>
-                    <input type="radio" id="yes_shared-custody" name="shared-custody" value="yes" checked/>
-                    <label for="yes_shared-custody">Oui</label>
-                </div>
-                <div>
-                    <input type="radio" id="no_shared-custody" name="shared-custody" value="no" />
-                    <label for="no_shared-custody">Non</label>
-                </div>
-                <div class="yes_shared-custody">
-                    <p>Dans le cas d’une garde partagée, en cas d'accident du travail, la déclaration est réalisée par le particulier employeur au domicile duquel l'accidents'estproduit.Lorsquel'accidentsurviententrelesdomicilesdes deux particuliers employeurs, ceux-ci s'entendent pour que l'un d'entre eux établisse la déclaration d'accident du travail. À défaut d'accord, le domicile le plus proche du lieu de l'accident est pris en compte pour déterminer le particulier employeur ayant en charge l'établissement de la déclaration d'accident de travail.</p>
+                <div id="shared_custody">
+                    <h3>S'agit-il d'une garde partagée ?</h3>
+                    <div>
+                        <input type="radio" id="yes_shared-custody" name="shared-custody" value="yes"/>
+                        <label for="yes_shared-custody">Oui</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="no_shared-custody" name="shared-custody" value="no" />
+                        <label for="no_shared-custody">Non</label>
+                    </div>
+                    <div class="yes_shared-custody">
+                        <p>Dans le cas d’une garde partagée, en cas d'accident du travail, la déclaration est réalisée par le particulier employeur au domicile duquel l'accidents est produit.<br><br> Lorsque l'accident survient entre les domiciles des deux particuliers employeurs, ceux-ci s'entendent pour que l'un d'entre eux établisse la déclaration d'accident du travail. À défaut d'accord, le domicile le plus proche du lieu de l'accident est pris en compte pour déterminer le particulier employeur ayant en charge l'établissement de la déclaration d'accident de travail.</p>
+                    </div>
                 </div>
                 <!-- (fin) Ne doit être que s’il a une co-employeur et si le domaine ENFANT est sélectionné -->
 
@@ -1472,45 +1474,61 @@
 
                 <h3>Date Versement de la rémunération</h3>
                 <input type="text" id="salary-date" name="salary-date"/>
-
-                <!-- faire validation ne peut etre inférieur au smic 11,54€ -->
-                <h3>Salaire brut horaire</h3>
+                <h3>Salaire brut horaire (ne peut etre inférieur au smic) </h3>
                 <input type="number" id="salary-hour" name="salary-hour"/>
 
                 <h3>Remunération majorée de 10 % de congé payé ?</h3>
                 <div>
-                    <input type="radio" id="yes_driving" name="driving" value="yes" checked/>
-                    <label for="yes_driving">Oui</label>
+                    <input type="radio" id="yes_increased remuneration" name="increased remuneration" value="yes"/>
+                    <label for="yes_increased remuneration">Oui</label>
                 </div>
                 <div>
-                    <input type="radio" id="no_driving" name="driving" value="no" />
-                    <label for="no_driving">Non</label>
-                </div>
-                <div class="yes">
-                    <!-- {varSalaireBrut} x0,1 = {varSalaireBrutCP} -->
+                    <input type="radio" id="no_increased remuneration" name="increased remuneration" value="no_increased remuneration" />
+                    <label for="no_increased remuneration">Non</label>
                 </div>
 
-                            <!-- IF {varTransmissio#n0}
-                Paragraphe a afficher sur le contrat
-                Salaire Brut
-                IF NON
-                Paragraphe a afficher sur le contrat
-                {varSalaireBrut}
-                ECRAN 11 – REMUNERATION
-                073 Date Versement de la rémunération
-                074 Salaire brut horaire
-                ne peut etre inférieur au smic
-                075 Remunération majorée de 10 % de congé payé
-                {varDateRemuneration} 11,54 {varSalaireBrut}
-                IF OUI
-                OUI NON
-                {varSalaireBrut} x0,1 = {varSalaireBrutCP}
-                {varRemunerationCP}
-                33
-                Le salaire mensuel brut du salarié est calculé en fonction du nombre d’heures de travail effectif réalisées dans le mois
-                Lorsque la durée du travail hebdomadaire est régulière, le particulier employeur mensualise le salaire selon la méthode suivante :
-                Salaire horaire brut x nombre d'heures de travail hebdomadaire × 52
-                {varMensuelBrut} =varSalaireBrut}x{varNombreheureeffectif} x52/12 -->
+                <h3>Traitement des heures supplementaires :</h3>
+                <div>
+                    <input type="radio" id="overtime_option1" name="overtime" value="overtime_option1"/>
+                    <label for="overtime_option1">Rémunérées au taux horaire normal majoré de 25% au-delà de la 40e heure de travail et jusqu’à la 48e heure de travail incluse, et de 50% pour la 49e heure de travail et la 50e heure de travail.</label>
+                </div>
+                <div>
+                    <input type="radio" id="overtime_option2" name="overtime" value="overtime_option2" />
+                    <label for="overtime_option2">Récupérées par un repos équivalent majoré en temps de 25% au-delà de la 40e heure de travail et jusqu’à la 48e heure de travail incluse, et de 50% pour la 49e heure de travail et la 50e heure de travail. Le repos</label>
+                </div>
+
+                <h3>Dans la totalité des heures supplémentaires autres, preciser nombre rémunérée, reliquat compensé </h3>
+                <input type="number" id="time-compensation" name="time-compensation"/>
+
+                <h3>Indemnité par nuit lorsque le salarié est appelé à intervenir moins de 2 fois au cours de la nuit (ne peut etre inferieur à 1/4 de salaire brut) :</h3>
+                <input type="number" id="night-allowance" name="night-allowance"/>
+
+                <h3>Indemnité par nuit lorsque le salarié est appelé à intervenir plus de 2 fois au cours de la nuit (ne peut etre inferieur à 1/3 de salaire brut) :</h3>
+                <input type="number" id="night-allowance" name="night-allowance"/>
+
+                <h3>Supplément de rémunération en cas de conduite véhicule</h3>
+                <div>
+                    <input type="radio" id="lump_sum_bonus" name="remuneration_supplement" value="lump_sum_bonus"/>
+                    <label for="lump_sum_bonus">Une prime forfaitaire</label>
+                </div>
+                <div>
+                    <input type="radio" id="salary_increase" name="remuneration_supplement" value="salary_increase" />
+                    <label for="salary_increase">Une majoration salariale</label>
+                </div>
+                <h4>Montant :</h4>
+                <input type="number" id="amount" name="amount"/>
+
+                <h3>En cas de conduite véhicule personnel indemnité kilométrique, calculée sur la base :</h3>
+                <input type="number" id="mileage_allowance" name="mileage_allowance"/>
+
+                <h3>Prestation en nature repas par jours travaillés :</h3>
+                <input type="number" id="meal" name="meal"/>
+
+                <h3>Prestation logement par mois :</h3>
+                <input type="number" id="lodging" name="lodging"/>
+
+                <h3>Prise en charge de l'abonnement titre de transport en % :</h3>
+                <input type="number" id="transport_pass" name="transport_pass"/>
 
                 <div class="buttons">
                     <button class="button_backscreen10">PASSER À l'ÉTAPE PRÉCÉDENTE</button>

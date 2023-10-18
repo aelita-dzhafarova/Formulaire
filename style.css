@@ -159,6 +159,12 @@ textarea {
     display: none;
 }
 
+/* SCREEN 10 */
+
+#shared_custody, .yes_shared-custody {
+    display: none;
+}
+
 
 /* SCREEN 12 */
 
