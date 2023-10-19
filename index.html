@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
     <title>Modèle</title>
 </head>
 <body>
@@ -24,7 +25,7 @@
             <ul>
                 
                 <!-- Menu de test, à commenter pour version de production. -->
-                <button class="button_toscreen1">Ecran 1. Employeur.</button>
+                <button class="button_backscreen1">Ecran 1. Employeur.</button>
                 <button class="button_toscreen2">Ecran 2. Employé(e).</button>
                 <button class="button_toscreen3">Ecran 3. Choix du type de contrat et de durée de contrat.</button>
                 <button class="button_toscreen4">Ecran 4. Choix de date d'embauche.</button>
@@ -320,7 +321,7 @@
                 <h2>Choix du type de contrat et de durée de contrat.</h2>
                 <p>Le recours à un contrat à durée déterminée n’est possible que pour l’exécution d’une tache précise et temporaire.</p>
                 <div class="cdd-question1">
-                    <h3>Besoin temporaire pour une tâche occasionnelle définie et non durable ?</h3>
+                    <h3>Besoin temporaire : tâche occasionnelle définie et non durable ?</h3>
                     <div>
                         <input type="radio" id="yes_occasional_task" name="occasional_task" value="yes"/>
                         <label for="yes_occasional_task">Oui</label>
@@ -333,7 +334,7 @@
                 </div>
 
                 <div class="cdd-question2">
-                    <h3>Remplacement d'un employé absent temporairement dont les causes sont multiples ( maladie, maternité...) ?
+                    <h3>Remplacement d'un employé absent temporairement dont les causes sont multiples (maladie, maternité...) ?
                     </h3>
                     <div>
                         <input type="radio" id="yes_temporary_replacement" name="temporary_replacement" value="yes_temporary_replacement"/>
@@ -347,7 +348,7 @@
                 </div>
 
                 <div class="cdd-question3">
-                    <h3>Attente d'un employé déjà embauché en CDI, retardant l'entrée de l'employé son poste chez vous ?
+                    <h3>Attente d'un employé déjà embauché en CDI, retardant l'entrée de l'employé chez vous ?
                     </h3>
                     <div>
                         <input type="radio" id="yes_waiting-employee" name="waiting-employee" value="yes_waiting-employee"/>
@@ -456,6 +457,7 @@
                             <input type="radio" id="no_contract_trial_period" name="contract_trial_period" value="no_contract_trial_period" />
                             <label for="no_contract_trial_period">Non</label>
                         </div>
+
                         <div class="yes_contract_trial_period">
                             <!--Date fin période d'essai -->
                             <h3>Date de fin de période d'essai</h3>
@@ -704,7 +706,7 @@
                 </div>
 
                 <div>
-                    <h3>Domaine "Espace de vie" entretien, menage.</h3>
+                    <h3>Domaine "Espace de vie" entretien, ménage.</h3>
 
                     <div>
                         <input type="radio" id="yes_lifespace" name="lifespace" value="yes_lifespace"/>
@@ -886,19 +888,19 @@
                         <h3>Autres fonctions</h3>
                         <div>
                             <input type="checkbox" id="teacher1" name="other_functions" value="teacher1" />
-                            <label for="teacher1">Enseignant (e) particulier (ère) (niveau élémentaire) A Echelle 6</label>
+                            <label for="teacher1">Enseignant(e) particulier(ère) (niveau élémentaire) A Echelle 6</label>
                         </div>
                         <div>
                             <input type="checkbox" id="teacher2" name="other_functions" value="teacher2" />
-                            <label for="teacher2">Enseignant (e) particulier (ère) (niveau collège, lycée) B Echelle 7</label>
+                            <label for="teacher2">Enseignant(e) particulier(ère) (niveau collège, lycée) B Echelle 7</label>
                         </div>
                         <div>
                             <input type="checkbox" id="teacher3" name="other_functions" value="teacher3" />
-                            <label for="teacher3">Enseignant (e) particulier(ère) (niveau études supérieures) C Echelle 8</label>
+                            <label for="teacher3">Enseignant(e) particulier(ère) (niveau études supérieures) C Echelle 8</label>
                         </div>
                         <div>
                             <input type="checkbox" id="accompanist" name="other_functions" value="accompanist" />
-                            <label for="accompanist">Accompagnateur (trice) /Personne de compagnie Echelle 2</label>
+                            <label for="accompanist">Accompagnateur(trice) /Personne de compagnie Echelle 2</label>
                         </div>
                         <div>
                             <input type="checkbox" id="secretary" name="other_functions" value="secretary" />
