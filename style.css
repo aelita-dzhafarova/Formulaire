@@ -58,6 +58,11 @@ h3 {
     padding: 10px 0 5px;
 }
 
+h5 {
+    font-style: italic;
+    color: #787472;
+}
+
 p {
     padding: 30px 0;
 }
@@ -156,6 +161,16 @@ textarea {
 /* SCREEN 7 */
 
 .yes_working_time1, .yes_working_time2, .no_working_time1, .no_working_time2 {
+    display: none;
+}
+
+/* SCREEN 8 */
+
+.responsible_night {
+    padding: 30px 0;
+}
+
+.yes_patient-care, .nightHours1, .nightHours2 {
     display: none;
 }
 
