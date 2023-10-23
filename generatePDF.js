@@ -1132,6 +1132,21 @@ function generatePDF() {
 
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Le salarié est chargé des activités complémentaires suivantes :";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = lineBreakText(1, fontSize, lineHeight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
 
 
