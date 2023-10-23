@@ -21,24 +21,21 @@
     <h1>REMPLISSEZ LE FORMULAIRE POUR LA CRÉATION DE VOTRE CONTRAT</h1>
     <div class="container">
         <div class="summary">
+            <!-- Menu de test, à commenter pour version de production. -->
+            <button class="button_toscreen1">Ecran 1. Employeur.</button>
+            <button class="button_toscreen2">Ecran 2. Employé(e).</button>
+            <button class="button_toscreen3">Ecran 3. Choix du type de contrat et de durée de contrat.</button>
+            <button class="button_toscreen4">Ecran 4. Choix de date d'embauche.</button>
+            <button class="button_toscreen5">Ecran 5. Lieu de travail.</button>
+            <button class="button_toscreen6">Ecran 6. Fonctions.</button>
+            <button class="button_toscreen7">Ecran 7. Durée de travail + les horaires de travail.</button>
+            <button class="button_toscreen8">Ecran 8. Heures responsables.</button>
+            <button class="button_toscreen9">Ecran 9. Repos hebdomadaire et jours fériés, congés payés.</button>
+            <button class="button_toscreen10">Ecran 10. Absences.</button>
+            <button class="button_toscreen11">Ecran 11. Remunération.</button>
+            <button class="button_toscreen12">Ecran 12. Informations à consigner.</button>
             <ul>
-                
-                <!-- Menu de test, à commenter pour version de production. -->
-                <button class="button_toscreen1">Ecran 1. Employeur.</button>
-                <button class="button_toscreen2">Ecran 2. Employé(e).</button>
-                <button class="button_toscreen3">Ecran 3. Choix du type de contrat et de durée de contrat.</button>
-                <button class="button_toscreen4">Ecran 4. Choix de date d'embauche.</button>
-                <button class="button_toscreen5">Ecran 5. Lieu de travail.</button>
-                <button class="button_toscreen6">Ecran 6. Fonctions.</button>
-                <button class="button_toscreen7">Ecran 7. Durée de travail + les horaires de travail.</button>
-                <button class="button_toscreen8">Ecran 8. Heures responsables.</button>
-                <button class="button_toscreen9">Ecran 9. Repos hebdomadaire et jours fériés, congés payés.</button>
-                <button class="button_toscreen10">Ecran 10. Absences.</button>
-                <button class="button_toscreen11">Ecran 11. Remunération.</button>
-                <button class="button_toscreen12">Ecran 12. Informations à consigner.</button>
-
-
-                
+                        
                 <li>Ecran 1. Employeur.</li>
                 <li class="list-screen2">Ecran 2. Employé(e).</li>
                 <li class="list-screen3">Ecran 3. Choix du type de contrat et de durée de contrat.</li>
@@ -51,7 +48,6 @@
                 <li class="list-screen10">Ecran 10. Absences.</li>
                 <li class="list-screen11">Ecran 11. Remunération.</li>
                 <li class="list-screen12">Ecran 12. Informations à consigner.</li>
-
 
             </ul>
         </div>
@@ -1105,137 +1101,153 @@
             <!-- DEBUT ECRAN 8 - ECRAN HEURES RESPONSABLES -->
             <div class="screen8">
                 <h2>Heures responsables</h2>
+                <h5>Appliquable uniquement si un des domaines suivants a été choisi : Domaine "Enfant", Domaine "Aide à la personne".</h5>
                 <p>
                     La présence de nuit ne peut être prévue sur plus de 5 nuits consécutives qu’à la demande écrite du salarié ou, avec son acceptation écrite, et dans le respect des règles du repos hebdomadaire, en réponse à des besoins spécifiques du particulier employeur nécessitant une présence la nuit en raison notamment de son état de santé et/ou de dépendance, son handicap, son âge, et/ou son isolement social et/ou familial.</br>
                     Les parties peuvent, le cas échéant, définir les durées des interventions, si celles-ci sont prévisibles. A défaut, elles pourront préciser le nombre et la durée des interventions dans le carnet de transmission.
                 </p>
                 <!-- Si la garde d'enfants ou aide à la personne sont choisies -->
-                <div class="num-night-intervantion">
-                    <h3>Nombre habituel d’interventions au cours de la nuit</h3>
-                    <input type="number" id="num-night-intervantion" name="num-night-intervantion"/>
-                </div>
-                <div class="nighthours">
-
-                    <h3>Horaires de présence nuit</h3>
-                        <div class="night-weekday">
-                            <h4>Lundi, heure d'arrivé</h4>
-                            <input type="number" id="monday_arrival_night" name="monday_arrival_night"/>
-
-                            <h4>Lundi, heure de depart</h4>
-                            <input type="number" id="monday_departure_night" name="monday_departure_night"/>
-
-                            <div class="calc_monday-presence-night">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
-                                <!-- Résultat des calcules du temps de présence réelle -->
+                <div class="nightHours1">
+                    <div class="num-night-intervantion">
+                        <h3>Nombre habituel d’interventions au cours de la nuit</h3>
+                        <input type="number" id="num-night-intervantion" name="num-night-intervantion"/>
+                    </div>
+                    <div class="nighthours">
+                            
+                        <div class="weekday">
+                            <h3>Horaires de présence nuit : Lundi</h3>
+                            <h4>Heure d'arrivée</h4>
+                            <select id="arrivalMondayNight"></select>
+                            <h4>Heure de depart</h4>
+                            <select id="departureMondayNight"></select>
+                            <div class="calc_presence-time_monday-night">
+                                <!-- Résultat des calcules du temps de présence reélle -->
+                                <button id="calcMondayNight">Calculer la présence reélle</button>   
+                                <div id="resultMondayNight"></div> 
                             </div>
-                            <div class="monday-responsible-night">
+
+                            <div class="responsible_night">
                                 <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="monday-responsible-night" name="monday-responsible-night"/>
+                                <input type="number" id="monday_responsible_night" name="monday_responsible_night"/>
                             </div>
                         </div>
-                        <div class="night-weekday">
-                            <h4>Mardi, heure d'arrivé</h4>
-                            <input type="number" id="tuesday_arrival_night" name="tuesay_arrival_night"/>
 
-                            <h4>Mardi, heure de depart</h4>
-                            <input type="number" id="tuesday_departure_night" name="tuesday_departure_night"/>
-
-                            <div class="calc_tuesday-presence-night">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
+                        <div class="weekday">
+                            <h3>Horaires de présence nuit : Mardi</h3>
+                            <h4>Heure d'arrivée</h4>
+                            <select id="arrivalTuesdayNight"></select>
+                            <h4>Heure de depart</h4>
+                            <select id="departureTuesdayNight"></select>
+                            <div class="calc_presence-time_tuesday-night">
                                 <!-- Résultat des calcules du temps de présence reélle -->
+                                <button id="calcTuesdayNight">Calculer la présence reélle</button>   
+                                <div id="resultTuesdayNight"></div> 
                             </div>
-                            <div class="tuesday-responsible-night">
+
+                            <div class="responsible_night">
                                 <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="tuesday-responsible-night" name="tuesday-responsible-night"/>
+                                <input type="number" id="tuesday_responsible_night" name="tuesday_responsible_night"/>
                             </div>
                         </div>
-                        <div class="night-weekday">
-                            <h4>Mercredi, heure d'arrivé</h4>
-                            <input type="number" id="wednesday_arrival_night" name="wednesday_arrival_night"/>
 
-                            <h4>Mercredi, heure de depart</h4>
-                            <input type="number" id="wednesday_departure_night" name="wednesday_departure_night"/>
-
-                            <div class="calc_wednesday-presence-night">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
+                        <div class="weekday">
+                            <h3>Horaires de présence nuit : Mercredi</h3>
+                            <h4>Heure d'arrivée</h4>
+                            <select id="arrivalWednesdayNight"></select>
+                            <h4>Heure de depart</h4>
+                            <select id="departureWednesdayNight"></select>
+                            <div class="calc_presence-time_wednesday-night">
                                 <!-- Résultat des calcules du temps de présence reélle -->
+                                <button id="calcWednesdayNight">Calculer la présence reélle</button>   
+                                <div id="resultWednesdayNight"></div> 
                             </div>
-                            <div class="wednesday-responsible-night">
+
+                            <div class="responsible_night">
                                 <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="wednesday-responsible-night" name="wednesday-responsible-night"/>
+                                <input type="number" id="wednesday_responsible_night" name="wednesday_responsible_night"/>
                             </div>
                         </div>
-                        <div class="night-weekday">
-                            <h4>Jeudi, heure d'arrivé</h4>
-                            <input type="number" id="thursday_arrival_night" name="thursday_arrival_night"/>
 
-                            <h4>Jeudi, heure de depart</h4>
-                            <input type="number" id="thursday_departure_night" name="thursday_departure_night"/>
-
-                            <div class="calc_thursday-presence-night">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
+                        <div class="weekday">
+                            <h3>Horaires de présence nuit : Jeudi</h3>
+                            <h4>Heure d'arrivée</h4>
+                            <select id="arrivalThursdayNight"></select>
+                            <h4>Heure de depart</h4>
+                            <select id="departureThursdayNight"></select>
+                            <div class="calc_presence-time_thursday-night">
                                 <!-- Résultat des calcules du temps de présence reélle -->
+                                <button id="calcThursdayNight">Calculer la présence reélle</button>   
+                                <div id="resultThursdayNight"></div> 
                             </div>
-                            <div class="thursday-responsible-night">
+
+                            <div class="responsible_night">
                                 <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="thursday-responsible-night" name="thursday-responsible-night"/>
+                                <input type="number" id="thursday_responsible_night" name="thursday_responsible_night"/>
                             </div>
                         </div>
-                        <div class="night-weekday">
-                            <h4>Vendredi, heure d'arrivé</h4>
-                            <input type="number" id="friday_arrival_night" name="friday_arrival_night"/>
 
-                            <h4>Vendredi, heure de depart</h4>
-                            <input type="number" id="friday_departure_night" name="friday_departure_night"/>
-
-                            <div class="calc_friday-presence-night">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
+                        <div class="weekday">
+                            <h3>Horaires de présence nuit : Vendredi</h3>
+                            <h4>Heure d'arrivée</h4>
+                            <select id="arrivalFridayNight"></select>
+                            <h4>Heure de depart</h4>
+                            <select id="departureFridayNight"></select>
+                            <div class="calc_presence-time_friday-night">
                                 <!-- Résultat des calcules du temps de présence reélle -->
+                                <button id="calcFridayNight">Calculer la présence reélle</button>   
+                                <div id="resultFridayNight"></div> 
                             </div>
-                            <div class="friday-responsible-night">
+
+                            <div class="responsible_night">
                                 <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="friday-responsible-night" name="friday-responsible-night"/>
+                                <input type="number" id="friday_responsible_night" name="friday_responsible_night"/>
                             </div>
                         </div>
-                        <div class="night-weekday">
-                            <h4>Samedi, heure d'arrivé</h4>
-                            <input type="number" id="saturday_arrival_night" name="saturday_arrival_night"/>
 
-                            <h4>Samedi, heure de depart</h4>
-                            <input type="number" id="saturday_departure_night" name="saturday_departure_night"/>
-
-                            <div class="calc_saturday-presence-night">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
+                        <div class="weekday">
+                            <h3>Horaires de présence nuit : Samedi</h3>
+                            <h4>Heure d'arrivée</h4>
+                            <select id="arrivalSaturdayNight"></select>
+                            <h4>Heure de depart</h4>
+                            <select id="departureSaturdayNight"></select>
+                            <div class="calc_presence-time_saturday-night">
                                 <!-- Résultat des calcules du temps de présence reélle -->
+                                <button id="calcSaturdayNight">Calculer la présence reélle</button>   
+                                <div id="resultSaturdayNight"></div> 
                             </div>
-                            <div class="saturday-responsible-night">
+
+                            <div class="responsible_night">
                                 <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="saturday-responsible-night" name="saturday-responsible-night"/>
+                                <input type="number" id="saturday_responsible_night" name="saturday_responsible_night"/>
                             </div>
                         </div>
-                        <div class="night-weekday">
-                            <h4>Dimanche, heure d'arrivé</h4>
-                            <input type="number" id="sunday_arrival_night" name="sunday_arrival_night"/>
 
-                            <h4>Dimanche, heure de depart</h4>
-                            <input type="number" id="sunday_departure_night" name="sunday_departure_night"/>
-
-                            <div class="calc_sunday-presence-night">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
+                        <div class="weekday">
+                            <h3>Horaires de présence nuit : Dimanche</h3>
+                            <h4>Heure d'arrivée</h4>
+                            <select id="arrivalSundayNight"></select>
+                            <h4>Heure de depart</h4>
+                            <select id="departureSundayNight"></select>
+                            <div class="calc_presence-time_sunday-night">
                                 <!-- Résultat des calcules du temps de présence reélle -->
+                                <button id="calcSundayNight">Calculer la présence reélle</button>   
+                                <div id="resultSundayNight"></div> 
                             </div>
-                            <div class="sunday-responsible-night">
-                                <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="sunday-responsible-night" name="sunday-responsible-night"/>
-                            </div>
-                        </div> 
 
+                            <div class="responsible_night">
+                                <h4>Nombre d'heures responsables par nuit</h4>
+                                <input type="number" id="sunday_responsible_night" name="sunday_responsible_night"/>
+                            </div>
+                        </div>
+                            
+                    </div>
                 </div>
 
                 <!-- Si ASSISTANT DE VIE C ou ASSISTANT DE VIE D sont choisies -->
-                <h3>Heure garde malade de nuit.</h3>
+                <div class="nightHours2">
+                    <h3>Heure garde malade de nuit.</h3>
                     <div>
-                        <input type="radio" id="yes_patient-care" name="patient-care" value="yes" checked/>
+                        <input type="radio" id="yes_patient-care" name="patient-care" value="yes"/>
                         <label for="yes_patient-care">Oui</label>
                     </div>
                     <div>
@@ -1243,124 +1255,77 @@
                         <label for="no_patient-care">Non</label>
                     </div>
 
-                    <h3>Horaires de présence nuit pour la garde malade de nuit</h3>
+                    <div class="yes_patient-care">
+                        
                         <div class="night-weekday patient-care">
-                            <h4>Lundi, heure d'arrivé</h4>
+                            <h3>Horaires de présence nuit pour la garde malade de nuit : Lundi</h3>
+                            <h4>Heure d'arrivé</h4>
                             <input type="number" id="monday_arrival_night-patient-care" name="monday_arrival_night-patient-care"/>
 
-                            <h4>Lundi, heure de depart</h4>
+                            <h4>Heure de depart</h4>
                             <input type="number" id="monday_departure_night-patient-care" name="monday_departure_night-patient-care"/>
-
-                            <div class="calc_monday-presence-night-patient-care">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
-                                <!-- Résultat des calcules du temps de présence réelle -->
-                            </div>
-                            <div class="monday-responsible-night-patient-care">
-                                <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="monday-responsible-night-patient-care" name="monday-responsible-night-patient-care"/>
-                            </div>
                         </div>
+
                         <div class="night-weekday patient-care">
-                            <h4>Mardi, heure d'arrivé</h4>
+                            <h3>Horaires de présence nuit pour la garde malade de nuit : Mardi</h3>
+                            <h4>Heure d'arrivé</h4>
                             <input type="number" id="tuesday_arrival_night-patient-care" name="tuesay_arrival_night-patient-care"/>
 
-                            <h4>Mardi, heure de depart</h4>
+                            <h4>Heure de depart</h4>
                             <input type="number" id="tuesday_departure_night-patient-care" name="tuesday_departure_night-patient-care"/>
-
-                            <div class="calc_tuesday-presence-night-patient-care">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
-                                <!-- Résultat des calcules du temps de présence reélle -->
-                            </div>
-                            <div class="tuesday-responsible-night-patient-care">
-                                <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="tuesday-responsible-night-patient-care" name="tuesday-responsible-night-patient-care"/>
-                            </div>
                         </div>
+
                         <div class="night-weekday patient-care">
-                            <h4>Mercredi, heure d'arrivé</h4>
+                            <h3>Horaires de présence nuit pour la garde malade de nuit : Mercredi</h3>
+                            <h4>Heure d'arrivé</h4>
                             <input type="number" id="wednesday_arrival_night-patient-care" name="wednesday_arrival_night-patient-care"/>
 
-                            <h4>Mercredi, heure de depart</h4>
+                            <h4>Heure de depart</h4>
                             <input type="number" id="wednesday_departure_night-patient-care" name="wednesday_departure_night-patient-care"/>
-
-                            <div class="calc_wednesday-presence-night-patient-care">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
-                                <!-- Résultat des calcules du temps de présence reélle -->
-                            </div>
-                            <div class="wednesday-responsible-night-patient-care">
-                                <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="wednesday-responsible-night-patient-care" name="wednesday-responsible-night-patient-care"/>
-                            </div>
                         </div>
+
                         <div class="night-weekday patient-care">
-                            <h4>Jeudi, heure d'arrivé</h4>
+                            <h3>Horaires de présence nuit pour la garde malade de nuit : Jeudi</h3>
+                            <h4>Heure d'arrivé</h4>
                             <input type="number" id="thursday_arrival_night-patient-care" name="thursday_arrival_night-patient-care"/>
 
-                            <h4>Jeudi, heure de depart</h4>
+                            <h4>Heure de depart</h4>
                             <input type="number" id="thursday_departure_night-patient-care" name="thursday_departure_night-patient-care"/>
-
-                            <div class="calc_thursday-presence-night-patient-care">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
-                                <!-- Résultat des calcules du temps de présence reélle -->
-                            </div>
-                            <div class="thursday-responsible-night-patient-care">
-                                <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="thursday-responsible-night-patient-care" name="thursday-responsible-night-patient-care"/>
-                            </div>
                         </div>
+
                         <div class="night-weekday patient-care">
-                            <h4>Vendredi, heure d'arrivé</h4>
+                            <h3>Horaires de présence nuit pour la garde malade de nuit : Friday</h3>
+                            <h4>Heure d'arrivé</h4>
                             <input type="number" id="friday_arrival_night-patient-care" name="friday_arrival_night-patient-care"/>
 
-                            <h4>Vendredi, heure de depart</h4>
+                            <h4>Heure de depart</h4>
                             <input type="number" id="friday_departure_night-patient-care" name="friday_departure_night-patient-care"/>
-
-                            <div class="calc_friday-presence-night-patient-care">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
-                                <!-- Résultat des calcules du temps de présence reélle -->
-                            </div>
-                            <div class="friday-responsible-night-patient-care">
-                                <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="friday-responsible-night-patient-care" name="friday-responsible-night-patient-care"/>
-                            </div>
                         </div>
+
                         <div class="night-weekday patient-care">
-                            <h4>Samedi, heure d'arrivé</h4>
+                            <h3>Horaires de présence nuit pour la garde malade de nuit : Samedi</h3>
+                            <h4>Heure d'arrivé</h4>
                             <input type="number" id="saturday_arrival_night-patient-care" name="saturday_arrival_night-patient-care"/>
 
-                            <h4>Samedi, heure de depart</h4>
+                            <h4>Heure de depart</h4>
                             <input type="number" id="saturday_departure_night-patient-care" name="saturday_departure_night-patient-care"/>
-
-                            <div class="calc_saturday-presence-night-patient-care">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
-                                <!-- Résultat des calcules du temps de présence reélle -->
-                            </div>
-                            <div class="saturday-responsible-night-patient-care">
-                                <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="saturday-responsible-night-patient-care" name="saturday-responsible-night-patient-care"/>
-                            </div>
                         </div>
+
                         <div class="night-weekday patient-care">
-                            <h4>Dimanche, heure d'arrivé</h4>
+                            <h3>Horaires de présence nuit pour la garde malade de nuit : Dimanche</h3>
+                            <h4>Heure d'arrivé</h4>
                             <input type="number" id="sunday_arrival_night-patient-care" name="sunday_arrival_night-patient-care"/>
 
-                            <h4>Dimanche, heure de depart</h4>
+                            <h4>Heure de depart</h4>
                             <input type="number" id="sunday_departure_night-patient-care" name="sunday_departure_night-patient-care"/>
-
-                            <div class="calc_sunday-presence-night-patient-care">
-                                <h4>Nombre d'heures de présence réelle par nuit</h4>
-                                <!-- Résultat des calcules du temps de présence reélle -->
-                            </div>
-                            <div class="sunday-responsible-night-patient-care">
-                                <h4>Nombre d'heures responsables par nuit</h4>
-                                <input type="number" id="sunday-responsible-night-patient-care" name="sunday-responsible-night-patient-care"/>
-                            </div>
                         </div> 
+                    </div>
+                </div>
 
-                        <div class="buttons">
-                            <button class="button_backscreen7">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
-                            <button class="button_toscreen9">PASSER À l'ÉTAPE SUIVANTE</button>
-                        </div>
+                <div class="buttons">
+                    <button class="button_backscreen7">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                    <button class="button_toscreen9">PASSER À l'ÉTAPE SUIVANTE</button>
+                </div>
             </div>
             <!-- FIN ECRAN 8 - ECRAN HEURES RESPONSABLES-->
 
