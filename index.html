@@ -23,7 +23,7 @@
     <div class="container">
         <div class="summary">
             <!-- Menu de test, à commenter pour version de production. -->
-            <button class="button_toscreen1">Ecran 1. Employeur.</button>
+            <!-- <button class="button_toscreen1">Ecran 1. Employeur.</button>
             <button class="button_toscreen2">Ecran 2. Employé(e).</button>
             <button class="button_toscreen3">Ecran 3. Choix du type de contrat et de durée de contrat.</button>
             <button class="button_toscreen4">Ecran 4. Choix de date d'embauche.</button>
@@ -34,7 +34,7 @@
             <button class="button_toscreen9">Ecran 9. Repos hebdomadaire et jours fériés, congés payés.</button>
             <button class="button_toscreen10">Ecran 10. Absences.</button>
             <button class="button_toscreen11">Ecran 11. Remunération.</button>
-            <button class="button_toscreen12">Ecran 12. Informations à consigner.</button>
+            <button class="button_toscreen12">Ecran 12. Informations à consigner.</button> -->
             <ul>
 
                 <li>Ecran 1. Employeur.</li>
@@ -61,7 +61,7 @@
                 <div>
                     <h3>Civilité</h3>
                     <div>
-                        <input type="radio" id="female" name="sex" value="female" checked/>
+                        <input type="radio" id="female" name="sex" value="female"/>
                         <label for="female">Madame</label>
                     </div>
 
@@ -131,7 +131,7 @@
                     <div>
                         <h3>Civilité</h3>
                         <div>
-                            <input type="radio" id="female_co-employer" name="sex_co-employer" value="female_co-employer" checked/>
+                            <input type="radio" id="female_co-employer" name="sex_co-employer" value="female_co-employer"/>
                             <label for="female_co-employer">Madame</label>
                         </div>
 
@@ -179,7 +179,7 @@
                     <div>
                         <h3>L'adresse est la même</h3>
                         <div>
-                            <input type="radio" id="yes" name="address_co-employer" value="yes" checked/>
+                            <input type="radio" id="yes" name="address_co-employer" value="yes"/>
                             <label for="yes">Oui</label>
                         </div>
 
@@ -235,7 +235,7 @@
                 <div>
                     <h3>Civilité</h3>
                     <div>
-                        <input type="radio" id="female_employee" name="sex_employee" value="female" checked/>
+                        <input type="radio" id="female_employee" name="sex_employee" value="female"/>
                         <label for="female_employee">Madame</label>
                     </div>
 
@@ -360,7 +360,11 @@
                     <!--"Seul le contrat à durée indéterminée est possible" ou "Le contrat à durée déterminée est possible." -->
                 </div>
                 <div class="info_cdd">
-                    <p>Ce contrat est conclu à partir du <input type="date" id="date_debut_contract" name="date_debut_contract"/> jusqu'au <input type="date" id="date_end_contract" name="date_end_contract"/>. Ce contrat est conclu pour la période d'absence de M/Mme <input type="text" id="remplacement_name" name="remplacement_name"/>. Durée minimale du CDD <input type="text" id="contract_duration" name="contract_duration"/></p>
+                    <p>Ce contrat est conclu à partir du <input type="date" id="date_debut_contract" name="date_debut_contract"/> jusqu'au <input type="date" id="date_end_contract" name="date_end_contract"/></p>
+                    <div class="remplacement_name">
+                        <p>Ce contrat est conclu pour la période d'absence de M/Mme <input type="text" id="remplacement_name" name="remplacement_name"/></p>
+                    </div>
+                    <p>Durée minimale du CDD <input type="text" id="contract_duration" name="contract_duration"/></p>
                 </div>
                 <div class="buttons">
                     <button class="button_backscreen2">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
@@ -1337,63 +1341,121 @@
                 <h3>Jour de repos hebdomadaire</h3>
                 <!-- Employé est agé entre 16 et 18 ans (champs 031) Date contrat - champs031 "= DIMANCHE" -->
                 <input type="text" id="dayoff" name="dayoff"/>
-                </br>
-                <button>Ajouter un jour de repos</button>
+                <div id="sundayoff"></div>
+                <div class="addDayOff"></div>
+            
+                <button id="addDayOff">Ajouter un jour de repos</button>
 
                 <h3>Modalité en cas de jour de repos travaillé</h3>
                 <div>
-                    <input type="radio" id="yes_shared-custody" name="shared-custody" value="yes" checked/>
-                    <label for="yes_shared-custody">Rémunéré au taux horaire normal majoré de 25 %.</label>
+                    <input type="radio" id="paid" name="dayoff_working" value="paid"/>
+                    <label for="paid">Rémunéré au taux horaire normal majoré de 25 %.</label>
                 </div>
                 <div>
-                    <input type="radio" id="no_shared-custody" name="shared-custody" value="no" />
-                    <label for="no_shared-custody">Récupéré par un repos équivalent majoré en temps de 25%</label>
+                    <input type="radio" id="recovered" name="dayoff_working" value="recovered" />
+                    <label for="recovered">Récupéré par un repos équivalent majoré en temps de 25%</label>
                 </div>
 
                 <h3>Le 1er mai</h3>
                 <div>
-                    <input type="radio" id="mai-first_nonworking" name="mai-first" value="mai-first_nonworking" checked/>
-                    <label for="mai-first_nonworking">Chômé</label>
+                    <input type="radio" id="mai_first_nonworking" name="mai_first" value="mai_first_nonworking"/>
+                    <label for="mai_first_nonworking">Chômé</label>
                 </div>
                 <div>
-                    <input type="radio" id="mai-first_working" name="mai-first" value="mai-first_working" />
-                    <label for="mai-first_working">Travaillé</label>
+                    <input type="radio" id="mai_first_working" name="mai_first" value="mai_first_working" />
+                    <label for="mai_first_working">Travaillé</label>
                 </div>
 
                 <h3>Choix des jours fériés ordinaires travaillés</h3>
                 <div>
-                    <input type="radio" id="yes_january-first" name="january-first" value="yes_january-first"/>
-                    <label for="yes_january-first">1er janvier</label>
+                    <input type="checkbox" id="january_first" name="holidays" value="january_first"/>
+                    <label for="january_first">1er janvier</label>
                 </div>
+
                 <!-- Si champs 08(code postal) 68 67 57 -->
+                <div class="good_friday">
+                    <input type="checkbox" id="good_friday" name="holidays" value="good_friday"/>
+                    <label for="good_friday">Vendredi Saint</label>
+                </div>
+                <!-- --------------------------- -->
+
                 <div>
-                    <input type="radio" id="worked" name="mai-first" value="no" />
-                    <label for="worked">Vendredi Saint</label>
+                    <input type="checkbox" id="easter" name="holidays" value="easter"/>
+                    <label for="easter">Lundi de Pâques</label>
                 </div>
 
                 <div>
-                    <input type="radio" id="worked" name="mai-first" value="no" />
-                    <label for="worked">Lundi de Pâques</label>
+                    <input type="checkbox" id="may8th" name="holidays" value="may8th"/>
+                    <label for="may8th">8 Mai</label>
                 </div>
-                <!-- Inserer les autres jours fériés -->
+
+                <div>
+                    <input type="checkbox" id="ascension_day" name="holidays" value="ascension_day"/>
+                    <label for="ascension_day">Jeudi de l’Ascension</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" id="whit_monday" name="holidays" value="whit_monday"/>
+                    <label for="whit_monday">Lundi de Pentecôte</label>
+                </div>
+
+                 <!-- Si champs 08(code postal) 1-95 -->
+                <div class="abolition_slavery">
+                    <input type="checkbox" id="abolition_slavery" name="holidays" value="abolition_slavery"/>
+                    <label for="abolition_slavery">Abolition de l’esclavage</label>
+                </div>
+                <!-- --------------------------- -->
+
+                <div>
+                    <input type="checkbox" id="july14th" name="holidays" value="july14th"/>
+                    <label for="july14th">14 juillet</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" id="august15th" name="holidays" value="august15th"/>
+                    <label for="august15th">15 août</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" id="november1st" name="holidays" value="november1st"/>
+                    <label for="november1st">1er novembre</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" id="november11th" name="holidays" value="november11th"/>
+                    <label for="november11th">11 novembre</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" id="december25th" name="holidays" value="december25th"/>
+                    <label for="december25th">25 décembre</label>
+                </div>
+
+                <!-- Si champs 08(code postal) 68 67 57 -->
+                <div class="december26th">
+                    <input type="checkbox" id="december26th" name="holidays" value="december26th"/>
+                    <label for="december26th">26 décembre</label>
+                </div>
+                <!-- --------------------------- -->
 
                 <h3>Est-ce que l'emploi est déclaré au CESU ?</h3>
                     <div>
-                        <input type="radio" id="yes_outside1" name="outside1" value="yes" checked/>
-                        <label for="yes_outside1">Oui</label>
+                        <input type="radio" id="yes_declared_cesu" name="declared_cesu" value="yes_declared_cesu"/>
+                        <label for="yes_declared_cesu">Oui</label>
                     </div>
                     <div>
-                        <input type="radio" id="no_outside1" name="outside1" value="no" />
-                        <label for="no_outside1">Non</label>
+                        <input type="radio" id="no_declared_cesu" name="declared_cesu" value="no_declared_cesu" />
+                        <label for="no_declared_cesu">Non</label>
                     </div>
-                    <div class="yes_outside1">
+                    <div class="yes_declared_cesu">
+                        <h3>Veuillez choisir une option :</h3>
                         <div>
-                            <input type="radio" id="yes_outside1" name="outside1" value="yes" checked/>
-                            <label for="yes_outside1">Le salaire mensuel brut du salarié est majoré de 10 % au titre des congés payés.</label>
+                            <input type="radio" id="paid_vacation1" name="paid_vacation" value="paid_vacation1"/>
+                            <label for="paid_vacation1">Le salaire mensuel brut du salarié est majoré de 10 % au titre des congés payés.</label>
                         </div>
                         <div>
-                            <input type="radio" id="no_outside1" name="outside1" value="no" />
-                            <label for="no_outside1">Les congés payés sont rémunérés lors de leur prise.</label>
+                            <input type="radio" id="paid_vacation2" name="paid_vacation" value="paid_vacation2" />
+                            <label for="paid_vacation2">Les congés payés sont rémunérés lors de leur prise.</label>
                         </div>
                     </div>
 

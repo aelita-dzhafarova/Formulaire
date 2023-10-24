@@ -86,8 +86,6 @@ const screen3 = document.querySelector('.screen3');
 
 const inputsScreen2 = screen2.querySelectorAll('.required');
 
-allFilled = true;
-
 // Pour revenir à l'écran 1
 
 const btnBackToScreen1 = document.querySelector('.button_backscreen1');
@@ -137,6 +135,8 @@ const yesOccasionalTask = document.getElementById('yes_occasional_task');
 
 const noOccasionalTask = document.getElementById('no_occasional task');
 
+const inputReplacementName = document.querySelector('.remplacement_name');
+
 const divCddQuestion2 = document.querySelector('.cdd-question2');
 
 const yesTemporaryReplacement = document.getElementById('yes_temporary_replacement');
@@ -172,6 +172,7 @@ const btnBackToScreen2 = document.querySelector('.button_backscreen2');
 yesOccasionalTask.addEventListener('click', function(){
     outputResultCdd.innerHTML = '<p>Le contrat à durée déterminée est possible.</p>';
     divInfoCdd.style.display = "block";
+    inputReplacementName.style.display = "none";
     divCddQuestion2.style.display = "none";
     divCddQuestion3.style.display = "none";
 });
@@ -185,6 +186,7 @@ noOccasionalTask.addEventListener('click', function(){
 yesTemporaryReplacement.addEventListener('click', function(){
     outputResultCdd.innerHTML = '<p>Le contrat à durée déterminée est possible.</p>';
     divInfoCdd.style.display = "block";
+    inputReplacementName.style.display = "block";
     divCddQuestion3.style.display = "none";
 });
 
@@ -197,6 +199,7 @@ noTemporaryReplacement.addEventListener('click', function(){
 yesWaitingEmployee.addEventListener('click', function(){
     outputResultCdd.innerHTML = '<p>Le contrat à durée déterminée est possible.</p>';
     divInfoCdd.style.display = "block";
+    inputReplacementName.style.display = "block";
 });
 
 noWaitingEmployee.addEventListener('click', function(){
@@ -1036,6 +1039,7 @@ yesWorkingTime2.addEventListener('click', function(){
 });
 
 noWorkingTime2.addEventListener('click', function(){
+    divNoWorkingTime1.style.display = "block";
     divNoWorkingTime2.style.display = "block";
     divYesWorkingTime2.style.display = "none";
 });
@@ -2097,6 +2101,114 @@ btnBackToScreen7.addEventListener('click', function(){
 
 
 // DEBUT ECRAN 9 - ECRAN REPOS HEBDOMADAIRE et Jours feries CONGES PAYES
+
+// Afficher le DIMANCHE comme jour de repos pour les mineurs
+
+const employeeAge = document.getElementById('birth_date_employee');
+
+employeeAge.addEventListener('change', function() {
+    const dateValue = employeeAge.value;
+    
+    if(isMinor(dateValue) === true) {
+        // faire disparaître l'input
+        const dayOff = document.getElementById('dayoff');
+        dayOff.style.display = "none";
+        // Afficher le dimanche comme jour off dans un paragraph
+        const sundayOff = document.getElementById('sundayoff');
+        sundayOff.innerHTML = "<p>Dimanche (obligatoire pour les jeunes travailleurs âgés de moins de 18 ans).</p>";
+    }
+});
+
+function isMinor(dateOfBirth) {
+    // Convertir la date de naissance en objet Date
+    const birthDate = new Date(dateOfBirth);
+
+     // Obtenir la date actuelle
+    const currentDate = new Date();
+
+    // Calculer l'âge en soustrayant l'année de naissance de l'année actuelle
+    const age = currentDate.getFullYear() - birthDate.getFullYear();
+
+    // Vérifier si l'anniversaire de la personne est déjà passé cette année
+    if (
+        currentDate.getMonth() < birthDate.getMonth() ||
+        (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())
+    ) {
+        age--; /// Décrémenter l'âge si l'anniversaire n'est pas encore passé
+    }
+
+    // Vérifier si l'âge est inférieur à 18
+    return age < 18;
+}
+
+
+// Ajouter un jour de repos
+
+const btnAddDayOff = document.getElementById('addDayOff');
+const ctnAddDayOff = document.querySelector('.addDayOff');
+
+btnAddDayOff.addEventListener('click', function(){
+    const inputDayOff = document.createElement('input');
+    inputDayOff.type = 'text';
+
+    inputDayOff.classList.add('input');
+
+    ctnAddDayOff.appendChild(inputDayOff);  
+});
+
+// Afficher les 3 jours féries supplémentaires pour certaines communes 
+
+const zipEmployee = document.getElementById('zip_employee');
+
+const goodFriday = document.querySelector('.good_friday');
+const abolitionSlavery = document.querySelector('.abolition_slavery');
+const december26th = document.querySelector('.december26th');
+
+// Créér les regex pour faire la vérification des codes postaux
+
+//regex qui vérifie que les deux premiers chiffres d'un code postal sont 57, 67 ou 68 : 
+const regex1 = /^(57|67|68)\d{3}$/;
+
+// regex qui vérifie que les deux premiers chiffres d'un code postal ne sont pas compris entre 01 et 95 :
+const regex2 = /^(?!(0[1-9]|[1-8][0-9]|9[0-5])\d{3})\d{5}$/;
+
+
+zipEmployee.addEventListener('change', function() {
+    const zipEmployeeValue = zipEmployee.value;
+
+    if (regex1.test(zipEmployeeValue) === true) {
+        goodFriday.style.display = "block";
+    } else {
+        goodFriday.style.display = "none";
+    }
+
+    if (regex2.test(zipEmployeeValue) === true) {
+        abolitionSlavery.style.display = "block";
+    } else {
+        abolitionSlavery.style.display = "none";
+    }
+
+    if (regex1.test(zipEmployeeValue) === true) {
+        december26th.style.display = "block";
+    } else {
+        december26th.style.display = "none";
+    }
+});
+
+// Est-ce que l'emploi est déclaré au CESU ?
+
+const yesDeclaredCesu = document.getElementById('yes_declared_cesu');
+const noDeclaredCesu = document.getElementById('no_declared_cesu');
+const divYesDeclaredCesu = document.querySelector('.yes_declared_cesu');
+
+yesDeclaredCesu.addEventListener('change', function() {
+    divYesDeclaredCesu.style.display = "block";
+});
+
+noDeclaredCesu.addEventListener('change', function() {
+    divYesDeclaredCesu.style.display = "none";
+});
+
 
 // Pour faire disparaître l'écran 9 et faire apparaître l'écran 10
 
