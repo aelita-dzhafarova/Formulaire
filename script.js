@@ -2117,6 +2117,12 @@ employeeAge.addEventListener('change', function() {
         const sundayOff = document.getElementById('sundayoff');
         sundayOff.innerHTML = "<p>Dimanche (obligatoire pour les jeunes travailleurs âgés de moins de 18 ans).</p>";
     }
+    else {
+        const dayOff = document.getElementById('dayoff');
+        dayOff.style.display = "block";
+        const sundayOff = document.getElementById('sundayoff');
+        sundayOff.innerHTML = "";
+    }
 });
 
 function isMinor(dateOfBirth) {
