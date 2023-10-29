@@ -2467,7 +2467,79 @@ function generatePDF() {
 
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
-   
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Les parties peuvent modifier la modalité choisie durant la relation de travail, par un avenant écrit.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    /* ------- TITRE ARTICLE ---------- */
+
+    y += heightParagraph;
+
+    y += lineBreakText(2, fontSize, lineHeight);
+    doc.setFont('helvetica');
+    fontSize = 15;
+    doc.setFontSize(fontSize);
+    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+    doc.setTextColor(229, 165, 73); 
+    title = "Article 6 - Jours fériés";
+    heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+    y = testPageBreak(doc, y, 0, marginUp, marginDown);
+    doc.text(title, marginLeft, y);
+
+    /* ------- FIN TITRE ARTICLE ---------- */
+
+
+    /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+    /* Obtenir la largeur du texte. À noter qu'au début la largeur est 
+    selon l'unité choisie pour le document, puis elle augmente de plus en plus. */
+    var titleWidth = doc.getTextWidth(title);
+
+    // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+    y += 2;
+
+    // Couleur du soulignement (RVB)
+    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+    doc.setTextColor(229, 165, 73); 
+
+    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+    doc.setLineWidth(0.5);
+
+    // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+    // Correction de 26 mm pour que le trait soit de la bonne longueur.
+    doc.line(marginLeft, y, titleWidth + 26, y); 
+
+    /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+
+    doc.setFont('helvetica', 'normal');
+    fontSize = 12;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(0, 0, 0);
+
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(2, fontSize, lineHeight);
+    
+    text = "";
+
+
+
+
 
 
 
