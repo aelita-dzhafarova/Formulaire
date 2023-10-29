@@ -926,7 +926,7 @@
                 <h2>Durée et horaires de travail.</h2>
                 <p>Le particulier employeur peut déterminer la répartition des jours et horaires de travail du salarié au moment de la conclusion du contrat. La durée de travail hebdomadaire de travail du jeune travailleur âgé de 16 à 18 ans ne peut pas excéder 35 heures.</p>
 
-                <h3>Est-ce que la durée du travail est déterminé ?</h3>
+                <h3>Est-ce que la durée du travail est déterminée ?</h3>
                 <div>
                     <input type="radio" id="yes_working_time1" name="working_time1" value="yes"/>
                     <label for="yes_working_time">Oui</label>
@@ -936,7 +936,7 @@
                     <label for="no_working_time1">Non</label>
                 </div>
                 <div class="yes_working_time1">
-                    <h3>Le particulier employeur peut déterminer la répartition des jours et horaires de travail du salarié au moment de la conclusion du contrat ?</h3>
+                    <h3>Le particulier employeur peut-il déterminer la répartition des jours et horaires de travail du salarié au moment de la conclusion du contrat ?</h3>
                     <div>
                         <input type="radio" id="yes_working_time2" name="working_time2" value="yes"/>
                         <label for="yes_working_time2">Oui</label>
@@ -950,7 +950,7 @@
                 <div class="no_working_time1">
                     <p>Comme convenu entre les parties, la durée de travail est dite « irrégulière» au sens de l’article 132 de la Convention collective nationale de la branche du secteur des particuliers employeurs et de l’emploi à domicile. En cas de durée de travail irrégulière, le planning sera remis au salarié par :</p>
                     <h3>Mode remise planning</h3>
-                    <select>
+                    <select id="deliveryMethod">
                         <option valeur="in-person">Main propre</option>
                         <option valeur="e-mail">Courriel</option>
                         <option valeur="sms">SMS</option>
@@ -966,7 +966,7 @@
                         <select id="departureMonday"></select>
                         <div class="calc_presence-time_monday">
                             <!-- Résultat des calcules du temps de présence reélle -->
-                            <button id="calcMonday">Calculer la présence reélle</button>   
+                            <button id="calcMonday">Calculer la présence reélle</button>
                             <div id="resultMonday"></div> 
                         </div>
 

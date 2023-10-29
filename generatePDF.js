@@ -41,6 +41,15 @@ function generatePDF() {
     let typeOfContract; // "CDI" ou "CDD"
     let sexEmployer; // "male" ou "female"
     let dateBeginContract;
+
+    let domaineEnfant = false;
+    let domaineAdulte = false;
+    let domaineEspaceDeVie = false;
+    let domaineEnvironnementExt = false;
+    let fonctionAssistanceVieCouD = false;
+
+
+
     let page = 1; // numero de la page en cours dans le PDF
     let heightParagraph; // hauteur du paragraphe courant
 
@@ -1007,15 +1016,22 @@ function generatePDF() {
     y += lineBreakText(1, fontSize, lineHeight);
         
     text = [];
-    if(document.getElementById('yes_child-care').checked) 
+    if(document.getElementById('yes_child-care').checked) {
         text.push('    - Domaine "Enfant"');
-    if(document.getElementById('yes_adult-care').checked) 
+        domaineEnfant = true;
+    }
+    if(document.getElementById('yes_adult-care').checked) {
         text.push('    - Domaine "Adulte" aide à la personne');
-    if(document.getElementById('yes_lifespace').checked) 
+        domaineAdulte = true;
+    }
+    if(document.getElementById('yes_lifespace').checked) {
         text.push('    - Domaine "Espace de vie" entretien, ménage');
-    if(document.getElementById('yes_outside').checked) 
+        domaineEspaceDeVie = true;
+    }
+    if(document.getElementById('yes_outside').checked) {
         text.push('    - Domaine "Environnement externe"');
-
+        domaineEnvironnementExt = true;
+    }
     if(text.length !== 0) {
         y += lineBreakText(1, fontSize, lineHeight);
     }
@@ -1057,11 +1073,16 @@ function generatePDF() {
         text.push("    - Baby-sitter Echelle 1");
 
     // On va remplir la deuxième case du tableau, qui est la deuxième fonction :
-    if(document.getElementById('yes_disabled1').checked) 
+    if(document.getElementById('yes_disabled1').checked) {
         text.push("    - Assistant(e) de vie D Echelle 6");
+        fonctionAssistanceVieCouD = true;
+    }
     else if(document.getElementById('yes_disabled2').checked
-        || document.getElementById('yes_disabled3').checked) 
+        || document.getElementById('yes_disabled3').checked) {
         text.push("    - Assistant(e) de vie C Echelle 5");
+        fonctionAssistanceVieCouD = true;
+
+    }
     else if(document.getElementById('yes_disabled4').checke
         || document.getElementById('yes_disabled5').checked)
         text.push("    - Assistant(e) de vie B Echelle 4");
@@ -1090,21 +1111,6 @@ function generatePDF() {
     else if(document.getElementById('yes_outside4').checked)
         text.push("    - Gardien(ne) B Echelle 3");
 
-    // RECUPERER RESULTAT CHECKBOXES
-    /* Sélectionnez tous les éléments de type checkbox avec le name "interest"
-    et les met dans une NodeList (ce n'est pas un tableau) */
-    let selectedCheckboxes = document.querySelectorAll('input[name="other_functions"]:checked');
-    let labelElement;
-    // Créez un tableau vide pour stocker les valeurs sélectionnées
-    /* Parcourir toutes les cases à cocher de la NodeList selectedCheckboxes,
-    et ajouter leur valeur au tableau */
-    selectedCheckboxes.forEach(function(checkbox) {
-        console.log("une checkbox est selectionnee");
-        labelElement = document.querySelector('label[for="'+ checkbox.value + '"]');
-        console.log("intitulé visible : " + labelElement.textContent);
-        text.push("    - " + labelElement.textContent);
-        
-    });
 
     if(text.length !== 0) {
         y += lineBreakText(2, fontSize, lineHeight);
@@ -1134,6 +1140,7 @@ function generatePDF() {
 
     // NOUVEAU BLOC
 
+
     // Saut(s) de ligne suite au texte précédent.
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
@@ -1149,10 +1156,34 @@ function generatePDF() {
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
 
+    // NOUVEAU BLOC
 
 
+    // Saut(s) de ligne suite au texte précédent.
+    y += lineBreakText(2, fontSize, lineHeight);
+                
+    // RECUPERER RESULTAT CHECKBOXES
+    /* Sélectionnez tous les éléments de type checkbox avec le name "interest"
+    et les met dans une NodeList (ce n'est pas un tableau) */
+    let selectedCheckboxes = document.querySelectorAll('input[name="other_functions"]:checked');
+    let labelElement;
+    text = [];
+    // Créez un tableau vide pour stocker les valeurs sélectionnées
+    /* Parcourir toutes les cases à cocher de la NodeList selectedCheckboxes,
+    et ajouter leur valeur au tableau */
+    selectedCheckboxes.forEach(function(checkbox) {
+        console.log("une checkbox est selectionnee");
+        labelElement = document.querySelector('label[for="'+ checkbox.value + '"]');
+        console.log("intitulé visible : " + labelElement.textContent);
+        text.push("    - " + labelElement.textContent);
+    });
 
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = lineBreakText(text.length, fontSize, lineHeight);;
 
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
 
 
@@ -1161,6 +1192,1283 @@ function generatePDF() {
     /* -------------------------- */
     /* ------- ECRAN 7 ---------- */
     /* -------------------------- */
+
+
+    /* ------- TITRE ARTICLE ---------- */
+
+    y += heightParagraph;
+
+    y += lineBreakText(2, fontSize, lineHeight);
+    doc.setFont('helvetica');
+    fontSize = 15;
+    doc.setFontSize(fontSize);
+    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+    doc.setTextColor(229, 165, 73); 
+    title = "Article 4 - Durée et horaires de travail";
+    heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+    y = testPageBreak(doc, y, 0, marginUp, marginDown);
+    doc.text(title, marginLeft, y);
+
+    /* ------- FIN TITRE ARTICLE ---------- */
+
+
+    /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+    /* Obtenir la largeur du texte. À noter qu'au début la largeur est 
+    selon l'unité choisie pour le document, puis elle augmente de plus en plus. */
+    var titleWidth = doc.getTextWidth(title);
+
+    // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+    y += 2;
+
+    // Couleur du soulignement (RVB)
+    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+    doc.setTextColor(229, 165, 73); 
+
+    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+    doc.setLineWidth(0.5);
+
+    // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+    // Correction de 26 mm pour que le trait soit de la bonne longueur.
+    doc.line(marginLeft, y, titleWidth + 26, y); 
+
+    /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+
+    doc.setFont('helvetica', 'normal');
+    fontSize = 12;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(0, 0, 0);
+
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(2, fontSize, lineHeight);
+                
+    text = "Articles 132, 133-1 et 134 du socle spécifique « salarié du particulier employeur » de la convention relatif au travail régulier et irrégulier ainsi qu’à la durée maximale de travail hebdomadaire.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(2, fontSize, lineHeight);
+                
+    text = "Lorsque le salarié a plusieurs particuliers employeurs, il s’engage à ne pas excéder la durée maximale de travail hebdomadaire prévue par la Convention collective.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+
+    /* ------- TITRE 2EME NIVEAU ---------- */
+
+    y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+    y += lineBreakText(1, fontSize, lineHeight);
+    doc.setFont('helvetica');
+    fontSize = 13;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(229, 165, 73);
+    title = "4-1 Durée déterminée ou irrégulière";
+    doc.text(title, marginLeft, y);
+
+    /* ------- FIN TITRE 2EME NIVEAU ---------- */
+
+    /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+
+    // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+    y += 2;
+
+    // Couleur du soulignement (RVB)
+    doc.setDrawColor(229, 165, 73);
+
+    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+    doc.setLineWidth(0.5);
+
+    // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+    doc.line(marginLeft, y, doc.getTextWidth(title) + 25.5, y); 
+
+    /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+    
+
+    doc.setFont('helvetica', 'normal');
+    fontSize = 12;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(0, 0, 0);
+
+    // RECUPERER RESULTAT BOUTON RADIO TRAVAIL DUREE DETERMINEE OU NON
+    radios = document.getElementsByName('working_time1');
+    for(let i = 0; i < radios.length; i++){
+        if(radios[i].checked) {
+            // answerValue correspond à l'attribut value choisi par le client (code HTML)
+            // Durée déterminée : valeur "yes", sinon valeur "no"
+            answerValue = radios[i].value;
+        }
+    }
+
+    // 1 - CAS TRAVAIL DUREE irrégulière (DONC indéterminée)
+
+    if(answerValue === "no") {
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += lineBreakText(2, fontSize, lineHeight);
+                    
+        text = "Conformément à la définition prévue à l’article 132 de la convention collective nationale de la branche du secteur des particuliers employeurs et de l'emploi à domicile.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(2, fontSize, lineHeight);
+                    
+        text = "En cas de durée de travail irrégulière, la durée est comprise entre 0 heure et 48 heures maximum par semaine.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(2, fontSize, lineHeight);
+                    
+        text = "Dans ce cas, le particulier employeur informe par écrit dans le respect d’un délai de prévenance de 5 jours calendaires, des jours et des horaires de travail, en précisant les heures de présence responsable de jour le cas échéant.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+
+
+        // RECUPERER RESULTAT LISTE DEROULANTE Mode de transmission du planning.
+        // Maintenant on souhaite récupérer le texte visible du menu déroulant.
+        let selectElement = document.getElementById("deliveryMethod");
+        let choice = selectElement.selectedIndex;
+        let selectedOptionText = selectElement.options[choice].text;
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(2, fontSize, lineHeight);
+                    
+        text = "Le planning sera remis au salarié par le moyen suivant : " + selectedOptionText + ".";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(2, fontSize, lineHeight);
+                    
+        text = "Le délai de prévenance ne s’applique pas dans des situations exceptionnelles imprévisibles et/ou en raison d’impératifs non constants s’imposant au particulier employeur.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+    // 1 - CAS où la durée du travail est déterminée (rien à voir avec CDD ou non)
+    else if(answerValue === "yes") {
+        // RECUPERER RESULTAT BOUTON RADIO REPARTITION DES HEURES CONNUE OU NON ?
+        radios = document.getElementsByName('working_time2');
+        let answerValue2;
+        for(let i = 0; i < radios.length; i++){
+            if(radios[i].checked) {
+                // answerValue correspond à l'attribut value choisi par le client (code HTML)
+                // Durée déterminée : valeur "yes", sinon valeur "no"
+                answerValue2 = radios[i].value;
+            }
+        }
+        // 2 - CAS ou la durée est déterminée mais pas les jours et horaires.
+        if(answerValue2 === "no") {
+            let nbEffectiveHours = document.getElementById("working_hours").value;
+            let nbResponsibleHours = document.getElementById("responsible_hours").value;
+
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += lineBreakText(2, fontSize, lineHeight);
+                        
+            text = "Le salarié effectue " + nbEffectiveHours + " heure(s) de travail effective(s) hebdomadaire(s), et s’y ajoute(nt) le cas échéant " + nbResponsibleHours + " heure(s) de présence responsable hebdomadaire(s).";
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+            // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+            // RECUPERER RESULTAT LISTE DEROULANTE Mode de transmission du planning.
+            // Maintenant on souhaite récupérer le texte visible du menu déroulant.
+            let selectElement = document.getElementById("deliveryMethod");
+            let choice = selectElement.selectedIndex;
+            let selectedOptionText = selectElement.options[choice].text;
+
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += heightParagraph;
+            y += lineBreakText(2, fontSize, lineHeight);
+                        
+            text = "Le planning sera remis au salarié par le moyen suivant : " + selectedOptionText + ".";
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+            // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += heightParagraph;
+            y += lineBreakText(2, fontSize, lineHeight);
+                        
+            text = "La répartition des jours et horaires de travail est indiquée par écrit dans un planning de travail remis au salarié dans le respect d’un délai de prévenance de 5 jours calendaires, sauf circonstances exceptionnelles (qui sont par nature imprévisible et/ ou résultent d’impératifs non constants s’imposant au particulier employeur).";
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+            // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += heightParagraph;
+            y += lineBreakText(2, fontSize, lineHeight);
+                        
+            text = "Le salarié peut être amené à réaliser, sur demande du particulier employeur, des heures de travail au-delà de la durée de travail effectif hebdomadaire indiquée ci-dessus, dans la limite de la durée maximale de travail.";
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+            // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        }
+        // 3 - CAS où la durée est déterminée et les jours et horaires aussi
+        else if(answerValue2 === "yes") {
+
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += lineBreakText(2, fontSize, lineHeight);
+
+            // Indice 0 : lundi 
+            let arrivalHours = [];
+            let departureHours = [];
+            let realPresence = [];
+            let effectiveWork = [];
+            let responsiblePresence = [];
+            let result;
+
+
+            arrivalHours[0] = document.getElementById("arrivalMonday").value;
+            arrivalHours[1] = document.getElementById("arrivalTuesday").value;
+            arrivalHours[2] = document.getElementById("arrivalWednesday").value;
+            arrivalHours[3] = document.getElementById("arrivalThursday").value;
+            arrivalHours[4] = document.getElementById("arrivalFriday").value;
+            arrivalHours[5] = document.getElementById("arrivalSaturday").value;
+            arrivalHours[6] = document.getElementById("arrivalSunday").value;
+
+            departureHours[0] = document.getElementById("departureMonday").value;
+            departureHours[1] = document.getElementById("departureTuesday").value;
+            departureHours[2] = document.getElementById("departureWednesday").value;
+            departureHours[3] = document.getElementById("departureThursday").value;
+            departureHours[4] = document.getElementById("departureFriday").value;
+            departureHours[5] = document.getElementById("departureSaturday").value;
+            departureHours[6] = document.getElementById("departureSunday").value;
+
+            for(let i=0; i<7; i++) {
+                result = calcDifferenceHours(arrivalHours[i], departureHours[i]);
+                realPresence[i] = result[2] + ':' + result[3];
+            }
+
+            effectiveWork[0] = document.getElementById("monday_actual_work").value;
+            effectiveWork[1] = document.getElementById("tuesday_actual-work").value;
+            effectiveWork[2] = document.getElementById("wednesday_actual_work").value;
+            effectiveWork[3] = document.getElementById("thursday_actual_work").value;
+            effectiveWork[4] = document.getElementById("friday_actual_work").value;
+            effectiveWork[5] = document.getElementById("saturday_actual_work").value;
+            effectiveWork[6] = document.getElementById("sunday_actual_work").value;
+
+            responsiblePresence[0] = document.getElementById("monday_responsible_presence").value;
+            responsiblePresence[1] = document.getElementById("tuesday_responsible_presence").value;
+            responsiblePresence[2] = document.getElementById("wednesday_responsible_presence").value;
+            responsiblePresence[3] = document.getElementById("thursday_responsible_presence").value;
+            responsiblePresence[4] = document.getElementById("friday_responsible_presence").value;
+            responsiblePresence[5] = document.getElementById("saturday_responsible_presence").value;
+            responsiblePresence[6] = document.getElementById("sunday_responsible_presence").value;
+
+            // On définit les headers du tableau
+
+            let headersTab = [{
+                id: "blank",
+                name: "blank",
+                prompt: "   ",
+                width: 45,
+                align: "left",
+                padding: 0
+            },
+            {
+                id: "Lundi",
+                name: "lundi",
+                prompt: "Lundi",
+                width: 25,
+                align: "center",
+                padding: 0
+            },
+            {
+                id: "Mardi",
+                name: "mardi",
+                prompt: "Mardi",
+                width: 25,
+                align: "center",
+                padding: 0
+            },
+            {
+                id: "Mercredi",
+                name: "mercredi",
+                prompt: "Mercredi",
+                width: 30,
+                align: "center",
+                padding: 0
+            },
+            {
+                id: "Jeudi",
+                name: "jeudi",
+                prompt: "Jeudi",
+                width: 25,
+                align: "center",
+                padding: 0
+            },
+            {
+                id: "Vendredi",
+                name: "vendredi",
+                prompt: "Vendredi",
+                width: 32,
+                align: "center",
+                padding: 0
+            },
+            {
+                id: "Samedi",
+                name: "samedi",
+                prompt: "Samedi",
+                width: 30,
+                align: "center",
+                padding: 0
+            },
+            {
+                id: "Dimanche",
+                name: "dimanche",
+                prompt: "Dimanche",
+                width: 34,
+                align: "center",
+                padding: 0
+            }];
+            
+            
+            // On écrit chaque ligne du tableau entre accolades :
+              
+            let dataTab = [{
+                blank: "Heure d'arrivée",
+                lundi: arrivalHours[0],
+                mardi: arrivalHours[1],
+                mercredi: arrivalHours[2],
+                jeudi: arrivalHours[3],
+                vendredi: arrivalHours[4],
+                samedi: arrivalHours[5],
+                dimanche: arrivalHours[6]
+            },
+            {
+                blank: "Heure de départ",
+                lundi: departureHours[0],
+                mardi: departureHours[1],
+                mercredi: departureHours[2],
+                jeudi: departureHours[3],
+                vendredi: departureHours[4],
+                samedi: departureHours[5],
+                dimanche: departureHours[6]
+            },
+            {
+                blank: "Durée présence réelle",
+                lundi: realPresence[0],
+                mardi: realPresence[1],
+                mercredi: realPresence[2],
+                jeudi: realPresence[3],
+                vendredi: realPresence[4],
+                samedi: realPresence[5],
+                dimanche: realPresence[6]
+            },
+            {
+                blank: "Dont travail effectif",
+                lundi: effectiveWork[0],
+                mardi: effectiveWork[1],
+                mercredi: effectiveWork[2],
+                jeudi: effectiveWork[3],
+                vendredi: effectiveWork[4],
+                samedi: effectiveWork[5],
+                dimanche: effectiveWork[6]
+            },
+            {
+                blank: "Et présence responsable",
+                lundi: responsiblePresence[0],
+                mardi: responsiblePresence[1],
+                mercredi: responsiblePresence[2],
+                jeudi: responsiblePresence[3],
+                vendredi: responsiblePresence[4],
+                samedi: responsiblePresence[5],
+                dimanche: responsiblePresence[6]
+            }];
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = 90; // Hauteur du tableau
+            // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            // On affiche le tableau.
+            // On va changer les couleurs du texte d'en-tête, et du background
+            // #169EFF est du bleu
+            doc.setFont('helvetica', 'normal');
+ 
+
+            doc.setDrawColor(0, 0, 0);
+            doc.setLineWidth(0.2); 
+
+            // On affiche le tableau :
+            doc.table(10, marginUp, dataTab, headersTab, {headerBackgroundColor: "#FFFFFF", autoSize: false, margins: 1, fontSize: 10});
+
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += heightParagraph;
+            y += lineBreakText(1, fontSize, lineHeight);
+                        
+            text = "En cas de nécessité, les horaires de travail peuvent faire l’objet d’une modification d’un commun accord entre les parties.";
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += heightParagraph;
+            y += lineBreakText(1, fontSize, lineHeight);
+                        
+            text = "Par ailleurs, le salarié peut être amené à réaliser, sur demande du particulier employeur, des heures de travail au-delà de la durée de travail effectif hebdomadaire indiquée ci-dessus.";
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += heightParagraph;
+            y += lineBreakText(1, fontSize, lineHeight);
+                        
+            text = "Dans tous les cas, la durée maximale de travail est fixée à une moyenne de 48 heures de travail effectif par semaine calculée sur une période de 12 semaines consécutives sans dépasser 50 heures au cours de la même semaine.";
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+        }
+    } // fin du cas où la durée du travail est déterminée (rien à voir avec CDD ou non)
+
+    if(domaineAdulte === true || domaineEnfant === true) {
+        /* -------------------------- */
+        /* ------- ECRAN 8 ---------- */
+        /* -------------------------- */
+
+
+        /* ------- TITRE 2EME NIVEAU ---------- */
+
+        y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+        y += lineBreakText(1, fontSize, lineHeight);
+        doc.setFont('helvetica');
+        fontSize = 13;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(229, 165, 73);
+        title = "4-3 Heures de présence nuit";
+        doc.text(title, marginLeft, y);
+
+        /* ------- FIN TITRE 2EME NIVEAU ---------- */
+
+        /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+
+        // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+        y += 2;
+
+        // Couleur du soulignement (RVB)
+        doc.setDrawColor(229, 165, 73);
+
+        // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+        doc.setLineWidth(0.5);
+
+        // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+        doc.line(marginLeft, y, doc.getTextWidth(title) + 25.5, y); 
+
+        /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+        
+
+        doc.setFont('helvetica', 'normal');
+        fontSize = 12;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(0, 0, 0);
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += lineBreakText(2, fontSize, lineHeight);
+                    
+        text = "Articles 137-2 du socle spécifique « salarié du particulier employeur » de la convention relatif au travail régulier et irrégulier ainsi qu’à la durée maximale de travail hebdomadaire.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Le salarié est amené à réaliser des heures de présence de nuit. Dans ce cadre, le salarié est dans l’obligation de dormir sur place, dans des conditions décentes au sein d’une pièce séparée.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Les parties ont convenu de la plage horaire de la nuit, suivante :";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+
+        // Indice 0 : lundi 
+        let startTime = [];
+        let endTime = [];
+
+        startTime[0] = document.getElementById("arrivalMondayNight").value;
+        startTime[1] = document.getElementById("arrivalTuesdayNight").value;
+        startTime[2] = document.getElementById("arrivalWednesdayNight").value;
+        startTime[3] = document.getElementById("arrivalThursdayNight").value;
+        startTime[4] = document.getElementById("arrivalFridayNight").value;
+        startTime[5] = document.getElementById("arrivalSaturdayNight").value;
+        startTime[6] = document.getElementById("arrivalSundayNight").value;
+
+        endTime[0] = document.getElementById("departureMondayNight").value;
+        endTime[1] = document.getElementById("departureTuesdayNight").value;
+        endTime[2] = document.getElementById("departureWednesdayNight").value;
+        endTime[3] = document.getElementById("departureThursdayNight").value;
+        endTime[4] = document.getElementById("departureFridayNight").value;
+        endTime[5] = document.getElementById("departureSaturdayNight").value;
+        endTime[6] = document.getElementById("departureSundayNight").value;
+
+
+        // On définit les headers du tableau
+
+        let headersTab = [{
+            id: "blank",
+            name: "blank",
+            prompt: "   ",
+            width: 45,
+            align: "left",
+            padding: 0
+        },
+        {
+            id: "Lundi",
+            name: "lundi",
+            prompt: "Lundi",
+            width: 25,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Mardi",
+            name: "mardi",
+            prompt: "Mardi",
+            width: 25,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Mercredi",
+            name: "mercredi",
+            prompt: "Mercredi",
+            width: 30,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Jeudi",
+            name: "jeudi",
+            prompt: "Jeudi",
+            width: 25,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Vendredi",
+            name: "vendredi",
+            prompt: "Vendredi",
+            width: 32,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Samedi",
+            name: "samedi",
+            prompt: "Samedi",
+            width: 30,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Dimanche",
+            name: "dimanche",
+            prompt: "Dimanche",
+            width: 34,
+            align: "center",
+            padding: 0
+        }];
+        
+        
+        // On écrit chaque ligne du tableau entre accolades :
+          
+        let dataTab = [{
+            blank: "Heure début",
+            lundi: startTime[0],
+            mardi: startTime[1],
+            mercredi: startTime[2],
+            jeudi: startTime[3],
+            vendredi: startTime[4],
+            samedi: startTime[5],
+            dimanche: startTime[6]
+        },
+        {
+            blank: "Heure fin",
+            lundi: endTime[0],
+            mardi: endTime[1],
+            mercredi: endTime[2],
+            jeudi: endTime[3],
+            vendredi: endTime[4],
+            samedi: endTime[5],
+            dimanche: endTime[6]
+        }];
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = 40; // Hauteur du tableau
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        // On affiche le tableau.
+        // On va changer les couleurs du texte d'en-tête, et du background
+        // #169EFF est du bleu
+        doc.setFont('helvetica', 'normal');
+
+
+        doc.setDrawColor(0, 0, 0);
+        doc.setLineWidth(0.2); 
+
+        // On affiche le tableau :
+        doc.table(10, y, dataTab, headersTab, {headerBackgroundColor: "#FFFFFF", autoSize: false, margins: 1, fontSize: 10});
+
+        // NOUVEAU BLOC
+
+        doc.setFont('helvetica', 'normal');
+        fontSize = 12;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(0, 0, 0);
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+
+        text = "Ces heures de présence de nuit peuvent s’ajouter à des heures de jour prévues à l’article 6 du présent contrat.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+
+        text = "Il est précisé que le temps de la présence de nuit n’est pas pris en compte pour déterminer la durée de travail effectif hebdomadaire.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+
+        text = "Il est possible de prévoir l’inscription des heures de présence de nuit dans le carnet de transmission.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        /* ------- TITRE 2EME NIVEAU ---------- */
+
+        y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+        y += lineBreakText(1, fontSize, lineHeight);
+        doc.setFont('helvetica');
+        fontSize = 13;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(229, 165, 73);
+        title = "4-4 Nombre d'interventions nuit";
+        doc.text(title, marginLeft, y);
+
+        /* ------- FIN TITRE 2EME NIVEAU ---------- */
+
+        /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+
+        // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+        y += 2;
+
+        // Couleur du soulignement (RVB)
+        doc.setDrawColor(229, 165, 73);
+
+        // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+        doc.setLineWidth(0.5);
+
+        // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+        doc.line(marginLeft, y, doc.getTextWidth(title) + 25.5, y); 
+
+        /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+        
+
+        doc.setFont('helvetica', 'normal');
+        fontSize = 12;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(0, 0, 0);
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += lineBreakText(2, fontSize, lineHeight);
+
+        text = "Les parties conviennent d’un commun accord que le salarié pourra, sauf nécessité imprévue ou inhabituelle, être amené à intervenir habituellement " + document.getElementById("num-night-intervantion").value + " fois au cours de la nuit.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Si toutes les nuits, le salarié est amené à intervenir au moins 4 fois, les heures de présence de nuit sont requalifiées en heures de travail effectif et le contrat de travail fera l’objet d’un avenant.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+    if(fonctionAssistanceVieCouD === true) {
+        /* ------- TITRE 2EME NIVEAU ---------- */
+
+        y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+        y += lineBreakText(1, fontSize, lineHeight);
+        doc.setFont('helvetica');
+        fontSize = 13;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(229, 165, 73);
+        title = "4-5 Horaires garde malade";
+        doc.text(title, marginLeft, y);
+
+        /* ------- FIN TITRE 2EME NIVEAU ---------- */
+
+        /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+
+        // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+        y += 2;
+
+        // Couleur du soulignement (RVB)
+        doc.setDrawColor(229, 165, 73);
+
+        // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+        doc.setLineWidth(0.5);
+
+        // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+        doc.line(marginLeft, y, doc.getTextWidth(title) + 25.5, y); 
+
+        /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+        
+
+        doc.setFont('helvetica', 'normal');
+        fontSize = 12;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(0, 0, 0);
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += lineBreakText(2, fontSize, lineHeight);
+
+        text = "Le salarié est amené à réaliser des heures de garde malade de nuit. Dans ce cadre, le salarié est tenu de rester à proximité du malade et ne dispose pas d’une pièce séparée.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Les heures de garde malade de nuit ne sont pas compatibles avec un emploi de jour à temps complet (40 heures par semaines).";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+
+        // Indice 0 : lundi 
+        let startTime = [];
+        let endTime = [];
+
+        startTime[0] = document.getElementById("monday_arrival_night-patient-care").value;
+        startTime[1] = document.getElementById("tuesday_arrival_night-patient-care").value;
+        startTime[2] = document.getElementById("wednesday_arrival_night-patient-care").value;
+        startTime[3] = document.getElementById("thursday_arrival_night-patient-care").value;
+        startTime[4] = document.getElementById("friday_arrival_night-patient-care").value;
+        startTime[5] = document.getElementById("saturday_arrival_night-patient-care").value;
+        startTime[6] = document.getElementById("sunday_arrival_night-patient-care").value;
+
+        endTime[0] = document.getElementById("monday_departure_night-patient-care").value;
+        endTime[1] = document.getElementById("tuesday_departure_night-patient-care").value;
+        endTime[2] = document.getElementById("wednesday_departure_night-patient-care").value;
+        endTime[3] = document.getElementById("thursday_departure_night-patient-care").value;
+        endTime[4] = document.getElementById("friday_departure_night-patient-care").value;
+        endTime[5] = document.getElementById("saturday_departure_night-patient-care").value;
+        endTime[6] = document.getElementById("sunday_departure_night-patient-care").value;
+
+
+        // On définit les headers du tableau
+
+        let headersTab = [{
+            id: "blank",
+            name: "blank",
+            prompt: "   ",
+            width: 45,
+            align: "left",
+            padding: 0
+        },
+        {
+            id: "Lundi",
+            name: "lundi",
+            prompt: "Lundi soir",
+            width: 25,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Mardi",
+            name: "mardi",
+            prompt: "Mardi soir",
+            width: 25,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Mercredi",
+            name: "mercredi",
+            prompt: "Mercredi soir",
+            width: 30,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Jeudi",
+            name: "jeudi",
+            prompt: "Jeudi soir",
+            width: 25,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Vendredi",
+            name: "vendredi",
+            prompt: "Vendredi soir",
+            width: 32,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Samedi",
+            name: "samedi",
+            prompt: "Samedi soir",
+            width: 30,
+            align: "center",
+            padding: 0
+        },
+        {
+            id: "Dimanche",
+            name: "dimanche",
+            prompt: "Dimanche soir",
+            width: 34,
+            align: "center",
+            padding: 0
+        }];
+        
+        
+        // On écrit chaque ligne du tableau entre accolades :
+          
+        let dataTab = [{
+            blank: "Heure début",
+            lundi: startTime[0],
+            mardi: startTime[1],
+            mercredi: startTime[2],
+            jeudi: startTime[3],
+            vendredi: startTime[4],
+            samedi: startTime[5],
+            dimanche: startTime[6]
+        },
+        {
+            blank: "Heure fin (lendemain matin)",
+            lundi: endTime[0],
+            mardi: endTime[1],
+            mercredi: endTime[2],
+            jeudi: endTime[3],
+            vendredi: endTime[4],
+            samedi: endTime[5],
+            dimanche: endTime[6]
+        },
+        {
+            blank: "Total heures",
+            lundi: addHours(startTime[0], endTime[0]),
+            mardi: addHours(startTime[1], endTime[1]),
+            mercredi: addHours(startTime[2], endTime[2]),
+            jeudi: addHours(startTime[3], endTime[3]),
+            vendredi: addHours(startTime[4], endTime[4]),
+            samedi: addHours(startTime[5], endTime[5]),
+            dimanche: addHours(startTime[6], endTime[6])
+        }];
+
+
+        
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = 60; // Hauteur du tableau
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        // On affiche le tableau.
+        // On va changer les couleurs du texte d'en-tête, et du background
+        // #169EFF est du bleu
+        doc.setFont('helvetica', 'normal');
+
+
+        doc.setDrawColor(0, 0, 0);
+        doc.setLineWidth(0.2); 
+
+        // On affiche le tableau :
+        doc.table(10, y, dataTab, headersTab, {headerBackgroundColor: "#FFFFFF", autoSize: false, margins: 1, fontSize: 10});
+
+        // NOUVEAU BLOC
+
+        doc.setFont('helvetica', 'normal');
+        fontSize = 12;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(0, 0, 0);
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+
+        text = "Dans la limite maximale de 12 heures consécutives";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Il est précisé que les heures de garde malade de nuit visées sont des heures de travail effectif et sont rémunérées sur la base du salaire horaire brut prévu au contrat de travail";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    /* -------------------------- */
+    /* ------- ECRAN 9 ---------- */
+    /* -------------------------- */
+
+
+    /* ------- TITRE ARTICLE ---------- */
+
+    y += heightParagraph;
+
+    y += lineBreakText(2, fontSize, lineHeight);
+    doc.setFont('helvetica');
+    fontSize = 15;
+    doc.setFontSize(fontSize);
+    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+    doc.setTextColor(229, 165, 73); 
+    title = "Article 5 - Repos hebdomadaire";
+    heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+    y = testPageBreak(doc, y, 0, marginUp, marginDown);
+    doc.text(title, marginLeft, y);
+
+    /* ------- FIN TITRE ARTICLE ---------- */
+
+
+    /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+    /* Obtenir la largeur du texte. À noter qu'au début la largeur est 
+    selon l'unité choisie pour le document, puis elle augmente de plus en plus. */
+    var titleWidth = doc.getTextWidth(title);
+
+    // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+    y += 2;
+
+    // Couleur du soulignement (RVB)
+    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+    doc.setTextColor(229, 165, 73); 
+
+    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+    doc.setLineWidth(0.5);
+
+    // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+    // Correction de 26 mm pour que le trait soit de la bonne longueur.
+    doc.line(marginLeft, y, titleWidth + 26, y); 
+
+    /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+
+    doc.setFont('helvetica', 'normal');
+    fontSize = 12;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(0, 0, 0);
+
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(2, fontSize, lineHeight);
+    
+    text = "Article 46 du socle commun et article 138 du socle spécifique « salarié du particulier employeur » de la convention collective.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "La période de repos hebdomadaire est fixée le " + document.getElementById("dayoff").value + " (le dimanche, de préférence).";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "La période de repos hebdomadaire peut exceptionnellement être travaillée, à la demande du particulier employeur et avec l’accord écrit du salarié.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    // RECUPERER RESULTAT BOUTON RADIO
+    answerValue = "";
+    radios = document.getElementsByName('shared-custody');
+    for(let i = 0; i < radios.length; i++){
+        if(radios[i].checked){
+            // aswerValue correspond à l'attribut value choisi par le client (code HTML)
+            answerValue = radios[i].value;
+        }
+    }
+
+    if(answerValue === "yes") answerValue = "rémunéré au taux horaire normal majoré de 25 %.";
+    else if(answerValue === "no") answerValue = "récupéré par un repos équivalent majoré en temps de 25%";
+
+    text = "Sans cumul de la rémunération et la récupération de la période de repos hebdomadaire travaillée, les parties conviennent alors que le jour de travail lors la période de repos hebdomadaire est " + answerValue;
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+   
+
 
 
 
@@ -1172,23 +2480,23 @@ function generatePDF() {
     doc.save("MonFichier.pdf");
 
 
-    // BLOC A COPIER COLLER POUR RAJOUTER CHAQUE PARAGRAPHE 1 LIGNE OU MULTILIGNE
+// BLOC A COPIER COLLER POUR RAJOUTER CHAQUE PARAGRAPHE 1 LIGNE OU MULTILIGNE
 
-    // NOUVEAU BLOC
+// NOUVEAU BLOC
 
-    // // Saut(s) de ligne suite au texte précédent.
-    // y += heightParagraph;
-    // y += lineBreakText(2, fontSize, lineHeight);
-                
-    // text = "Le(s) lieu (x) de travail habituel(s) du salarié est/sont :";
+// // Saut(s) de ligne suite au texte précédent.
+// y += heightParagraph;
+// y += lineBreakText(1, fontSize, lineHeight);
+            
+// text = "";
 
-    // // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
-    // heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
-    // // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+// // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+// heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+// // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
 
-    // y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+// y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
-    // doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+// doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
 
 
@@ -1416,4 +2724,83 @@ function generatePDF() {
         }
         else return y;
     }
+
+    /* Fonction qui calcule la différence entre 2 horaires au format hh:mm.
+    Les arguments sont les 2 valeurs des deux horaires (par ordre chronologique, 
+    d'abord l'horaire la plus ancienne puis la plus récente), au format résultant de 
+    document.getElementBy...(...).value (chaînes de caractère)
+    La fonction renvoie un tableau avec :
+    -> en indice 0 le nombre d'heures et en indice 1 le nombre de minutes
+    -> en indice 2 puis indice 3 les heures puis minutes pour créer un affichage 02:00
+    
+    Par exemple, calcDifferenceHours entre 01:00 et 03:05 donnera un résultat
+    correspondant à 2h05 d'écart, c'est à dire :
+    indice 0 -> 2 (heures)
+    indice 1 -> 5 (minutes)
+    indice 2 -> 02
+    indice 3 -> 05 -> Pour construire la chaîne 02:05 si on le souhaite. */
+    function calcDifferenceHours(arrivalTimeNight, departureTimeNight) {
+
+        // Convertir les valeurs en objets Date (aujourd'hui)
+        const startDate = new Date();
+        const endDate = new Date();
+        const result = [];
+
+        const [arrivalHours, arrivalMinutes] = arrivalTimeNight.split(':');
+        startDate.setHours(parseInt(arrivalHours, 10));
+        startDate.setMinutes(parseInt(arrivalMinutes, 10));
+
+        const [departureHours, departureMinutes] = departureTimeNight.split(':');
+        endDate.setHours(parseInt(departureHours, 10));
+        endDate.setMinutes(parseInt(departureMinutes, 10));
+
+        // Calculer la durée en millisecondes
+        const durationInMilliseconds = endDate - startDate;
+
+        // Convertir la durée en heures et minutes
+        const durationInHours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+        const durationInMinutes = Math.floor((durationInMilliseconds / (1000 * 60)) % 60);
+
+        console.log(`Total duration: ${durationInHours} hours and ${durationInMinutes} minutes`);
+
+        result[0] = durationInHours;
+        result[1] = durationInMinutes;
+
+        // On ne veut pas que le resultat affiche 2:0 mais plutôt 02:00
+
+        if(result[0] < 10) result[2] = '0' + result[0]; else result[2] = result[0];
+        if(result[1] < 10) result[3] = '0' + result[1]; else result[3] = result[1]; 
+
+        console.log("Resultat du calcul des heures : " + result[0] + " heures et " + result[1] + " minutes. Autre affichage : " + result[2] + ":" + result[3]);
+
+        return result;
+    }
+
+    /* Fonction qui calcule la somme de 2 horaires au format hh:mm.
+    Les arguments sont les 2 valeurs des deux horaires, au format résultant de 
+    document.getElementBy...(...).value (chaînes de caractère)
+    La fonction renvoie la nouvelle heure en chaîne de caractère.
+    Par exemple, la somme de 02:50 et 01:20 sera 04:10 */
+    function addHours(heure1, heure2) {
+        // Divisez les heures et les minutes en deux parties distinctes
+        const [h1, m1] = heure1.split(":").map(Number);
+        const [h2, m2] = heure2.split(":").map(Number);
+      
+        // Additionnez les heures et les minutes
+        let heures = h1 + h2;
+        let minutes = m1 + m2;
+      
+        // Gérez le cas où les minutes dépassent 60
+        if (minutes >= 60) {
+          heures += Math.floor(minutes / 60);
+          minutes %= 60;
+        }
+      
+        // Assurez-vous que les heures et les minutes ont toujours deux chiffres
+        const heuresStr = heures.toString().padStart(2, "0");
+        const minutesStr = minutes.toString().padStart(2, "0");
+      
+        // Retournez le résultat sous forme de chaîne de caractères au format hh:mm
+        return `${heuresStr}:${minutesStr}`;
+      }
 }
