@@ -1244,7 +1244,7 @@ function generatePDF() {
 
     // Saut(s) de ligne suite au texte précédent.
     y += heightParagraph;
-    y += lineBreakText(2, fontSize, lineHeight);
+    y += lineBreakText(1, fontSize, lineHeight);
                 
     text = "Articles 132, 133-1 et 134 du socle spécifique « salarié du particulier employeur » de la convention relatif au travail régulier et irrégulier ainsi qu’à la durée maximale de travail hebdomadaire.";
 
@@ -2394,7 +2394,7 @@ function generatePDF() {
 
     // Saut(s) de ligne suite au texte précédent.
     y += heightParagraph;
-    y += lineBreakText(2, fontSize, lineHeight);
+    y += lineBreakText(1, fontSize, lineHeight);
     
     text = "Article 46 du socle commun et article 138 du socle spécifique « salarié du particulier employeur » de la convention collective.";
 
@@ -2467,80 +2467,191 @@ function generatePDF() {
 
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
+   /* ------- TITRE ARTICLE ---------- */
+
+   y += heightParagraph;
+
+   y += lineBreakText(2, fontSize, lineHeight);
+   doc.setFont('helvetica');
+   fontSize = 15;
+   doc.setFontSize(fontSize);
+   // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+   doc.setTextColor(229, 165, 73); 
+   title = "Article 6 - Jours fériés";
+   heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+   y = testPageBreak(doc, y, 0, marginUp, marginDown);
+   doc.text(title, marginLeft, y);
+
+   /* ------- FIN TITRE ARTICLE ---------- */
+
+
+   /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+   /* Obtenir la largeur du texte. À noter qu'au début la largeur est 
+   selon l'unité choisie pour le document, puis elle augmente de plus en plus. */
+   var titleWidth = doc.getTextWidth(title);
+
+   // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+   y += 2;
+
+   // Couleur du soulignement (RVB)
+   // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+   doc.setTextColor(229, 165, 73); 
+
+   // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+   doc.setLineWidth(0.5);
+
+   // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+   // Correction de 26 mm pour que le trait soit de la bonne longueur.
+   doc.line(marginLeft, y, titleWidth + 26, y); 
+
+   /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+
+   doc.setFont('helvetica', 'normal');
+   fontSize = 12;
+   doc.setFontSize(fontSize);
+   doc.setTextColor(0, 0, 0);
+
     // NOUVEAU BLOC
 
     // Saut(s) de ligne suite au texte précédent.
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
                 
-    text = "Les parties peuvent modifier la modalité choisie durant la relation de travail, par un avenant écrit.";
+    text = "Article 47 du socle commun et article 139 du socle spécifique « salarié du particulier employeur » de la convention collective.";
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
     heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
-    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
 
     y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
-    /* ------- TITRE ARTICLE ---------- */
+    // NOUVEAU BLOC
 
+    // Saut(s) de ligne suite au texte précédent.
     y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Les jours fériés ordinaires travaillés sont, le cas échéant, les suivants :";
 
-    y += lineBreakText(2, fontSize, lineHeight);
-    doc.setFont('helvetica');
-    fontSize = 15;
-    doc.setFontSize(fontSize);
-    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-    doc.setTextColor(229, 165, 73); 
-    title = "Article 6 - Jours fériés";
-    heightParagraph = lineBreakText(1, fontSize, lineHeight);;
-    y = testPageBreak(doc, y, 0, marginUp, marginDown);
-    doc.text(title, marginLeft, y);
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
 
-    /* ------- FIN TITRE ARTICLE ---------- */
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
-    /* ------- SOULIGNEMENT DU TITRE ---------- */
+   // NOUVEAU BLOC
 
-    /* Obtenir la largeur du texte. À noter qu'au début la largeur est 
-    selon l'unité choisie pour le document, puis elle augmente de plus en plus. */
-    var titleWidth = doc.getTextWidth(title);
+   // Saut(s) de ligne suite au texte précédent.
+   y += heightParagraph;
+   
+   // RECUPERER RESULTAT CHECKBOXES
+    /* Sélectionnez tous les éléments de type checkbox avec le name "interest"
+    et les met dans une NodeList (ce n'est pas un tableau) */
+    selectedCheckboxes = document.querySelectorAll('input[name="holidays"]:checked');
+    // Créez un tableau vide pour stocker les valeurs sélectionnées
+    let selectedValues = [];
+    let selectedContent = [];
+    labelElement = "";
+    /* Parcourir toutes les cases à cocher de la NodeList selectedCheckboxes,
+    et ajouter leur valeur au tableau */
+    selectedCheckboxes.forEach(function(checkbox) {
+        selectedValues.push(checkbox.value);
+        // Facultatif : on récupère le contenu visible dans la page en face de la case
+        labelElement = document.querySelector('label[for="'+ checkbox.value + '"]');
+        selectedContent.push(labelElement.textContent);
+    });
 
-    // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
-    y += 2;
+    text = selectedContent;
 
-    // Couleur du soulignement (RVB)
-    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-    doc.setTextColor(229, 165, 73); 
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = lineBreakText(text.length, fontSize, lineHeight);
 
-    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
-    doc.setLineWidth(0.5);
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
-    // Dessiner le soulignement, les unités sont les unités choisies pour le document.
-    // Correction de 26 mm pour que le trait soit de la bonne longueur.
-    doc.line(marginLeft, y, titleWidth + 26, y); 
-
-    /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
-
-    doc.setFont('helvetica', 'normal');
-    fontSize = 12;
-    doc.setFontSize(fontSize);
-    doc.setTextColor(0, 0, 0);
-
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
     // NOUVEAU BLOC
 
     // Saut(s) de ligne suite au texte précédent.
     y += heightParagraph;
-    y += lineBreakText(2, fontSize, lineHeight);
-    
-    text = "";
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Le jour férié chômé qui tombe un jour habituellement travaillé par le salarié est rémunéré.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "En contrepartie du travail un jour férié ordinaire, le salarié perçoit, au titre des heures effectuées, une rémunération majorée de 10 % calculée sur la base du salaire habituel fixé au présent contrat. Le salarié bénéficie une rémunération majorée à hauteur de 100%. Pour le 1er mai.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    // RECUPERER RESULTAT BOUTON RADIO
+    radios = document.getElementsByName('mai_first');
+    answerValue = "";
+    for(let i = 0; i < radios.length; i++){
+        if(radios[i].checked){
+            // aswerValue correspond à l'attribut value choisi par le client (code HTML)
+            answerValue = radios[i].value;
+        }
+    }
+
+    if(answerValue === "mai_first_nonworking") answerValue = "chômé";
+    else if(answerValue === "mai_first_working") answerValue = "travaillé";
 
 
+    text = "Il est convenu au contrat que le 1er mai sera " + answerValue + ".";
 
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
 
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Le jour férié chômé qui tombe un jour habituellement travaillé par le salarié est rémunéré dans les conditions prévues par l’article 47-2 du socle commun de la convention collective. Le chômage d'un jour férié ordinaire tombant un jour habituellement travaillé, ouvre droit au maintien de la rémunération brute habituelle, si le salarié a travaillé pour le particulier employeur, le dernier jour de travail qui précède le jour férié et le premier jour de travail qui lui fait suite, sauf autorisation d'absence préalablement accordée.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
 
 
@@ -2554,7 +2665,7 @@ function generatePDF() {
 
 // BLOC A COPIER COLLER POUR RAJOUTER CHAQUE PARAGRAPHE 1 LIGNE OU MULTILIGNE
 
-// NOUVEAU BLOC
+// // NOUVEAU BLOC
 
 // // Saut(s) de ligne suite au texte précédent.
 // y += heightParagraph;
@@ -2564,11 +2675,29 @@ function generatePDF() {
 
 // // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
 // heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
-// // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+// // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
 
 // y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
 // doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
