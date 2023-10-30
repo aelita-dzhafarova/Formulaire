@@ -39,6 +39,7 @@ function generatePDF() {
     let answerValue1, answerValue2;
 
     let typeOfContract; // "CDI" ou "CDD"
+    let dureeTravailDeterminee = false;
     let sexEmployer; // "male" ou "female"
     let dateBeginContract;
 
@@ -1324,6 +1325,7 @@ function generatePDF() {
     // 1 - CAS TRAVAIL DUREE irrégulière (DONC indéterminée)
 
     if(answerValue === "no") {
+        dureeTravailDeterminee = false;
         // NOUVEAU BLOC
 
         // Saut(s) de ligne suite au texte précédent.
@@ -1416,6 +1418,7 @@ function generatePDF() {
     }
     // 1 - CAS où la durée du travail est déterminée (rien à voir avec CDD ou non)
     else if(answerValue === "yes") {
+        dureeTravailDeterminee = true;
         // RECUPERER RESULTAT BOUTON RADIO REPARTITION DES HEURES CONNUE OU NON ?
         radios = document.getElementsByName('working_time2');
         let answerValue2;
@@ -2653,6 +2656,661 @@ function generatePDF() {
 
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
+    /* ------- TITRE ARTICLE ---------- */
+
+   y += heightParagraph;
+
+   y += lineBreakText(2, fontSize, lineHeight);
+   doc.setFont('helvetica');
+   fontSize = 15;
+   doc.setFontSize(fontSize);
+   // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+   doc.setTextColor(229, 165, 73); 
+   title = "Article 7 - Congés payés";
+   heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+   y = testPageBreak(doc, y, 0, marginUp, marginDown);
+   doc.text(title, marginLeft, y);
+
+   /* ------- FIN TITRE ARTICLE ---------- */
+
+
+   /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+   /* Obtenir la largeur du texte. À noter qu'au début la largeur est 
+   selon l'unité choisie pour le document, puis elle augmente de plus en plus. */
+   var titleWidth = doc.getTextWidth(title);
+
+   // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+   y += 2;
+
+   // Couleur du soulignement (RVB)
+   // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+   doc.setTextColor(229, 165, 73); 
+
+   // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+   doc.setLineWidth(0.5);
+
+   // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+   // Correction de 26 mm pour que le trait soit de la bonne longueur.
+   doc.line(marginLeft, y, titleWidth + 26, y); 
+
+   /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+
+   doc.setFont('helvetica', 'normal');
+   fontSize = 12;
+   doc.setFontSize(fontSize);
+   doc.setTextColor(0, 0, 0);
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+
+    text = "Articles 48 et 48-1 du socle commun et article 140-1 du socle spécifique « salarié du particulier employeur ».";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+
+    text = "Le salarié bénéficie de congés payés conformément aux dispositions de la convention collective.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+
+    text = "La période de référence pour la prise du congé principal acquis est fixée du 1er mai au 31 octobre de l'année en cours.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+
+    text = "Les parties s’accordent dans la mesure du possible, sur la date des congés payés. À défaut d’accord entre elles, la date des congés est fixée par le particulier employeur, sous réserve du respect d’un délai de prévenance minimal de deux mois.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // RECUPERER RESULTAT BOUTON RADIO Pour savoir si on affiche le texte CESU
+    radios = document.getElementsByName('declared_cesu');
+    answerValue = "";
+    for(let i = 0; i < radios.length; i++){
+        if(radios[i].checked){
+            // aswerValue correspond à l'attribut value choisi par le client (code HTML)
+            answerValue = radios[i].value;
+        }
+    }
+
+    if(answerValue === "yes_declared_cesu") {
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+
+        // RECUPERER RESULTAT BOUTON RADIO
+        radios = document.getElementsByName('paid_vacation');
+        answerValue = "";
+        for(let i = 0; i < radios.length; i++){
+            if(radios[i].checked){
+                // aswerValue correspond à l'attribut value choisi par le client (code HTML)
+                answerValue = radios[i].value;
+            }
+        }
+
+        if(answerValue === "paid_vacation1") answerValue = "le salaire mensuel brut du salarié est majoré de 10 % au titre des congés payés";
+        else if(answerValue === "paid_vacation2") answerValue = "les congés payés sont rémunérés lors de leur prise";
+
+        text = "Dans le cas où le salarié est déclaré par le biais du CESU, il est expressément convenu entre les parties que " + answerValue + ".";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Les congés payés annuels doivent être pris. Le délai de prévenance pour fixer les congés est de 2 mois minimum.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Lorsque le salarié n’acquiert pas 30 jours ouvrables de congés payés au cours de la période de référence visée à l’article 48-1-1-1 du socle commun de la convention collective, il est possible de lui accorder des congés complémentaires non rémunérés pour lui permettre de bénéficier d’un repos annuel de 30 jours ouvrables.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "En cas de multi-emplois, le salarié informe chaque particulier employeur des dates des congés fixées avec chacun d’eux.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    /* ------- TITRE ARTICLE ---------- */
+
+   y += heightParagraph;
+
+   y += lineBreakText(2, fontSize, lineHeight);
+   doc.setFont('helvetica');
+   fontSize = 15;
+   doc.setFontSize(fontSize);
+   // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+   doc.setTextColor(229, 165, 73); 
+   title = "Article 8 - Absences du salarié et absences du particulier employeur";
+   heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+   y = testPageBreak(doc, y, 0, marginUp, marginDown);
+   doc.text(title, marginLeft, y);
+
+   /* ------- FIN TITRE ARTICLE ---------- */
+
+
+   /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+   /* Obtenir la largeur du texte. À noter qu'au début la largeur est 
+   selon l'unité choisie pour le document, puis elle augmente de plus en plus. */
+   var titleWidth = doc.getTextWidth(title);
+
+   // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+   y += 2;
+
+   // Couleur du soulignement (RVB)
+   // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+   doc.setTextColor(229, 165, 73); 
+
+   // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+   doc.setLineWidth(0.5);
+
+   // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+   // Correction de 26 mm pour que le trait soit de la bonne longueur.
+   doc.line(marginLeft, y, titleWidth + 26, y); 
+
+   /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+
+   doc.setFont('helvetica', 'normal');
+   fontSize = 12;
+   doc.setFontSize(fontSize);
+   doc.setTextColor(0, 0, 0);
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+
+    text = "Article 49 du socle commun et article 141-1 du socle spécifique « salarié du particulier employeur ».";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    /* ------- TITRE 2EME NIVEAU ---------- */
+
+    y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+    y += lineBreakText(1, fontSize, lineHeight);
+    doc.setFont('helvetica');
+    fontSize = 13;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(229, 165, 73);
+    title = "8-1 Absences du salarié";
+    doc.text(title, marginLeft, y);
+
+    /* ------- FIN TITRE 2EME NIVEAU ---------- */
+
+    /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+
+    // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+    y += 2;
+
+    // Couleur du soulignement (RVB)
+    doc.setDrawColor(229, 165, 73);
+
+    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+    doc.setLineWidth(0.5);
+
+    // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+    doc.line(marginLeft, y, doc.getTextWidth(title) + 25.5, y); 
+
+    /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+    
+
+    doc.setFont('helvetica', 'normal');
+    fontSize = 12;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(0, 0, 0);
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += lineBreakText(2, fontSize, lineHeight);
+
+    text = "Toute absence doit être justifiée et le cas échéant autorisée par le particulier employeur.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Toute absence du salarié doit être justifiée, le salarié s’engage à prévenir dès que possible le particulier employeur.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "En cas d’arrêt de travail pour maladie ou accident, le salarié devra lui transmettre son arrêt de travail dans les 48 heures, sauf circonstances exceptionnelles.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    doc.setFont('helvetica', 'normal', 'bold');
+    doc.setTextColor(255, 0, 0);
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Dans le cas d’une garde partagée, en cas d'accident du travail, la déclaration est réalisée par le particulier employeur au domicile duquel l'accident s'est produit. Lorsque l'accident survient entre les domiciles des deux particuliers employeurs, ceux-ci s'entendent pour que l'un d'entre eux établisse la déclaration d'accident du travail. À défaut d'accord, le domicile le plus proche du lieu de l'accident est pris en compte pour déterminer le particulier employeur ayant en charge l'établissement de la déclaration d'accident de travail.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+       
+    text = "Une copie de la déclaration d'accident de travail est remise par le salarié à l'autre particulier employeur.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    /* ------- TITRE 2EME NIVEAU ---------- */
+
+    y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+    y += lineBreakText(1, fontSize, lineHeight);
+    doc.setFont('helvetica');
+    fontSize = 13;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(229, 165, 73);
+    title = "8-2 Absences du particulier employeur";
+    doc.text(title, marginLeft, y);
+
+    /* ------- FIN TITRE 2EME NIVEAU ---------- */
+
+    /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+
+    // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+    y += 2;
+
+    // Couleur du soulignement (RVB)
+    doc.setDrawColor(229, 165, 73);
+
+    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+    doc.setLineWidth(0.5);
+
+    // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+    doc.line(marginLeft, y, doc.getTextWidth(title) + 25.5, y); 
+
+    /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+    
+
+    doc.setFont('helvetica', 'normal');
+    fontSize = 12;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(0, 0, 0);
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += lineBreakText(2, fontSize, lineHeight);
+
+    text = "Article 142 du socle spécifique « salarié du particulier employeur de la convention collective";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Le contrat de travail est suspendu durant les périodes d'absences ou d'indisponibilités temporaires du particulier employeur. Ces périodes se décomptent du temps de travail effectif et sont déduites de la rémunération mensuelle versée au salarié. Toutefois, elles sont prises en considération pour le calcul de l'ancienneté du salarié.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Les parties conviennent expressément que les périodes suivantes ne sont pas travaillées par le salarié et que ce dernier est libre de tout engagement :";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+            
+    text = "" + document.getElementById("scheduled-absences").value;
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Les heures non effectuées au cours de ces périodes seront déduites du salaire mensuel.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Les périodes d’absences ou d’indisponibilités du particulier employeur, non prévues contractuellement ne sont pas considérées comme des congés pour convenance personnelle du salarié au sens de l’article 48-2-1 du socle commun de la présente convention collective.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    /* ------- TITRE ARTICLE ---------- */
+
+   y += heightParagraph;
+
+   y += lineBreakText(2, fontSize, lineHeight);
+   doc.setFont('helvetica');
+   fontSize = 15;
+   doc.setFontSize(fontSize);
+   // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+   doc.setTextColor(229, 165, 73); 
+   title = "Article 9 - Rémunération et Indemnité";
+   heightParagraph = lineBreakText(1, fontSize, lineHeight);;
+   y = testPageBreak(doc, y, 0, marginUp, marginDown);
+   doc.text(title, marginLeft, y);
+
+   /* ------- FIN TITRE ARTICLE ---------- */
+
+
+   /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+   /* Obtenir la largeur du texte. À noter qu'au début la largeur est 
+   selon l'unité choisie pour le document, puis elle augmente de plus en plus. */
+   var titleWidth = doc.getTextWidth(title);
+
+   // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+   y += 2;
+
+   // Couleur du soulignement (RVB)
+   // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+   doc.setTextColor(229, 165, 73); 
+
+   // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+   doc.setLineWidth(0.5);
+
+   // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+   // Correction de 26 mm pour que le trait soit de la bonne longueur.
+   doc.line(marginLeft, y, titleWidth + 26, y); 
+
+   /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+
+   doc.setFont('helvetica', 'normal');
+   fontSize = 12;
+   doc.setFontSize(fontSize);
+   doc.setTextColor(0, 0, 0);
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+
+    text = "Article 144 et 156 du socle spécifique « salarié du particulier employeur de la convention collective et annexe 6 ou avenant de la convention collective en vigueur.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Le salaire horaire prévu au contrat ne peut être inférieur ni au salaire horaire minimum conventionnel, ni au salaire horaire minimum de croissance en vigueur.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    /* ------- TITRE 2EME NIVEAU ---------- */
+
+    y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+    y += lineBreakText(1, fontSize, lineHeight);
+    doc.setFont('helvetica');
+    fontSize = 13;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(229, 165, 73);
+    title = "9-1 Rémunération";
+    doc.text(title, marginLeft, y);
+
+    /* ------- FIN TITRE 2EME NIVEAU ---------- */
+
+    /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+
+    // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+    y += 2;
+
+    // Couleur du soulignement (RVB)
+    doc.setDrawColor(229, 165, 73);
+
+    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+    doc.setLineWidth(0.5);
+
+    // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+    doc.line(marginLeft, y, doc.getTextWidth(title) + 25.5, y); 
+
+    /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+    
+
+    doc.setFont('helvetica', 'normal');
+    fontSize = 12;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(0, 0, 0);
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += lineBreakText(2, fontSize, lineHeight);
+
+    text = "La rémunération est versée sauf circonstance exceptionnelle, au salarié à la date du " + document.getElementById("salary-date").value + ".";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Le salaire horaire brut du salarié est fixé à " + document.getElementById("salary-hour").value + " €, en vigueur à la date du contrat.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
 
 
