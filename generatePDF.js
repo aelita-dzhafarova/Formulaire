@@ -51,12 +51,16 @@ function generatePDF() {
     let sexEmployer; // "male" ou "female"
     let dateBeginContract;
 
-    // Variables qui indiqueront à quel(s) domaine(s) est rattaché l'employé.
+    // Variables qui indiqueront à quel(s) domaine(s) ou fonction est rattaché l'employé.
     let domaineEnfant = false;
     let domaineAdulte = false;
     let domaineEspaceDeVie = false;
     let domaineEnvironnementExt = false;
     let fonctionAssistanceVieCouD = false;
+
+    // Variables qui indiqueront s'il y a des heures de présence responsable de jour ou de nuit.
+    let heuresResponsableJour = false;
+    let heuresResponsableNuit = false;
 
     // Variable qui indiquera s'il y a un co-employeur.
     let co_employeur = false;
@@ -454,7 +458,7 @@ function generatePDF() {
     
     y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
 
-    text = 'Nationalité : ' + document.getElementById("social_number_employee").value;    
+    text = 'Nationalité : ' + document.getElementById("nationality_employee").value;    
 
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
@@ -687,9 +691,11 @@ function generatePDF() {
 
     y = testPageBreak(doc, y, 0, marginUp, marginDown);
 
+    doc.setFont('helvetica', 'normal', 'bold');
     text = "Article 131 du socle spécifique « salarié du particulier employeur » de la convention collective.";
 
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
 
     // Nouveau bloc 
 
@@ -1267,7 +1273,9 @@ function generatePDF() {
 
     y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+    doc.setFont('helvetica', 'normal', 'bold');
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
 
 
     // NOUVEAU BLOC
@@ -1351,7 +1359,9 @@ function generatePDF() {
 
         y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+        doc.setFont('helvetica', 'normal', 'bold');
         doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+        doc.setFont('helvetica', 'normal');
 
 
         // NOUVEAU BLOC
@@ -1569,6 +1579,15 @@ function generatePDF() {
             responsiblePresence[4] = document.getElementById("friday_responsible_presence").value;
             responsiblePresence[5] = document.getElementById("saturday_responsible_presence").value;
             responsiblePresence[6] = document.getElementById("sunday_responsible_presence").value;
+
+            /* Cette condition sert à indiquer qu'il y a des heures responsable jour, grâce à la variable heuresResponsableJour. Cela servira pour l'écran 11.
+            Les domaine adulte ou enfant doivent être sur "oui" comme cela est
+            indiqué dans le formulaire visible pour le client, partie des heures
+            responsables. */
+            if(sommeTableau(responsiblePresence) !== 0 
+            && (domaineAdulte === true || domaineEnfant === true)) {
+                heuresResponsableJour = true;
+            }
 
             // On définit les headers du tableau
 
@@ -1812,7 +1831,9 @@ function generatePDF() {
 
         y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+        doc.setFont('helvetica', 'normal', 'bold');
         doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+        doc.setFont('helvetica', 'normal');
 
         // NOUVEAU BLOC
 
@@ -1855,6 +1876,7 @@ function generatePDF() {
         // Indice 0 : lundi 
         let startTime = [];
         let endTime = [];
+        let responsibleNight = [];
 
         startTime[0] = document.getElementById("arrivalMondayNight").value;
         startTime[1] = document.getElementById("arrivalTuesdayNight").value;
@@ -1871,6 +1893,23 @@ function generatePDF() {
         endTime[4] = document.getElementById("departureFridayNight").value;
         endTime[5] = document.getElementById("departureSaturdayNight").value;
         endTime[6] = document.getElementById("departureSundayNight").value;
+
+        /* DEBUT de la partie qui sert à régler la variable indiquant
+        s'il y a des heures responsable nuit, utilisée dans l'écran 11. */
+        responsibleNight[0] = document.getElementById("monday_responsible_night").value;
+        responsibleNight[1] = document.getElementById("tuesday_responsible_night").value;
+        responsibleNight[2] = document.getElementById("wednesday_responsible_night").value;
+        responsibleNight[3] = document.getElementById("thursday_responsible_night").value;
+        responsibleNight[4] = document.getElementById("friday_responsible_night").value;
+        responsibleNight[5] = document.getElementById("saturday_responsible_night").value;
+        responsibleNight[6] = document.getElementById("sunday_responsible_night").value;
+
+        // Cette condition sert à indiquer qu'il y a des heures responsable jour, grâce à la variable heuresResponsableJour. Cela servira pour l'écran 11.
+        if(sommeTableau(responsibleNight) !== 0) {
+            heuresResponsableNuit = true;
+        }
+        /* FIN de la partie qui sert à régler la variable indiquant
+        s'il y a des heures responsable nuit, utilisée dans l'écran 11. */
 
 
         // On définit les headers du tableau
@@ -2419,7 +2458,9 @@ function generatePDF() {
 
     y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+    doc.setFont('helvetica', 'normal', 'bold');
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
 
     // NOUVEAU BLOC
 
@@ -2541,7 +2582,9 @@ function generatePDF() {
 
     y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+    doc.setFont('helvetica', 'normal', 'bold');
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
 
     // NOUVEAU BLOC
 
@@ -2719,7 +2762,9 @@ function generatePDF() {
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
 
+    doc.setFont('helvetica', 'normal', 'bold');
     text = "Articles 48 et 48-1 du socle commun et article 140-1 du socle spécifique « salarié du particulier employeur ».";
+    doc.setFont('helvetica', 'normal');
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
     heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
@@ -2918,6 +2963,7 @@ function generatePDF() {
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
 
+    
     text = "Article 49 du socle commun et article 141-1 du socle spécifique « salarié du particulier employeur ».";
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
@@ -2926,7 +2972,9 @@ function generatePDF() {
 
     y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+    doc.setFont('helvetica', 'normal', 'bold');
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
 
     /* ------- TITRE 2EME NIVEAU ---------- */
 
@@ -3065,7 +3113,7 @@ function generatePDF() {
     /* ------- FIN TITRE 2EME NIVEAU ---------- */
 
     /* ------- SOULIGNEMENT DU TITRE ---------- */
-
+ 
 
     // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
     y += 2;
@@ -3092,6 +3140,7 @@ function generatePDF() {
     // Saut(s) de ligne suite au texte précédent.
     y += lineBreakText(2, fontSize, lineHeight);
 
+    
     text = "Article 142 du socle spécifique « salarié du particulier employeur de la convention collective";
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
@@ -3100,7 +3149,9 @@ function generatePDF() {
 
     y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+    doc.setFont('helvetica', 'normal', 'bold');
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
 
     // NOUVEAU BLOC
 
@@ -3241,7 +3292,9 @@ function generatePDF() {
 
     y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+    doc.setFont('helvetica', 'normal', 'bold');
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
 
     // NOUVEAU BLOC
 
@@ -3384,7 +3437,7 @@ function generatePDF() {
         // Saut(s) de ligne suite au texte précédent.
         y += heightParagraph;
         y += lineBreakText(1, fontSize, lineHeight);
-                    
+        
         text = "Articles 146-1 et 147 du socle spécifique « salarié du particulier employeur » de la convention collective.";
 
         // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
@@ -3393,7 +3446,9 @@ function generatePDF() {
 
         y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+        doc.setFont('helvetica', 'normal', 'bold');
         doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+        doc.setFont('helvetica', 'normal');
 
         // NOUVEAU BLOC
 
@@ -3507,7 +3562,9 @@ function generatePDF() {
 
     y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
+    doc.setFont('helvetica', 'normal', 'bold');
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
 
     // NOUVEAU BLOC
 
@@ -3515,7 +3572,7 @@ function generatePDF() {
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
                 
-    text = "Les parties ont convenu que dans la totalité des heures supplémentaires autres, reliquat compensé, le nombre rémunéré est : ";
+    text = "Les parties ont convenus que les heures supplémentaires dans " + document.getElementById("time-compensation").value + " seront rémunéré, le reliquat des heures compensées.";
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
     heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
@@ -3531,7 +3588,7 @@ function generatePDF() {
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
                 
-    text = "";
+    text = "Les heures de travail excédant une durée hebdomadaire de 40 heures sont :";
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
     heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
@@ -3547,7 +3604,20 @@ function generatePDF() {
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
                 
-    text = "";
+    // RECUPERER RESULTAT BOUTON RADIO
+    radios = document.getElementsByName('overtime');
+    answerValue = "";
+    for(let i = 0; i < radios.length; i++){
+        if(radios[i].checked){
+            // aswerValue correspond à l'attribut value choisi par le client (code HTML)
+            answerValue = radios[i].value;
+        }
+    }
+
+    if(answerValue === "overtime_option1") answerValue = "Rémunérées au taux horaire normal majoré de 25% au-delà de la 40ème heure de travail et jusqu’à la 48ème heure de travail incluse, et de 50% pour la 49ème heure de travail et la 50ème heure de travail.";
+    else if(answerValue === "overtime_option2") answerValue = "Récupérées par un repos équivalent majoré en temps de 25% au-delà de la 40ème heure de travail et jusqu’à la 48ème heure de travail incluse, et de 50% pour la 49ème heure de travail et la 50ème heure de travail. Le repos compensateur sera pris sur une journée de travail habituellement travaillée, dans les 12 mois.";
+
+    text = answerValue;
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
     heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
@@ -3563,7 +3633,7 @@ function generatePDF() {
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
                 
-    text = "";
+    text = "Les dates de prise du repos compensateur sont fixées d’un commun accord, ou, à défaut, par le particulier employeur.";
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
     heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
@@ -3579,7 +3649,826 @@ function generatePDF() {
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
                 
-    text = "";
+    text = "Les parties s’entendent à pouvoir modifier la modalité choisie durant la relation de travail, par un avenant écrit au contrat de travail.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    if(dureeTravailDeterminee === true) {
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Le nombre d’heures de travail mensuel se calcule comme suit :";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "(Salaire horaire brut non majoré x nombre d’heures de travail par semaine dans la limite de 40 heures x 52 semaines /12 mois) + (Salaire horaire brut majoré x nombre d’heures supplémentaires rémunérées x 52 semaines /12 mois)";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    // Partie qui s'affiche uniquement s'il y a des heures de présence responsable jour.
+
+    // NOUVEAU BLOC
+
+    if(heuresResponsableJour === true) {
+                    
+        /* ------- TITRE 2EME NIVEAU ---------- */
+
+        y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+        y += lineBreakText(1, fontSize, lineHeight);
+        doc.setFont('helvetica');
+        fontSize = 13;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(229, 165, 73);
+        title = "9-3 Rémunération des heures de présence responsable de jour";
+        doc.text(title, marginLeft, y);
+
+        /* ------- FIN TITRE 2EME NIVEAU ---------- */
+
+        /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+
+        // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+        y += 2;
+
+        // Couleur du soulignement (RVB)
+        doc.setDrawColor(229, 165, 73);
+
+        // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+        doc.setLineWidth(0.5);
+
+        // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+        doc.line(marginLeft, y, doc.getTextWidth(title) + 25.5, y); 
+
+        /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+        
+
+        doc.setFont('helvetica', 'normal');
+        fontSize = 12;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(0, 0, 0);
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += lineBreakText(2, fontSize, lineHeight);
+
+        text = "Articles 137-1 et 148 du socle spécifique « salarié du particulier employeur » de la convention collective.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.setFont('helvetica', 'normal', 'bold');
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+        doc.setFont('helvetica', 'normal');
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Une heure de présence responsable de jour équivaut aux 2/3 d'une heure de travail effectif rémunérée sur la base du salaire horaire brut prévu au contrat de travail.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Les heures de présence responsable de jour sont requalifiées et rémunérées en heures de travail effectif, si le salarié est amené à intervenir de manière récurrente.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Ces heures sont prises en compte pour calculer le salaire mensuel brut global.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    /* Partie qui s'affiche uniquement s'il y a des heures de présence responsable nuit.
+    Le test a précédemment été indiqué pour vérifier qu'il y a bien un domaine
+    enfant ou domaine adulte d'actif (condition à ce que la variable heuresResponsableNuit
+    soit réglée à true), comme indiqué dans le formulaire visible au client. */
+
+    if(heuresResponsableNuit === true) {
+        /* ------- TITRE 2EME NIVEAU ---------- */
+
+        y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+        y += lineBreakText(1, fontSize, lineHeight);
+        doc.setFont('helvetica');
+        fontSize = 13;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(229, 165, 73);
+        title = "9-4 Rémunération des heures de présence responsable de nuit";
+        doc.text(title, marginLeft, y);
+
+        /* ------- FIN TITRE 2EME NIVEAU ---------- */
+
+        /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+
+        // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+        y += 2;
+
+        // Couleur du soulignement (RVB)
+        doc.setDrawColor(229, 165, 73);
+
+        // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+        doc.setLineWidth(0.5);
+
+        // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+        doc.line(marginLeft, y, doc.getTextWidth(title) + 25.5, y); 
+
+        /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+        
+
+        doc.setFont('helvetica', 'normal');
+        fontSize = 12;
+        doc.setFontSize(fontSize);
+        doc.setTextColor(0, 0, 0);
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += lineBreakText(2, fontSize, lineHeight);
+
+        text = "Articles 137-2 et 149 du socle spécifique « salarié du particulier employeur » de la convention collective.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.setFont('helvetica', 'normal', 'bold');
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+        doc.setFont('helvetica', 'normal');
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Une indemnité s’ajoute au salaire mensuel brut global calculé ainsi indemnité forfaitaire par nuit x nombre de nuits.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "La présence de nuit est rémunérée par une indemnité forfaitaire :";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "(salaire horaire brut x 1/4 x plage horaire de nuit) ou (salaire horaire brut x 1/3 x plage horaire de nuit).";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Cette indemnité est égale à " + document.getElementById("night-allowance1").value + " € brut par nuit lorsque le salarié est appelé à intervenir moins de 2 fois au cours de la nuit le montant ne peut pas être inférieur à 1/4 du salaire contractuel versé pour une durée de travail effectif équivalente.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Cette indemnité est égale à " + document.getElementById("night-allowance2").value + " € brut par nuit lorsque le salarié est appelé à intervenir 2 ou 3 fois au cours de la nuit. le montant ne peut pas être inférieur à 1/3 du salaire contractuel versé pour une durée de travail effectif équivalente (salaire horaire brut x 1/3 x plage horaire de nuit).";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Si certaines nuits, le salarié est appelé à intervenir au moins 4 fois l’indemnité due pour la durée d’intervention correspond au salaire contractuel versé pour une durée de travail effectif équivalente, sur la base de son salaire horaire contractuel. L’indemnité forfaitaire pour la présence de nuit restante est égale à 1/3 du salaire contractuel versé pour une durée de travail effectif équivalente.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    /* ------- TITRE 2EME NIVEAU ---------- */
+
+    y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+
+    y += lineBreakText(1, fontSize, lineHeight);
+    doc.setFont('helvetica');
+    fontSize = 13;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(229, 165, 73);
+    title = "9-5 Indemnités et prestations en nature";
+    doc.text(title, marginLeft, y);
+
+    /* ------- FIN TITRE 2EME NIVEAU ---------- */
+
+    /* ------- SOULIGNEMENT DU TITRE ---------- */
+
+
+    // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
+    y += 2;
+
+    // Couleur du soulignement (RVB)
+    doc.setDrawColor(229, 165, 73);
+
+    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
+    doc.setLineWidth(0.5);
+
+    // Dessiner le soulignement, les unités sont les unités choisies pour le document.
+    doc.line(marginLeft, y, doc.getTextWidth(title) + 25.5, y); 
+
+    /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
+    
+
+    doc.setFont('helvetica', 'normal');
+    fontSize = 12;
+    doc.setFontSize(fontSize);
+    doc.setTextColor(0, 0, 0);
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += lineBreakText(2, fontSize, lineHeight);
+
+    text = "Articles 57, 58 et 59 du socle commun et articles et articles 151, 155, 156 et 157 du socle spécifique « salarié du particulier employeur ».";
+    
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.setFont('helvetica', 'normal', 'bold');
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
+    
+    // NOUVEAU BLOC
+
+    let indemnite_km = document.getElementById("mileage_allowance");
+    if(indemnite_km !== "") {
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Le salarié est amené à utiliser son véhicule personnel pour les besoins de son activité professionnelle, en plus du supplément de rémunération, il bénéficie d’une indemnité kilométrique, calculée sur la base " + indemnite_km;
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    }
+
+    // NOUVEAU BLOC
+
+    // RECUPERER RESULTAT type de prime pour l'utilisation du véhicule
+    radios = document.getElementsByName('remuneration_supplement');
+    answerValue = "";
+    for(let i = 0; i < radios.length; i++){
+        if(radios[i].checked){
+            // aswerValue correspond à l'attribut value choisi par le client (code HTML)
+            answerValue = radios[i].value;
+        }
+    }
+
+    // Si le bouton radio a été renseigné :
+    if(answerValue !== "") {
+
+        if(answerValue === "lump_sum_bonus") answerValue = "d'une prime forfaitaire";
+        else if(answerValue === "salary_increase") answerValue = "d'une majoration salariale";
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "En cas de conduite d’un véhicule dans le cadre des fonctions décrites au présent contrat, le salarié perçoit un supplément de rémunération prenant la forme " + answerValue + " d’un montant de " + document.getElementById("amount") + " €.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    let varRepas = document.getElementById("meal").value;
+    let varLogement = document.getElementById("lodging").value;
+    let varTransport = document.getElementById("transport_pass").value;
+
+    if(varRepas !== "" || varLogement !== "") {
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Les prestations en nature fournies seront déduites de la rémunération nette, à hauteur du/des montants mensuels suivants :";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        if(varRepas !== "") {
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += heightParagraph;
+            y += lineBreakText(1, fontSize, lineHeight);
+                        
+            text = "- Repas : " + varRepas + " € par jour travaillé";
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+            // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += heightParagraph;
+            y += lineBreakText(1, fontSize, lineHeight);
+                        
+            text = "Sauf si le repas est fourni au salarié par le particulier employeur par nécessité de l’emploi, la valeur journalière du repas ne sera pas déduite de sa rémunération nette";
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+            // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+        }
+        if(varLogement !== "") {
+            // NOUVEAU BLOC
+
+            // Saut(s) de ligne suite au texte précédent.
+            y += heightParagraph;
+            y += lineBreakText(1, fontSize, lineHeight);
+                        
+            text = "- Logement : " + varRepas + " € par mois";
+
+            // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+            heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+            // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+            y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+            doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+        }
+    }
+    if(varTransport !== "") {
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Le particulier employeur prendra en charge, sur présentation des justificatifs, " + varTransport + " % des frais d’abonnement aux transports en commun engagés par le salarié pour se rendre de son domicile à son lieu de travail. Si le salarié utilise ce mode de transport pour se rendre sur son lieu de travail.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Article 11 – Informations diverses";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.setFont('helvetica', 'normal', 'bold');
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
+
+    // NOUVEAU BLOC
+
+    // RECUPERER RESULTAT type de prime pour l'utilisation du véhicule
+    radios = document.getElementsByName('driving');
+    answerValue = "";
+    for(let i = 0; i < radios.length; i++){
+        if(radios[i].checked){
+            // aswerValue correspond à l'attribut value choisi par le client (code HTML)
+            answerValue = radios[i].value;
+        }
+    }
+
+    // Si le bouton radio a été renseigné :
+    if(answerValue === "yes_driving") {
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "    -   Conduite de véhicule";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "En cas de conduite d’un véhicule pour la réalisation des activités professionnelles du salarié, le particulier employeur s’assure qu’il est titulaire du permis de conduire et d’une attestation d’assurance en cours de validité en cas d’usage du véhicule du salarié.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Le salarié fournit annuellement une copie des documents justificatifs permettant au particulier employeur de procéder aux vérifications énoncées précédemment et informe le particulier employeur de toute modification.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Le salarié doit informer sans délai par écrit si son permis de conduire a été suspendu ou retiré.";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "A la date de signature du contrat, l’assurance automobile du salarié est enregistrée sous le nom et adresse suivants : " + document.getElementById("car-insurance-name").value + ", " + document.getElementById("car-insurance-address").value + ", et est référencée sous le N° de police ci-dessous indiqué :" + document.getElementById("car-insurance-policy").value;
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    // NOUVEAU BLOC
+
+    let varLogementDescrit = document.getElementById("home-description").value;
+
+    if(varLogementDescrit !== "") {
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "    -   Logement";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Le logement mis à disposition du salarié pour l’exercice de ses fonctions énumérées au contrat, et durant l’exécution de ce contrat est : ";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = varLogementDescrit;
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    // NOUVEAU BLOC
+
+    let varNomEnfant = document.getElementById("child-name").value;
+
+    if(varNomEnfant !== "") {
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "    -   Garde d’enfant ou cours particulier";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "Nom de l’enfant ou des enfants concernés : ";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = varNomEnfant;
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    // NOUVEAU BLOC
+
+    let varMesureSecurite = document.getElementById("security-measures").value;
+
+    if(varMesureSecurite !== "") {
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "    -   Mesures de sécurité particulières à respecter";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = varMesureSecurite;
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    // NOUVEAU BLOC
+
+    let varConsigne = document.getElementById("special-instructions").value;
+
+    if(varConsigne !== "") {
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = "    -   Consignes particulières pour la garde ou l’accompagnement";
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+        // NOUVEAU BLOC
+
+        // Saut(s) de ligne suite au texte précédent.
+        y += heightParagraph;
+        y += lineBreakText(1, fontSize, lineHeight);
+                    
+        text = varConsigne;
+
+        // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+        heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+        // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+        y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+        doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    }
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Article 12 - Rupture du contrat de travail";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.setFont('helvetica', 'normal', 'bold');
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Toute rupture du présent contrat en dehors de la période d’essai est soumise aux règles définies aux articles 63 et suivants ainsi que les articles 161 et suivants de la convention collective nationale applicable.";
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
     heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
@@ -3595,7 +4484,25 @@ function generatePDF() {
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
                 
-    text = "";
+    text = "Article 13 – Engagement et prévoyance.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.setFont('helvetica', 'normal', 'bold');
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Ce contrat est régi par les dispositions de la convention collective nationale de la branche du secteur des particuliers employeurs et de l'emploi à domicile. Le salarié est informé de la possibilité de consulter le texte de la convention collective nationale sur le site internet www.legifrance.gouv.fr";
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
     heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
@@ -3604,6 +4511,109 @@ function generatePDF() {
     y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
     doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Toutes modifications doivent faire l’objet d’un avenant écrit et co-signé.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Les institutions compétentes en matière de retraite et de prévoyance sont :";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "- Ircem AGIRC / ARRCO 261 avenue des Nations-Unies – BP 593 – 59 060 ROUBAIX Cedex";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "- Ircem prévoyance 261 avenue des Nations-Unies – BP 593 – 59 060 ROUBAIX Cedex";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Article 14 - Confidentialité";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.setFont('helvetica', 'normal', 'bold');
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+    doc.setFont('helvetica', 'normal');
+
+    // NOUVEAU BLOC
+
+    // Saut(s) de ligne suite au texte précédent.
+    y += heightParagraph;
+    y += lineBreakText(1, fontSize, lineHeight);
+                
+    text = "Les parties s’engagent à conserver confidentielles les informations personnelles transmises entre elles, à ne pas divulguer les éléments d’informations personnelles et à prendre les mesures nécessaires pour garantir cette confidentialité.";
+
+    // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
+    heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    // Ou bien : heightParagraph = lineBreakText(1, fontSize, lineHeight);
+
+    y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
+
+    doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
+
+
+
+
+
 
 
 
@@ -3632,31 +4642,6 @@ function generatePDF() {
 // y = testPageBreak(doc, y, heightParagraph, marginUp, marginDown);
 
 // doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3957,7 +4942,9 @@ function generatePDF() {
         return `${heuresStr}:${minutesStr}`;
     }
 
-
+    /* Fonction qui renvoie la somme des éléments d'un tableau
+    passé en paramètre. La fonction fonctionne aussi si des cases
+    du tableau sont vides ou ne sont pas des nombres. */
     function sommeTableau(tableau) {
         let somme = 0;
         console.log("Voici le tableau pour la somme : " + tableau);
