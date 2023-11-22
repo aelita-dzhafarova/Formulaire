@@ -23,7 +23,7 @@
     <div class="container">
         <div class="summary">
             <!-- Menu de test, à commenter pour version de production. -->
-            <!-- <button class="button_toscreen1">Ecran 1. Employeur.</button>
+            <button class="button_toscreen1">Ecran 1. Employeur.</button>
             <button class="button_toscreen2">Ecran 2. Employé(e).</button>
             <button class="button_toscreen3">Ecran 3. Choix du type de contrat et de durée de contrat.</button>
             <button class="button_toscreen4">Ecran 4. Choix de date d'embauche.</button>
@@ -34,7 +34,7 @@
             <button class="button_toscreen9">Ecran 9. Repos hebdomadaire et jours fériés, congés payés.</button>
             <button class="button_toscreen10">Ecran 10. Absences.</button>
             <button class="button_toscreen11">Ecran 11. Remunération.</button>
-            <button class="button_toscreen12">Ecran 12. Informations à consigner.</button> -->
+            <button class="button_toscreen12">Ecran 12. Informations à consigner.</button>
             <ul>
 
                 <li>Ecran 1. Employeur.</li>
@@ -121,12 +121,9 @@
                     <input class="required" type="text" id="city" name="city" placeholder="Inserez votre commune"/>
                 </div>
 
-                <!-- Div "co-employer" apparaît si on clique sur ce bouton -->
-                <button id="add-co-employer">Ajouter un co-employeur</button>
-
                 <div id="co-employer">
 
-                    <h2>Co-employeur</h2>
+                    <h2>Co-employeur <span style="color: #787472; font-style: italic; font-size: 0.7em;">(s'il y en a un)</span></h2>
 
                     <div>
                         <h3>Civilité</h3>
@@ -379,7 +376,7 @@
 
                 <p>
                 Si une période d'essai est prévue, elle et doit être écrite dans le contrat de travail ou la lettre d'engagement. <br>
-                If CDD : La durée maximale de la période d’essai dépend de la durée du contrat : - Pour un CDD inférieur ou égal à 6 mois, la période d’essai maximale est d’1 jour par semaine, dans la limite de 2 semaines. - Pour un CDD supérieur à 6 mois, la période d’essai maximale est d’1 jour par semaine, dans la limite d’1 mois. Ces durées sont applicables, que le salarié soit embauché à temps plein ou à temps partiel.
+                Si CDD : La durée maximale de la période d’essai dépend de la durée du contrat : - Pour un CDD inférieur ou égal à 6 mois, la période d’essai maximale est d’1 jour par semaine, dans la limite de 2 semaines. - Pour un CDD supérieur à 6 mois, la période d’essai maximale est d’1 jour par semaine, dans la limite d’1 mois. Ces durées sont applicables, que le salarié soit embauché à temps plein ou à temps partiel.
                 </p>
 
                 <div>
@@ -419,6 +416,8 @@
                         <input type="date" id="date-start_trial_period" name="date-start_trial_period"/>
                         <span>au</span>
                         <input type="date" id="date-end_trial_period" name="date-end_trial_period"/>
+                        <h3>Durée de période d'essai</h3>
+                        <input type="text" id="duration_trial_period"  placeholder="Exemple : 15 jours, 2 mois, etc.">
                     </div>
                 </div>
 
@@ -435,7 +434,7 @@
                     <div class="yes_trial_renewable">
                         <!--Paragraphe au contrat -->
                         <h3>Pour quelle durée peut-elle être renouvelée ?</h3>
-                        <input type="text" id="term_trial_renewable" name="term_trial_renewable" >
+                        <input type="text" id="term_trial_renewable" name="term_trial_renewable" placeholder="Exemple : 15 jours, 2 mois, etc." >
                     </div>
                     <div class="no_trial_renewable">
                          <!--Envoi à la div Date d'embauche -->
@@ -462,6 +461,8 @@
                             <!--Date fin période d'essai -->
                             <h3>Date de fin de période d'essai</h3>
                             <input type="date" id="date-end_contract_trial_period" name="date-end_contract_trial_period"/>
+                            <h3>Durée de période d'essai</h3>
+                            <input type="text" id="duration_contract_trial_period" placeholder="Exemple : 15 jours, 2 mois, etc.">
                         </div>
                 </div>
 
@@ -478,7 +479,7 @@
                     <div class="yes_contract_trial_renewable">
                         <!--Paragraphe au contrat -->
                         <h3>Pour quelle durée peut-elle être renouvelée ?</h3>
-                        <input type="text" id="term_contrat_trial_renewable" name="term_contrat_trial_renewable" >
+                        <input type="text" id="term_contrat_trial_renewable" name="term_contrat_trial_renewable" placeholder="Exemple : 15 jours, 2 mois, etc." >
                     </div>
                 </div>
 
@@ -1504,13 +1505,13 @@
                 <h3>Date Versement de la rémunération</h3>
                 <input type="text" id="salary-date" name="salary-date"/>
 
-                <h3>Salaire brut horaire (ne peut etre inférieur au smic) </h3>
+                <h3>Salaire brut horaire (ne peut etre inférieur au smic) en € </h3>
                 <input type="number" id="salary-hour" name="salary-hour"/>
 
                 <!-- <h3>Salaire brut mensuel (ne peut etre inférieur au smic) </h3>
                 <input type="number" id="salary-month" name="salary-month"/> -->
 
-                <h3>Remunération majorée de 10 % de congé payé ?</h3>
+                <h3>Remunération majorée de 10 % de congé payé en € ?</h3>
                 <div>
                     <input type="radio" id="yes_increased_remuneration" name="increased_remuneration" value="yes"/>
                     <label for="yes_increased_remuneration">Oui</label>
@@ -1533,10 +1534,10 @@
                 <h3>Dans la totalité des heures supplémentaires autres, preciser nombre rémunérée, reliquat compensé </h3>
                 <input type="number" id="time-compensation" name="time-compensation"/>
 
-                <h3>Indemnité par nuit lorsque le salarié est appelé à intervenir moins de 2 fois au cours de la nuit (ne peut etre inferieur à 1/4 de salaire brut) :</h3>
+                <h3>Indemnité par nuit en € lorsque le salarié est appelé à intervenir moins de 2 fois au cours de la nuit (ne peut etre inferieur à 1/4 de salaire brut) :</h3>
                 <input type="number" id="night-allowance1" name="night-allowance"/>
 
-                <h3>Indemnité par nuit lorsque le salarié est appelé à intervenir plus de 2 fois au cours de la nuit (ne peut etre inferieur à 1/3 de salaire brut) :</h3>
+                <h3>Indemnité par nuit en € lorsque le salarié est appelé à intervenir plus de 2 fois au cours de la nuit (ne peut etre inferieur à 1/3 de salaire brut) :</h3>
                 <input type="number" id="night-allowance2" name="night-allowance"/>
 
                 <h3>Supplément de rémunération en cas de conduite véhicule</h3>
@@ -1548,16 +1549,16 @@
                     <input type="radio" id="salary_increase" name="remuneration_supplement" value="salary_increase" />
                     <label for="salary_increase">Une majoration salariale</label>
                 </div>
-                <h4>Montant :</h4>
+                <h4>Montant en € :</h4>
                 <input type="number" id="amount" name="amount"/>
 
                 <h3>En cas de conduite véhicule personnel indemnité kilométrique, calculée sur la base :</h3>
                 <input type="number" id="mileage_allowance" name="mileage_allowance"/>
 
-                <h3>Prestation en nature repas par jours travaillés :</h3>
+                <h3>Prestation en nature repas par jours travaillés en € :</h3>
                 <input type="number" id="meal" name="meal"/>
 
-                <h3>Prestation logement par mois :</h3>
+                <h3>Prestation logement par mois en € :</h3>
                 <input type="number" id="lodging" name="lodging"/>
 
                 <h3>Prise en charge de l'abonnement titre de transport en % :</h3>
@@ -1596,10 +1597,8 @@
                 </div>  
                 <h3>Decription logement</h3>
                 <textarea id="home-description" name="home-description" rows="8" cols="33"></textarea>
-                <h3>Nom d'enfant</h3>
-                <input type="text" id="child-name" name="child-name"/>
-                <div class="addChild"></div>
-                <button id="addChild">Ajouter un enfant</button>
+                <h3>Nom(s) d'(des)enfant(s)</h3>
+                <textarea id="child-name" name="child-name" rows="5" cols="33"></textarea>
                 <h3>Mesures de sécurité particulières à respecter</h3>
                 <textarea id="security-measures" name="security-measures" rows="8" cols="33"></textarea>
                 <h3>Consignes particulières pour la garde ou l’accompagnement</h3>
@@ -1607,14 +1606,13 @@
     
                 <div class="buttons">
                     <button class="button_backscreen11">PASSER À l'ÉTAPE PRÉCÉDENTE</button>
+                    <button onclick="generatePDF()" style="background-color: #6511D0;">ENREGISTRER LE CONTRAT EN PDF</button>
                 </div>
             </div>
             <!-- FIN ECRAN 12 – ECRAN INFORMATIONS A CONSIGNER -->
 
         </div>
     </div>
-
-    <button onclick="generatePDF()">Enregistrer le PDF</button>
     
     <script src="script.js"></script>
     <script src="generatePDF.js"></script>
