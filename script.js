@@ -4,12 +4,6 @@
 
 // Variables 
 
-// Pour faire apparaître la div co-employeur
-
-const btnAddCoemployer = document.getElementById('add-co-employer');
-
-const divCoemployer = document.getElementById('co-employer');
-
 // Pour faire apparaître l'adresse du co-employeur
 
 const NoSameAddress = document.getElementById('no');
@@ -34,12 +28,6 @@ const inputsScreen1 = screen1.querySelectorAll('.required');
 let allFilled = true;
 
 // Fonctions
-
-// Pour faire apparaître la div co-employeur
-
-btnAddCoemployer.addEventListener('click', function(){
-    divCoemployer.style.display = "block";
-});
 
 // Pour faire apparaître l'adresse du co-employeur
 
@@ -347,6 +335,7 @@ noTrialRenewable.addEventListener('click', function(){
     divYesContractTrialPeriod.style.display = "none";
     divContractTrialPeriod.style.display = "none";
     divContractTrialPeriod.style.display = "none";
+    divYesTrialRenewable.style.display = "none";
 });
 
 // Résultat de période d'essai inscrite au contrat
@@ -2354,22 +2343,6 @@ yesDriving.addEventListener('click', function() {
 
 noDriving.addEventListener('click', function() {
     divYesDriving.style.display = "none";
-});
-
-
-// Ajouter un enfant
-
-const btnAddChild = document.getElementById('addChild');
-const ctnAddChild = document.querySelector('.addChild');
-
-btnAddChild.addEventListener('click', function(){
-    console.log('cliqué');
-    const inputChildName = document.createElement('input');
-    inputChildName.type = 'text';
-
-    inputChildName.classList.add('input');
-
-    ctnAddChild.appendChild(inputChildName);  
 });
 
 // Pour revenir à l'écran 11
