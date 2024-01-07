@@ -280,6 +280,8 @@ function generatePDF() {
 
         co_employeur = true;
 
+        y += lineBreakText(1, fontSize, lineHeight);
+
         // CHAMP Civilité co-Employeur
         radios = document.getElementsByName('sex_co-employer');
         for(let i = 0; i < radios.length; i++){
@@ -517,7 +519,7 @@ function generatePDF() {
 
     // Couleur du soulignement (RVB)
     // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-    doc.setTextColor(229, 165, 73); 
+    doc.setDrawColor(229, 165, 73); 
 
     // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
     doc.setLineWidth(0.5);
@@ -865,7 +867,7 @@ function generatePDF() {
 
     // Couleur du soulignement (RVB)
     // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-    doc.setTextColor(229, 165, 73); 
+    doc.setDrawColor(229, 165, 73); 
 
     // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
     doc.setLineWidth(0.5);
@@ -999,7 +1001,7 @@ function generatePDF() {
 
     // Couleur du soulignement (RVB)
     // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-    doc.setTextColor(229, 165, 73); 
+    doc.setDrawColor(229, 165, 73); 
 
     // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
     doc.setLineWidth(0.5);
@@ -1252,7 +1254,7 @@ function generatePDF() {
 
     // Couleur du soulignement (RVB)
     // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-    doc.setTextColor(229, 165, 73); 
+    doc.setDrawColor(229, 165, 73); 
 
     // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
     doc.setLineWidth(0.5);
@@ -2437,7 +2439,7 @@ function generatePDF() {
 
     // Couleur du soulignement (RVB)
     // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-    doc.setTextColor(229, 165, 73); 
+    doc.setDrawColor(229, 165, 73); 
 
     // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
     doc.setLineWidth(0.5);
@@ -2560,9 +2562,10 @@ function generatePDF() {
    // Position Y pour le soulignement : on ajoute X mm en dessous de la base du texte.
    y += 2;
 
-   // Couleur du soulignement (RVB)
-   // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-   doc.setTextColor(229, 165, 73); 
+
+    // Couleur du soulignement (RVB)
+    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
+    doc.setDrawColor(229, 165, 73); 
 
    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
    doc.setLineWidth(0.5);
@@ -2750,7 +2753,7 @@ function generatePDF() {
 
    // Couleur du soulignement (RVB)
    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-   doc.setTextColor(229, 165, 73); 
+   doc.setDrawColor(229, 165, 73); 
 
    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
    doc.setLineWidth(0.5);
@@ -2758,6 +2761,8 @@ function generatePDF() {
    // Dessiner le soulignement, les unités sont les unités choisies pour le document.
    // Correction de 26 mm pour que le trait soit de la bonne longueur.
    doc.line(marginLeft, y, titleWidth + 26, y); 
+
+
 
    /* ------- FIN SOULIGNEMENT DU TITRE ---------- */
 
@@ -2951,7 +2956,7 @@ function generatePDF() {
 
    // Couleur du soulignement (RVB)
    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-   doc.setTextColor(229, 165, 73); 
+   doc.setDrawColor(229, 165, 73); 
 
    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
    doc.setLineWidth(0.5);
@@ -3272,7 +3277,7 @@ function generatePDF() {
 
    // Couleur du soulignement (RVB)
    // Couleur plus sombre indiquée sur modèle PDF : 146, 96, 76
-   doc.setTextColor(229, 165, 73); 
+   doc.setDrawColor(229, 165, 73); 
 
    // Épaisseur du soulignement, dans l'unité déclarée pour ce document.
    doc.setLineWidth(0.5);
