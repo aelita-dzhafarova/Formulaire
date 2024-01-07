@@ -1,12 +1,20 @@
 'use strict';
 
+// Nettoyer les boutons radio suivants en cas de changement d'option
+function clearRadios(tabRadios) {
+    for (let i = 0; i < tabRadios.length; i++) {
+        tabRadios[i].checked = false;
+    }
+}
+
 // DEBUT ECRAN 1 - ECRAN EMPLOYEUR
 
 // Variables 
 
-// Pour faire apparaître l'adresse du co-employeur
+// Pour faire apparaître/disparaître l'adresse du co-employeur
 
-const NoSameAddress = document.getElementById('no');
+const noSameAddress = document.getElementById('no');
+const sameAddress = document.getElementById('yes');
 
 const divAddressCoemployer = document.querySelector('.address_co-employer');
 
@@ -25,35 +33,64 @@ const screen2 = document.querySelector('.screen2');
 
 const inputsScreen1 = screen1.querySelectorAll('.required');
 
-let allFilled = true;
 
 // Fonctions
 
+function isRadioGroupFilled(groupName) {
+    let radioButtons = document.getElementsByName(groupName);
+
+    for (let i = 0; i < radioButtons.length; i++) {
+        if (radioButtons[i].checked) {
+            return true; // Au moins un bouton radio est coché
+        }
+    }
+
+    return false; // Aucun bouton radio n'est coché
+}
+
+function isInputFilled(inputs) {  
+
+    let allFilled = true;
+
+    console.log('Appel de la fonction');  
+    inputs.forEach(function(input) {
+        console.log('champ : ' + input.value);
+        if (input.value === '') {
+            console.log('le champ' + input.value + 'est vide');
+            allFilled = false;
+        }
+    });
+    console.log('fin de la fonction');
+    return allFilled;
+}
+
+
 // Pour faire apparaître l'adresse du co-employeur
 
-NoSameAddress.addEventListener('click', function(){
+noSameAddress.addEventListener('click', function(){
     divAddressCoemployer.style.display = "block";
+});
+
+// Pour faire disparaître l'adresse du co-employeur
+
+sameAddress.addEventListener('click', function(){
+    divAddressCoemployer.style.display = "none";
 });
 
 // Pour faire disparaître le premier écran et faire apparaître le deuxième
 
 btnToScreen2.addEventListener('click', function(){
-    
-    // inputsScreen1.forEach(function(input) {
-    //     if (input.value === '') {
-    //         allFilled = false;
-    //         console.log('le champ' + input.value + 'est vide');
-    //     }
-    // });
 
-    // if (allFilled) {
+    if (isInputFilled(inputsScreen1) && isRadioGroupFilled('sex')) {
         listScreen1.style.color = "#6511D0";
         listScreen2.style.color = "#E25C33";
         screen1.style.display = "none";
         screen2.style.display = "block";
-    // } else {
-    //     alert('Tous les champs doivent être remplis.');
-    // }
+    } else {
+        alert('Tous les champs doivent être remplis.');
+    }
+
+
 });
 
 // FIN ECRAN 1 - ECRAN EMPLOYEUR
@@ -83,21 +120,15 @@ const btnBackToScreen1 = document.querySelector('.button_backscreen1');
 // Pour faire disparaître le deuxième écran et faire apparaître le troisième
 
 btnToScreen3.addEventListener('click', function(){
-    
-    // inputsScreen2.forEach(function(input) {
-    //     if (input.value === '') {
-    //         allFilled = false;
-    //     }
-    // });
 
-    // if (allFilled) {
+    if (isInputFilled(inputsScreen2) && isRadioGroupFilled('sex_employee')) {
         listScreen2.style.color = "#6511D0";
         listScreen3.style.color = "#E25C33";
         screen2.style.display = "none";
         screen3.style.display = "block";
-    // } else {
-    //     alert('Tous les champs doivent être remplis.');
-    // }
+    } else {
+        alert('Tous les champs doivent être remplis.');
+    }
 });
 
 // Pour revenir à l'écran 1
@@ -149,6 +180,8 @@ const listScreen4 = document.querySelector('.list-screen4');
 
 const screen4 = document.querySelector('.screen4');
 
+const inputsScreen3 = screen3.querySelectorAll('.required');
+
 // Pour revenir à l'écran 2
 
 const btnBackToScreen2 = document.querySelector('.button_backscreen2');
@@ -163,12 +196,16 @@ yesOccasionalTask.addEventListener('click', function(){
     inputReplacementName.style.display = "none";
     divCddQuestion2.style.display = "none";
     divCddQuestion3.style.display = "none";
+
+    clearRadios([yesTemporaryReplacement, noTemporaryReplacement, yesWaitingEmployee, noWaitingEmployee]);
 });
 
 noOccasionalTask.addEventListener('click', function(){
     divCddQuestion2.style.display = "block";
     divInfoCdd.style.display = "none";
     outputResultCdd.innerHTML = '';
+
+    clearRadios([yesTemporaryReplacement, noTemporaryReplacement, yesWaitingEmployee, noWaitingEmployee]);
 }); 
 
 yesTemporaryReplacement.addEventListener('click', function(){
@@ -176,12 +213,16 @@ yesTemporaryReplacement.addEventListener('click', function(){
     divInfoCdd.style.display = "block";
     inputReplacementName.style.display = "block";
     divCddQuestion3.style.display = "none";
+
+    clearRadios([yesWaitingEmployee, noWaitingEmployee]);
 });
 
 noTemporaryReplacement.addEventListener('click', function(){
     divCddQuestion3.style.display = "block";
     divInfoCdd.style.display = "none";
     outputResultCdd.innerHTML = '';
+
+    clearRadios([yesWaitingEmployee, noWaitingEmployee]);
 });
 
 yesWaitingEmployee.addEventListener('click', function(){
@@ -200,10 +241,14 @@ noWaitingEmployee.addEventListener('click', function(){
 // Pour faire disparaître le troisème écran et faire apparaître le quatrième
 
 btnToScreen4.addEventListener('click', function(){
-    listScreen3.style.color = "#6511D0";
-    listScreen4.style.color = "#E25C33";
-    screen3.style.display = "none";
-    screen4.style.display = "block";
+    if (isRadioGroupFilled('occasional_task')) {
+        listScreen3.style.color = "#6511D0";
+        listScreen4.style.color = "#E25C33";
+        screen3.style.display = "none";
+        screen4.style.display = "block";
+    } else {
+        alert('Tous les champs doivent être remplis.');
+    }
 });
 
 // Pour revenir à l'écran 2
@@ -290,6 +335,10 @@ yesEngagementLetter.addEventListener('click', function(){
     divContractTrialPeriod.style.display = "none";
     divYesContractTrialPeriod.style.display = "none";
     divContractTrialRenewable.style.display = "none";
+
+
+    clearRadios([yesTrialPeriod, noTrialPeriod, yesTrialRenewable, noTrialRenewable, yesContractTrialPeriod, noContractTrialPeriod]);
+
 });
 
 noEngagementLetter.addEventListener('click', function(){
@@ -299,6 +348,9 @@ noEngagementLetter.addEventListener('click', function(){
     divTrialRenewable.style.display = "none";
     divHiringDate.style.display = "block";
     divContractTrialPeriod.style.display = "block";
+
+    
+    clearRadios([yesTrialPeriod, noTrialPeriod, yesTrialRenewable, noTrialRenewable, yesContractTrialPeriod, noContractTrialPeriod]);
 });
 
 // Résultat de période d'essai lettre d'engagement
@@ -309,6 +361,8 @@ yesTrialPeriod.addEventListener('click', function(){
     divHiringDate.style.display = "none";
     divYesContractTrialRenewable.style.display = "none";
     divContractTrialPeriod.style.display = "none";
+
+    clearRadios([yesTrialRenewable, noTrialRenewable]);
 });
 
 noTrialPeriod.addEventListener('click', function(){
@@ -318,6 +372,8 @@ noTrialPeriod.addEventListener('click', function(){
     divYesContractTrialRenewable.style.display = "none";
     divContractTrialPeriod.style.display = "none";
     dateTrialPeriod.style.display = "none";
+
+    clearRadios([yesTrialRenewable, noTrialRenewable]);
 });
 
 // Résultat de période d'essai renouvlable lettre d'engagement
@@ -343,11 +399,15 @@ noTrialRenewable.addEventListener('click', function(){
 yesContractTrialPeriod.addEventListener('click', function(){
     divYesContractTrialPeriod.style.display = "block";
     divContractTrialRenewable.style.display = "block";
+
+    clearRadios([yesContractTrialRenewable, noContractTrialRenewable]);
 });
 
 noContractTrialPeriod.addEventListener('click', function(){
     divYesContractTrialPeriod.style.display = "none";
     divContractTrialRenewable.style.display = "none";
+
+    clearRadios([yesContractTrialRenewable, noContractTrialRenewable]);
 });
 
 // Résultat de période d'essai renouvlable inscrit au contrat
@@ -407,20 +467,15 @@ const btnBackToScreen4 = document.querySelector('.button_backscreen4');
 // Pour faire disparaître le cinquième écran et faire apparaître le sixième
 
 btnToScreen6.addEventListener('click', function(){
-    // inputsScreen5.forEach(function(input) {
-    //     if (input.value === '') {
-    //         allFilled = false;
-    //     }
-    // });
-
-    // if (allFilled) {
+  
+    if (isInputFilled(inputsScreen5)) {
         listScreen5.style.color = "#6511D0";
         listScreen6.style.color = "#E25C33";
         screen5.style.display = "none";
         screen6.style.display = "block";
-    // } else {
-    //     alert('Tous les champs doivent être remplis.');
-    // }
+    } else {
+        alert('Tous les champs doivent être remplis.');
+    }
 });
 
 // Pour revenir à l'écran 4
@@ -487,6 +542,8 @@ const divNoChildren = document.querySelector('.no_children');
 yesChildCare.addEventListener('click', function(){
     divFunctionChild1.style.display = "block";
     nightHours1.style.display = "block";
+
+    clearRadios([yesChildClothes, noChildClothes]);
 });
 
 noChildCare.addEventListener('click', function(){
@@ -495,6 +552,8 @@ noChildCare.addEventListener('click', function(){
     divFunctionChild3.style.display = "none";
     divFunctionChild4.style.display = "none";
     nightHours1.style.display = "none";
+
+    clearRadios([yesChildClothes, noChildClothes]);
 });
 
 // Linge enfant
@@ -504,11 +563,15 @@ yesChildClothes.addEventListener('click', function(){
     divFunctionChild2.style.display = "none";
     divFunctionChild3.style.display = "none";
     divFunctionChild4.style.display = "none";
+
+    clearRadios([yesHomework, noHomework]);
 });
 
 noChildClothes.addEventListener('click', function(){
     divFunctionChild2.style.display = "block";
     divYesChildClothes.style.display = "none";
+
+    clearRadios([yesHomework, noHomework]);
 });
 
 // Devoir enfant
@@ -517,11 +580,15 @@ yesHomework.addEventListener('click', function(){
     divYesHomework.style.display = "block";
     divFunctionChild3.style.display = "none";
     divFunctionChild4.style.display = "none";
+
+    clearRadios([yesChildCleaning, noChildCleaning]);
 });
 
 noHomework.addEventListener('click', function(){
     divYesHomework.style.display = "none";
     divFunctionChild3.style.display = "block";
+
+    clearRadios([yesChildCleaning, noChildCleaning]);
 });
 
 // Nettoyer les especes de vie enfant
@@ -529,11 +596,15 @@ noHomework.addEventListener('click', function(){
 yesChildCleaning.addEventListener('click', function(){
     divYesChildCleaning.style.display = "block";
     divFunctionChild4.style.display = "none";
+
+    clearRadios([yesChildren, noChildren]);
 });
 
 noChildCleaning.addEventListener('click', function(){
     divYesChildCleaning.style.display = "none";
     divFunctionChild4.style.display = "block";
+
+    clearRadios([yesChildren, noChildren]);
 });
 
 // S'occuper de plusieurs enfants
@@ -606,6 +677,8 @@ const divNoDisabled5 = document.querySelector('.no_disabled5');
 yesAdultCare.addEventListener('click', function(){
     divFunctionAdult1.style.display = "block";
     nightHours1.style.display = "block";
+
+    clearRadios([yesDisabled1, noDisabled1]);
 });
 
 noAdultCare.addEventListener('click', function(){
@@ -615,6 +688,8 @@ noAdultCare.addEventListener('click', function(){
     divFunctionAdult4.style.display = "none";
     divFunctionAdult5.style.display = "none";
     nightHours1.style.display = "none";
+
+    clearRadios([yesDisabled1, noDisabled1]);
 });
 
 // Réaliser les gestes liés à la délégation des soins d’un employeur en situation de handicap
@@ -626,12 +701,16 @@ yesDisabled1.addEventListener('click', function(){
     divFunctionAdult3.style.display = "none";
     divFunctionAdult4.style.display = "none";
     divFunctionAdult5.style.display = "none";
+
+    clearRadios([yesDisabled2, noDisabled2]);
 });
 
 noDisabled1.addEventListener('click', function(){
     divFunctionAdult2.style.display = "block";
     divYesDisabled1.style.display = "none";
     nightHours2.style.display = "none";
+
+    clearRadios([yesDisabled2, noDisabled2]);
 });
 
 // ASSISTER : repas, hygiène, habillage
@@ -642,12 +721,16 @@ yesDisabled2.addEventListener('click', function(){
     divFunctionAdult3.style.display = "none";
     divFunctionAdult4.style.display = "none";
     divFunctionAdult5.style.display = "none";
+
+    clearRadios([yesDisabled3, noDisabled3]);
 });
 
 noDisabled2.addEventListener('click', function(){
     divYesDisabled2.style.display = "none";
     nightHours2.style.display = "none";
     divFunctionAdult3.style.display = "block";
+
+    clearRadios([yesDisabled3, noDisabled3]);
 });
 
 // Réaliser à la place de l'employeur la préparation de repas spécifiques
@@ -657,12 +740,16 @@ yesDisabled3.addEventListener('click', function(){
     nightHours2.style.display = "block";
     divFunctionAdult4.style.display = "none";
     divFunctionAdult5.style.display = "none";
+
+    clearRadios([yesDisabled4, noDisabled4]);
 });
 
 noDisabled3.addEventListener('click', function(){
     divYesDisabled3.style.display = "none";
     nightHours2.style.display = "none";
     divFunctionAdult4.style.display = "block";
+
+    clearRadios([yesDisabled4, noDisabled4]);
 });
 
 // ACCOMPAGNER : repas, hygiène, habillage
@@ -670,11 +757,15 @@ noDisabled3.addEventListener('click', function(){
 yesDisabled4.addEventListener('click', function(){
     divYesDisabled4.style.display = "block";
     divFunctionAdult5.style.display = "none";
+
+    clearRadios([yesDisabled5, noDisabled5]);
 });
 
 noDisabled4.addEventListener('click', function(){
     divYesDisabled4.style.display = "none";
     divFunctionAdult5.style.display = "block";
+
+    clearRadios([yesDisabled5, noDisabled5]);
 });
 
 // Effectuer et/ou accompagner l'employeur dans la préparation de repas spécifiques
@@ -757,6 +848,8 @@ const divNoLifeSpace6 = document.querySelector('.no_lifespace6');
 
 yesLifeSpace.addEventListener('click', function(){
     divFunctionLifeSpace1.style.display = "block";
+
+    clearRadios([yesLifeSpace1, noLifeSpace1]);
 });
 
 noLifeSpace.addEventListener('click', function(){
@@ -766,6 +859,8 @@ noLifeSpace.addEventListener('click', function(){
     divFunctionLifeSpace4.style.display = "none";
     divFunctionLifeSpace5.style.display = "none";
     divFunctionLifeSpace6.style.display = "none";
+
+    clearRadios([yesLifeSpace1, noLifeSpace1]);
 });
 
 // Surveiller et assurer une présence auprès d'un ou de plusieurs enfants de plus de 3 ans.
@@ -777,11 +872,15 @@ yesLifeSpace1.addEventListener('click', function(){
     divFunctionLifeSpace4.style.display = "none";
     divFunctionLifeSpace5.style.display = "none";
     divFunctionLifeSpace6.style.display = "none";
+
+    clearRadios([yesLifeSpace2, noLifeSpace2]);
 });
 
 noLifeSpace1.addEventListener('click', function(){
     divFunctionLifeSpace2.style.display = "block";
     divYesLifeSpace1.style.display = "none";
+
+    clearRadios([yesLifeSpace2, noLifeSpace2]);
 });
 
 // Surveiller un ou plusieurs enfants dans la réalisation des devoirs.
@@ -792,11 +891,15 @@ yesLifeSpace2.addEventListener('click', function(){
     divFunctionLifeSpace4.style.display = "none";
     divFunctionLifeSpace5.style.display = "none";
     divFunctionLifeSpace6.style.display = "none";
+
+    clearRadios([yesLifeSpace3, noLifeSpace3]);
 });
 
 noLifeSpace2.addEventListener('click', function(){
     divYesLifeSpace2.style.display = "none";
     divFunctionLifeSpace3.style.display = "block";
+
+    clearRadios([yesLifeSpace3, noLifeSpace3]);
 });
 
 // Effectuer les courses
@@ -806,11 +909,15 @@ yesLifeSpace3.addEventListener('click', function(){
     divFunctionLifeSpace4.style.display = "none";
     divFunctionLifeSpace5.style.display = "none";
     divFunctionLifeSpace6.style.display = "none";
+
+    clearRadios([yesLifeSpace4, noLifeSpace4]);
 });
 
 noLifeSpace3.addEventListener('click', function(){
     divYesLifeSpace3.style.display = "none";
     divFunctionLifeSpace4.style.display = "block";
+
+    clearRadios([yesLifeSpace4, noLifeSpace4]);
 });
 
 // Préparer les repas courants
@@ -819,11 +926,15 @@ yesLifeSpace4.addEventListener('click', function(){
     divYesLifeSpace4.style.display = "block";
     divFunctionLifeSpace5.style.display = "none";
     divFunctionLifeSpace6.style.display = "none";
+
+    clearRadios([yesLifeSpace5, noLifeSpace5]);
 });
 
 noLifeSpace4.addEventListener('click', function(){
     divYesLifeSpace4.style.display = "none";
     divFunctionLifeSpace5.style.display = "block";
+
+    clearRadios([yesLifeSpace5, noLifeSpace5]);
 });
 
 // Repasser le linge délicat.
@@ -831,11 +942,15 @@ noLifeSpace4.addEventListener('click', function(){
 yesLifeSpace5.addEventListener('click', function(){
     divYesLifeSpace5.style.display = "block";
     divFunctionLifeSpace6.style.display = "none";
+
+    clearRadios([yesLifeSpace6, noLifeSpace6]);
 });
 
 noLifeSpace5.addEventListener('click', function(){
     divYesLifeSpace5.style.display = "none";
     divFunctionLifeSpace6.style.display = "block";
+
+    clearRadios([yesLifeSpace6, noLifeSpace6]);
 });
 
 // Entretenir le linge.
@@ -895,11 +1010,16 @@ const divYesOutside4 = document.querySelector('.yes_outside4');
 
 yesOutside.addEventListener('click', function(){
     divFunctionOutside1.style.display = "block";
+
+    clearRadios([yesOutside1, noOutside1, yesOutside2, noOutside2, yesOutside3, noOutside3, yesOutside4, noOutside4]);
 });
 
 noOutside.addEventListener('click', function(){
     divFunctionOutside1.style.display = "none";
-    divNoOutside2.style.display = "none";
+    // divNoOutside1.style.display = "none";
+    // divNoOutside2.style.display = "none";
+
+    clearRadios([yesOutside1, noOutside1, yesOutside2, noOutside2, yesOutside3, noOutside3, yesOutside4, noOutside4]);
 });
 
 // Effectuer des petits travaux de jardinage
@@ -909,11 +1029,15 @@ yesOutside1.addEventListener('click', function(){
     divNoOutside1.style.display = "none";
     divNoOutside2.style.display = "none";
     divNoOutside3.style.display = "none";
+
+    clearRadios([yesOutside2, noOutside2, yesOutside3, noOutside3, yesOutside4, noOutside4]);
 });
 
 noOutside1.addEventListener('click', function(){
     divNoOutside1.style.display = "block";
     divYesOutside1.style.display = "none";
+
+    clearRadios([yesOutside2, noOutside2, yesOutside3, noOutside3, yesOutside4, noOutside4]);
 });
 
 // Surveiller la propriété (habitation et dépendances)
@@ -924,6 +1048,8 @@ yesOutside2.addEventListener('click', function(){
     divNoOutside3.style.display = "none";
     divYesOutside4.style.display = "none";
     divNoOutside4.style.display = "none";
+
+    clearRadios([yesOutside3, noOutside3, yesOutside4, noOutside4]);
 });
 
 noOutside2.addEventListener('click', function(){
@@ -932,6 +1058,8 @@ noOutside2.addEventListener('click', function(){
     divNoOutside3.style.display = "none";
     divYesOutside4.style.display = "none";
     divNoOutside4.style.display = "none";
+
+    clearRadios([yesOutside3, noOutside3, yesOutside4, noOutside4]);
 });
 
 // Entretenir la propriété (habitation et dépendances)
@@ -941,6 +1069,8 @@ yesOutside3.addEventListener('click', function(){
     divNoOutside3.style.display = "none";
     divYesOutside4.style.display = "none";
     divNoOutside4.style.display = "none";
+
+    clearRadios([yesOutside4, noOutside4]);
 });
 
 noOutside3.addEventListener('click', function(){
@@ -948,6 +1078,8 @@ noOutside3.addEventListener('click', function(){
     divNoOutside3.style.display = "block";
     divYesOutside4.style.display = "none";
     divNoOutside4.style.display = "none";
+
+    clearRadios([yesOutside4, noOutside4]);
 });
 
 // Assurer des tâches complémentaires
@@ -1005,6 +1137,8 @@ yesWorkingTime1.addEventListener('click', function(){
     divNoWorkingTime1.style.display = "none";
     divNoWorkingTime2.style.display = "none";
     divYesWorkingTime2.style.display = "none";
+
+    clearRadios([yesWorkingTime2, noWorkingTime2]);
 });
 
 noWorkingTime1.addEventListener('click', function(){
@@ -1012,6 +1146,8 @@ noWorkingTime1.addEventListener('click', function(){
     divYesWorkingTime1.style.display = "none";
     divNoWorkingTime2.style.display = "none";
     divYesWorkingTime2.style.display = "none";
+
+    clearRadios([yesWorkingTime2, noWorkingTime2]);
 });
 
 // Le particulier employeur peut déterminer la répartition des jours et horaires de travail du salarié au moment de la conclusion du contrat ?
@@ -2195,13 +2331,19 @@ zipEmployee.addEventListener('change', function() {
 const yesDeclaredCesu = document.getElementById('yes_declared_cesu');
 const noDeclaredCesu = document.getElementById('no_declared_cesu');
 const divYesDeclaredCesu = document.querySelector('.yes_declared_cesu');
+const paidVacation1 = document.getElementById('paid_vacation1');
+const paidVacation2 = document.getElementById('paid_vacation2');
 
 yesDeclaredCesu.addEventListener('change', function() {
     divYesDeclaredCesu.style.display = "block";
+
+    clearRadios([paidVacation1, paidVacation2]);
 });
 
 noDeclaredCesu.addEventListener('change', function() {
     divYesDeclaredCesu.style.display = "none";
+
+    clearRadios([paidVacation1, paidVacation2]);
 });
 
 
@@ -2214,10 +2356,14 @@ const screen10 = document.querySelector('.screen10');
 const inputsScreen9 = screen9.querySelectorAll('.required9');
 
 btnToScreen10.addEventListener('click', function(){
-    listScreen9.style.color = "#6511D0";
-    listScreen10.style.color = "#E25C33";
-    screen9.style.display = "none";
-    screen10.style.display = "block";
+    if (isRadioGroupFilled('dayoff_working', 'mai_first', 'declared_cesu')) {
+        listScreen9.style.color = "#6511D0";
+        listScreen10.style.color = "#E25C33";
+        screen9.style.display = "none";
+        screen10.style.display = "block";
+    } else {
+        alert('Tous les champs doivent être remplis.');
+    }
 });
 
 // Pour revenir à l'écran 8
@@ -2359,6 +2505,7 @@ btnBackToScreen11.addEventListener('click', function(){
 });
 
 // FIN ECRAN 12 – ECRAN INFORMATIONS A CONSIGNER
+
 
 
 
