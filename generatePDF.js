@@ -45,6 +45,8 @@ function generatePDF() {
     let salaireBrutHoraire;
     let salaireBrutMensuel;
 
+    let dureePeriodeEssai;
+
     // Tableau des heures effectives pour une durée de travail connue et répartition connue.
     let effectiveWork = [];
 
@@ -357,6 +359,7 @@ function generatePDF() {
     text = "Dénommé Particulier employeur au contrat";
 
     y += getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
+    y += lineBreakText(1, fontSize, lineHeight);
 
     doc.text(text, pageWidth -  marginRight, y, {maxWidth: (pageWidth -  marginLeft - marginRight), align: "right"});
 
@@ -727,7 +730,14 @@ function generatePDF() {
 
         y = testPageBreak(doc, y, 0, marginUp, marginDown);
 
-        text = "Durée de la période d’essai : " + "CHAMP A AJOUTER PAR Aelita";
+        if(answerValue1 === "yes_contract_trial_period") {
+            dureePeriodeEssai = document.getElementById("duration_contract_trial_period").value;
+        }
+        else if(answerValue2 === "yes_trial_period") {
+            dureePeriodeEssai = document.getElementById("duration_trial_period").value;
+        }
+
+        text = "Durée de la période d’essai : " + dureePeriodeEssai;
 
         doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
@@ -735,7 +745,7 @@ function generatePDF() {
         
         y += lineBreakText(2, fontSize, lineHeight);
 
-        text = "Le présent contrat ne devient définitif qu’à l’issue d’une période d’essai de " + "CHAMP A AJOUTER PAR Aelita" + ", renouvelable une fois pour la même durée, dans le respect de la législation à savoir :";
+        text = "Le présent contrat ne devient définitif qu’à l’issue d’une période d’essai de " + dureePeriodeEssai + ", renouvelable une fois pour la même durée, dans le respect de la législation à savoir :";
 
         doc.text(text, marginLeft, y, {maxWidth: (pageWidth -  marginLeft - marginRight)});
 
@@ -3572,7 +3582,7 @@ function generatePDF() {
     y += heightParagraph;
     y += lineBreakText(1, fontSize, lineHeight);
                 
-    text = "Les parties ont convenus que les heures supplémentaires dans " + document.getElementById("time-compensation").value + " seront rémunéré, le reliquat des heures compensées.";
+    text = "Les parties ont convenu que les heures supplémentaires dans la limite de " + document.getElementById("time-compensation").value + " heures seront rémunérées, le reliquat des heures sera compensé.";
 
     // On calcule la taille pour vérifier si on a la place d'écrire le texte ou s'il faut sauter une ligne :
     heightParagraph = getHeightParagraph(text, fontSize, lineHeight, pageWidth, marginLeft, marginRight);
