@@ -14,6 +14,10 @@
     margin: 20px 100px;
 }
 
+#steps {
+    display: none;
+}
+
 ul {
     width: 300px;
     list-style: none;
@@ -194,11 +198,26 @@ textarea {
         margin: 10px 30px;
     }
 
+    #steps {
+        display: block;
+        text-align: center;
+    }
+
+    #steps p {
+        color: #6511D0;
+        padding-bottom: 0px;
+    }
+
+    .step2, .step3, .step4, .step5, .step6, .step7, .step8, .step9, .step10, .step11, .step12 {
+        display: none;
+    }
+
     .summary {
         display: none;
     }
 
     .form {
+        width: 100%;
         padding: 10px 30px 0 30px ;
         border-radius: 10px;
     }
@@ -225,9 +244,9 @@ textarea {
     
     textarea {
         margin: 5px 0;
-        padding-left: 10px;
-        min-width: 597px;
-        max-width: 597px;
+        padding: 5px 5px;
+        min-width: 270px;
+        max-width: 270px;
         border-radius: 5px;
     }
 }
