@@ -31,6 +31,10 @@ const screen1 = document.querySelector('.screen1');
 
 const screen2 = document.querySelector('.screen2');
 
+const step1 = document.querySelector('.step1');
+
+const step2 = document.querySelector('.step2');
+
 const inputsScreen1 = screen1.querySelectorAll('.required');
 
 
@@ -85,11 +89,13 @@ btnToScreen2.addEventListener('click', function(){
         listScreen1.style.color = "#6511D0";
         listScreen2.style.color = "#E25C33";
         screen1.style.display = "none";
+        step1.style.display = "none";
         screen2.style.display = "block";
+        step2.style.display = "block";
+        window.scrollTo(0, 0);
     } else {
         alert('Tous les champs doivent être remplis.');
     }
-
 
 });
 
@@ -109,6 +115,8 @@ const listScreen3 = document.querySelector('.list-screen3');
 
 const screen3 = document.querySelector('.screen3');
 
+const step3 = document.querySelector('.step3');
+
 const inputsScreen2 = screen2.querySelectorAll('.required');
 
 // Pour revenir à l'écran 1
@@ -125,7 +133,10 @@ btnToScreen3.addEventListener('click', function(){
         listScreen2.style.color = "#6511D0";
         listScreen3.style.color = "#E25C33";
         screen2.style.display = "none";
+        step2.style.display = "none";
         screen3.style.display = "block";
+        step3.style.display = "block";
+        window.scrollTo(0, 0);
     } else {
         alert('Tous les champs doivent être remplis.');
     }
@@ -137,7 +148,10 @@ btnBackToScreen1.addEventListener('click', function(){
     listScreen2.style.color = "#6511D0";
     listScreen1.style.color = "#E25C33";
     screen2.style.display = "none";
+    step2.style.display = "none";
     screen1.style.display = "block";
+    step1.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // FIN ECRAN 2 - ECRAN EMPLOYE/E
@@ -179,6 +193,8 @@ const btnToScreen4 = document.querySelector('.button_toscreen4');
 const listScreen4 = document.querySelector('.list-screen4');
 
 const screen4 = document.querySelector('.screen4');
+
+const step4 = document.querySelector('.step4');
 
 const inputsScreen3 = screen3.querySelectorAll('.required');
 
@@ -245,7 +261,10 @@ btnToScreen4.addEventListener('click', function(){
         listScreen3.style.color = "#6511D0";
         listScreen4.style.color = "#E25C33";
         screen3.style.display = "none";
+        step3.style.display = "none";
         screen4.style.display = "block";
+        step4.style.display = "block";
+        window.scrollTo(0, 0);
     } else {
         alert('Tous les champs doivent être remplis.');
     }
@@ -257,7 +276,10 @@ btnBackToScreen2.addEventListener('click', function(){
     listScreen3.style.color = "#6511D0";
     listScreen2.style.color = "#E25C33";
     screen3.style.display = "none";
+    step3.style.display = "none";
     screen2.style.display = "block";
+    step2.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 
@@ -319,6 +341,8 @@ const btnToScreen5 = document.querySelector('.button_toscreen5');
 const listScreen5 = document.querySelector('.list-screen5');
 
 const screen5 = document.querySelector('.screen5');
+
+const step5 = document.querySelector('.step5');
 
 // Pour revenir à l'écran 3
 
@@ -428,7 +452,10 @@ btnToScreen5.addEventListener('click', function(){
     listScreen4.style.color = "#6511D0";
     listScreen5.style.color = "#E25C33";
     screen4.style.display = "none";
+    step4.style.display = "none";
     screen5.style.display = "block";
+    step5.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // Pour revenir à l'écran 3
@@ -437,7 +464,10 @@ btnBackToScreen3.addEventListener('click', function(){
     listScreen4.style.color = "#6511D0";
     listScreen3.style.color = "#E25C33";
     screen4.style.display = "none";
+    step4.style.display = "none";
     screen3.style.display = "block";
+    step3.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // FIN ECRAN 4 - ECRAN CHOIX DATE D’EMBAUCHE 
@@ -456,6 +486,8 @@ const listScreen6 = document.querySelector('.list-screen6');
 
 const screen6 = document.querySelector('.screen6');
 
+const step6 = document.querySelector('.step6');
+
 const inputsScreen5 = screen5.querySelectorAll('.required5');
 
 // Pour revenir à l'écran 4
@@ -472,7 +504,10 @@ btnToScreen6.addEventListener('click', function(){
         listScreen5.style.color = "#6511D0";
         listScreen6.style.color = "#E25C33";
         screen5.style.display = "none";
+        step5.style.display = "none";
         screen6.style.display = "block";
+        step6.style.display = "block";
+        window.scrollTo(0, 0);
     } else {
         alert('Tous les champs doivent être remplis.');
     }
@@ -484,7 +519,10 @@ btnBackToScreen4.addEventListener('click', function(){
     listScreen5.style.color = "#6511D0";
     listScreen4.style.color = "#E25C33";
     screen5.style.display = "none";
+    step5.style.display = "none";
     screen4.style.display = "block";
+    step4.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // FIN ECRAN 5 - ECRAN LIEU DE TRAVAIL 
@@ -1100,13 +1138,17 @@ const btnToScreen7 = document.querySelector('.button_toscreen7');
 const listScreen7 = document.querySelector('.list-screen7');
 
 const screen7 = document.querySelector('.screen7');
+const step7 = document.querySelector('.step7');
 const inputsScreen6 = screen6.querySelectorAll('.required6');
 
 btnToScreen7.addEventListener('click', function(){
     listScreen6.style.color = "#6511D0";
     listScreen7.style.color = "#E25C33";
     screen6.style.display = "none";
+    step6.style.display = "none";
     screen7.style.display = "block";
+    step7.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // Pour revenir à l'écran 5
@@ -1117,7 +1159,10 @@ btnBackToScreen5.addEventListener('click', function(){
     listScreen6.style.color = "#6511D0";
     listScreen5.style.color = "#E25C33";
     screen6.style.display = "none";
+    step6.style.display = "none";
     screen5.style.display = "block";
+    step5.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // FIN ECRAN 6 - ECRAN FONCTIONS
@@ -1678,13 +1723,17 @@ const btnToScreen8 = document.querySelector('.button_toscreen8');
 const listScreen8 = document.querySelector('.list-screen8');
 
 const screen8 = document.querySelector('.screen8');
+const step8 = document.querySelector('.step8');
 const inputsScreen7 = screen7.querySelectorAll('.required7');
 
 btnToScreen8.addEventListener('click', function(){
     listScreen7.style.color = "#6511D0";
     listScreen8.style.color = "#E25C33";
     screen7.style.display = "none";
+    step7.style.display = "none";
     screen8.style.display = "block";
+    step8.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // Pour revenir à l'écran 6
@@ -1695,7 +1744,10 @@ btnBackToScreen6.addEventListener('click', function(){
     listScreen7.style.color = "#6511D0";
     listScreen6.style.color = "#E25C33";
     screen7.style.display = "none";
+    step7.style.display = "none";
     screen6.style.display = "block";
+    step6.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // FIN ECRAN 7 - ECRAN DUREE DE TRAVAIL + LES HORAIRES DE TRAVAIL
@@ -2201,13 +2253,17 @@ const btnToScreen9 = document.querySelector('.button_toscreen9');
 const listScreen9 = document.querySelector('.list-screen9');
 
 const screen9 = document.querySelector('.screen9');
+const step9 = document.querySelector('.step9');
 const inputsScreen8 = screen8.querySelectorAll('.required8');
 
 btnToScreen9.addEventListener('click', function(){
     listScreen8.style.color = "#6511D0";
     listScreen9.style.color = "#E25C33";
     screen8.style.display = "none";
+    step8.style.display = "none";
     screen9.style.display = "block";
+    step9.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // Pour revenir à l'écran 7
@@ -2218,7 +2274,10 @@ btnBackToScreen7.addEventListener('click', function(){
     listScreen8.style.color = "#6511D0";
     listScreen7.style.color = "#E25C33";
     screen8.style.display = "none";
+    step8.style.display = "none";
     screen7.style.display = "block";
+    step7.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // FIN ECRAN 8 - ECRAN HEURES RESPONSABLES
@@ -2353,6 +2412,7 @@ const btnToScreen10 = document.querySelector('.button_toscreen10');
 const listScreen10 = document.querySelector('.list-screen10');
 
 const screen10 = document.querySelector('.screen10');
+const step10 = document.querySelector('.step10');
 const inputsScreen9 = screen9.querySelectorAll('.required9');
 
 btnToScreen10.addEventListener('click', function(){
@@ -2360,7 +2420,10 @@ btnToScreen10.addEventListener('click', function(){
         listScreen9.style.color = "#6511D0";
         listScreen10.style.color = "#E25C33";
         screen9.style.display = "none";
+        step9.style.display = "none";
         screen10.style.display = "block";
+        step10.style.display = "block";
+        window.scrollTo(0, 0);
     } else {
         alert('Tous les champs doivent être remplis.');
     }
@@ -2374,7 +2437,10 @@ btnBackToScreen8.addEventListener('click', function(){
     listScreen9.style.color = "#6511D0";
     listScreen8.style.color = "#E25C33";
     screen9.style.display = "none";
+    step9.style.display = "none";
     screen8.style.display = "block";
+    step8.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // FIN ECRAN 9 - ECRAN REPOS HEBDOMADAIRE et Jours feries CONGES PAYES
@@ -2419,13 +2485,17 @@ const btnToScreen11 = document.querySelector('.button_toscreen11');
 const listScreen11 = document.querySelector('.list-screen11');
 
 const screen11 = document.querySelector('.screen11');
+const step11 = document.querySelector('.step11');
 const inputsScreen10 = screen10.querySelectorAll('.required10');
 
 btnToScreen11.addEventListener('click', function(){
     listScreen10.style.color = "#6511D0";
     listScreen11.style.color = "#E25C33";
     screen10.style.display = "none";
+    step10.style.display = "none";
     screen11.style.display = "block";
+    step11.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // Pour revenir à l'écran 9
@@ -2436,7 +2506,10 @@ btnBackToScreen9.addEventListener('click', function(){
     listScreen10.style.color = "#6511D0";
     listScreen9.style.color = "#E25C33";
     screen10.style.display = "none";
+    step10.style.display = "none";
     screen9.style.display = "block";
+    step9.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // FIN ECRAN 10 – ECRAN ABSENCES
@@ -2451,13 +2524,17 @@ const btnToScreen12 = document.querySelector('.button_toscreen12');
 const listScreen12 = document.querySelector('.list-screen12');
 
 const screen12 = document.querySelector('.screen12');
+const step12 = document.querySelector('.step12');
 const inputsScreen11 = screen11.querySelectorAll('.required11');
 
 btnToScreen12.addEventListener('click', function(){
     listScreen11.style.color = "#6511D0";
     listScreen12.style.color = "#E25C33";
     screen11.style.display = "none";
+    step11.style.display = "none";
     screen12.style.display = "block";
+    step12.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // Pour revenir à l'écran 10
@@ -2468,7 +2545,10 @@ btnBackToScreen10.addEventListener('click', function(){
     listScreen11.style.color = "#6511D0";
     listScreen10.style.color = "#E25C33";
     screen11.style.display = "none";
+    step11.style.display = "none";
     screen10.style.display = "block";
+    step10.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // FIN ECRAN 11 – REMUNERATION
@@ -2501,7 +2581,10 @@ btnBackToScreen11.addEventListener('click', function(){
     listScreen12.style.color = "#6511D0";
     listScreen11.style.color = "#E25C33";
     screen12.style.display = "none";
+    step12.style.display = "none";
     screen11.style.display = "block";
+    step11.style.display = "block";
+    window.scrollTo(0, 0);
 });
 
 // FIN ECRAN 12 – ECRAN INFORMATIONS A CONSIGNER
